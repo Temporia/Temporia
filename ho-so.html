@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="vi" class="temporia-app-root">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hồ sơ cá nhân - Temporia</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="css/global.css"> 
+    <link rel="stylesheet" href="css/cong-dong.css"> 
+    <link rel="stylesheet" href="css/ho-so.css"> 
+</head>
+<body class="temporia-app-root bg-gray-50">
+
+   <nav class="navbar">
+        <a href="index.html" class="logo">
+            <img src="test/logox.png" alt="Temporia Logo">
+        </a>
+        <ul class="nav-menu">
+            <li><a href="trang-chu.html">Trang chủ</a></li>
+            <li class="dropdown">
+                <a href="#">Khám phá <i class="fas fa-chevron-down dropdown-icon"></i></a>
+                <ul class="dropdown-content">
+                    <li><a href="lo-trinh.html"><i class="fas fa-map-signs fa-fw"></i> Lộ trình học</a></li>
+                    <li><a href="user-mindmap.html" class="locked-feature"><i class="fas fa-project-diagram fa-fw"></i> Sơ đồ tư duy</a></li>
+                    <li><a href="podcast-view.html" class="locked-feature"><i class="fas fa-podcast fa-fw"></i> Podcast</a></li>
+                </ul>
+            </li>
+            <li><a href="quiz.html">Quiz</a></li>
+            <li><a href="cong-dong.html" class="active">Cộng đồng</a></li>
+        </ul>
+        <div class="nav-auth">
+            <div id="guestMenu">
+                <a href="auth.html#login" class="btn-login">Đăng nhập</a>
+                <a href="auth.html#register" class="btn-register">Đăng ký</a>
+            </div>
+            
+            <div id="userMenu" class="user-menu-dropdown hidden">
+                <div class="user-menu-trigger">
+                    <img src="" alt="Avatar" id="navAvatar" class="nav-avatar-img">
+                    <span class="nav-user-name" id="navUserName">...</span>
+                    <i class="fas fa-chevron-down" style="font-size: 12px; color: #86868b; margin-left: 2px;"></i>
+                </div>
+                
+                <ul class="user-dropdown-content">
+                    <li><a href="tai-khoan.html"><i class="fas fa-user fa-fw"></i> Hồ sơ cá nhân</a></li>
+                    <li><a href="tai-khoan.html"><i class="fas fa-cog fa-fw"></i> Cài đặt hệ thống</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a href="javascript:void(0)" id="navBtnLogout" class="text-red"><i class="fas fa-sign-out-alt fa-fw"></i> Đăng xuất</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+   <aside class="sidebar-blur">
+        <i class="fas fa-house" title="Trang chủ" onclick="window.location.href='cong-dong.html'"></i>
+        <i class="fas fa-magnifying-glass" title="Tìm kiếm" onclick="openPanel('searchPanel')"></i>
+        <i class="far fa-comment-dots" title="Thảo luận" onclick="openPanel('messagePanel')"></i>
+        <i class="far fa-heart" title="Thông báo" onclick="openPanel('notificationPanel')"></i>
+        <i class="fas fa-user active" title="Cá nhân" onclick="const u = JSON.parse(localStorage.getItem('temporia_user')); if(u && u.id) { window.location.href='ho-so.html?id=' + u.id; } else { window.location.href='auth.html#login'; }"></i>
+    </aside>
+
+    <main class="feed-container">
+            
+       <div class="profile-header-card">
+            <img id="p-avatar" src="https://placehold.co/150" class="profile-header-avatar" alt="User Avatar">
+            
+            <h2 id="p-name" class="profile-name">Đang tải...</h2>
+            <p id="p-rank" class="profile-rank"></p>
+            <p id="p-bio" class="profile-bio"></p>
+
+            <div class="profile-stats-grid">
+                <div class="stat-box">
+                    <div class="stat-number" id="p-posts">0</div>
+                    <div class="stat-label">Bài đăng</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number" id="p-friends">0</div>
+                    <div class="stat-label">Bạn bè</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number" id="p-likes">0</div>
+                    <div class="stat-label">Lượt thích</div>
+                </div>
+                
+                <div style="width: 1px; background: #e5e5ea; margin: 0 10px;"></div>
+
+                <div class="stat-box">
+                    <div class="stat-number"><i class="fas fa-fire" style="color: #ea580c; font-size: 1.2rem;"></i> <span id="p-streak">0</span></div>
+                    <div class="stat-label">Chuỗi ngày</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number"><i class="fas fa-medal" style="color: #dc2626; font-size: 1.2rem;"></i> <span id="p-badges">0</span></div>
+                    <div class="stat-label">Huy hiệu</div>
+                </div>
+            </div>
+
+            <div id="p-action-btns" class="profile-actions-wrapper">
+                </div>
+        </div>
+       
+
+        <h3 class="profile-feed-title">Hoạt động gần đây</h3>
+        
+        <div id="user-feed-container">
+            </div>
+
+    </main>
+    <div class="chat-box-floating" id="chatBox">
+        <div class="chat-box-header" onclick="toggleChatBoxMinimize()">
+            <div class="chat-user">
+                <img src="" id="chatBoxAvatar" alt="Avatar">
+                <div class="chat-user-status">
+                    <h4 id="chatBoxName">Người dùng</h4>
+                    <span>Đang hoạt động</span>
+                </div>
+            </div>
+            <div class="chat-actions">
+                <button><i class="fas fa-phone-alt"></i></button>
+                <button onclick="closeChatBox(event)"><i class="fas fa-times"></i></button>
+            </div>
+        </div>
+        <div class="chat-box-body" id="chatBoxBody">
+            <p style="text-align:center; color:#86868b; margin-top: 20px; font-size: 0.85rem;">Cuộc trò chuyện được bảo mật.</p>
+        </div>
+        <div class="chat-box-footer">
+            <button><i class="fas fa-image"></i></button>
+            <input type="text" placeholder="Nhập tin nhắn..." id="chatInput" onkeypress="handleChatEnter(event)">
+            <button class="btn-send-msg" onclick="sendChatMsg()"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+    <div class="msg-overlay" id="globalOverlay" onclick="closeAllPanels()"></div>
+
+    <div class="slide-panel panel-left" id="searchPanel">
+        <div class="panel-header">
+            <h3>Tìm kiếm</h3>
+            <button onclick="closeAllPanels()"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="panel-search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchInput" placeholder="Nhập tên người dùng..." oninput="debounceSearch()">
+        </div>
+        <div class="panel-content-list" id="searchResults">
+            <p style="text-align:center; color:#86868b; margin-top:20px;">Gõ tên để tìm kiếm...</p>
+        </div>
+    </div>
+
+    <div class="slide-panel panel-right" id="notificationPanel">
+        <div class="panel-header">
+            <h3>Thông báo</h3>
+            <button onclick="closeAllPanels()"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="panel-content-list" id="notificationList">
+            </div>
+    </div>
+
+    <div class="slide-panel panel-right" id="messagePanel">
+        <div class="panel-header">
+            <h3>Tin nhắn</h3>
+            <button onclick="closeAllPanels()"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="panel-search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Tìm kiếm bạn bè...">
+        </div>
+        <div class="panel-content-list" id="friendChatList">
+            </div>
+    </div>
+
+    <script src="js/ho-so.js"></script>
+</body>
+</html>

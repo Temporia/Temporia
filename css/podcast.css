@@ -1,0 +1,417 @@
+/* ========================================================= */
+/* PODCAST PREMIUM STYLES - CINEMATIC VIEW                   */
+/* ========================================================= */
+:root {
+    --bg-apple: #F5F5F7; /* Nền xám bạc sang trọng */
+    --glass-bg: rgba(255, 255, 255, 0.65);
+    --glass-border: rgba(255, 255, 255, 0.8);
+    --text-dark: #dc2626 !important;
+    --text-dim: #86868B !important;
+    --accent-yellow: #facc15;
+    --accent-light-yellow: #fef08a;
+}
+
+/* 2. ÉP BUỘC BODY SANG NỀN SÁNG (GHI ĐÈ GLOBAL.CSS) */
+body {
+    background-color: var(--bg-apple) !important;
+    background-image: none !important; /* Xóa mọi background tối màu từ global */
+    color: var(--text-dark) !important;
+}
+
+/* 3. GHI ĐÈ THANH MENU (GIỮ KÍNH TRONG, ĐỔI CHỮ SANG ĐEN NHÁM) */
+/* 3. GHI ĐÈ THANH MENU (KÍNH SIÊU TRONG SUỐT) */
+.navbar {
+    /* Đưa nền trắng về mức gần như tàng hình (chỉ 5%) */
+    background: rgba(255, 255, 255, 0.05) !important; 
+    
+    /* Ép buộc hiệu ứng làm nhòe (blur) hoạt động mạnh để tạo chất kính */
+    backdrop-filter: blur(30px) saturate(150%) !important;
+    -webkit-backdrop-filter: blur(30px) saturate(150%) !important;
+    
+    /* Làm mỏng đổ bóng để thanh menu nhẹ bẫng, lơ lửng */
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.4) !important;
+    
+    /* Viền kính mỏng tang */
+    border-top: 1px solid rgba(255, 255, 255, 0.4) !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.02) !important;
+    border-left: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Chỉnh chữ menu thành đen nhám, bỏ bóng sáng */
+.nav-brand, .nav-menu > li > a { text-shadow: none !important; color: var(--text-dim) !important; }
+.nav-brand { color: var(--text-dark) !important; }
+.nav-menu > li > a:hover, .nav-menu > li > a.active { color: var(--text-dark) !important; font-weight: 600; }
+
+/* Menu con (Dropdown) */
+.dropdown-content {
+    background: rgba(255, 255, 255, 0.85) !important;
+    border: 1px solid rgba(0, 0, 0, 0.05) !important;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1) !important;
+}
+.dropdown-content li a { color: var(--text-dim) !important; }
+.dropdown-content li a:hover { background: rgba(0, 0, 0, 0.04) !important; color: var(--text-dark) !important; }
+
+/* Nút đăng nhập/Đăng ký */
+.btn-login { color: var(--text-dim) !important; text-shadow: none !important; }
+.btn-login:hover { color: var(--text-dark) !important; }
+.btn-register { background-color: #dc2626 !important; color: #FFFFFF !important; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important; text-shadow: none !important;}
+.btn-register:hover { background-color: #000000 !important; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15) !important; }
+
+/* ========================================================================= */
+
+/* 4. BỐ CỤC CHÍNH */
+.dashboard-layout {
+    padding: 120px 50px 50px 50px; /* Cách đỉnh 120px để né thanh menu */
+    max-width: 1400px;
+    margin: 0 auto;
+}
+/* 1. Trang giới thiệu hiện đại */
+.intro-hero-premium {
+    text-align: center;
+    padding: 60px 20px;
+    background: #fff;
+    border-radius: 32px;
+    border: 1px solid #f2f2f7;
+    margin-bottom: 40px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.02);
+}
+
+.playfair-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 20px;
+}
+.playfair-title span { color: #b91c1c; }
+
+.intro-subtitle {
+    font-size: 1.1rem;
+    color: #86868b;
+    max-width: 600px;
+    margin: 0 auto 40px;
+}
+
+/* Hiệu ứng sóng nhạc tượng trưng */
+.audio-wave-visual {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 6px;
+    height: 40px;
+    margin-bottom: 30px;
+}
+.audio-wave-visual span {
+    width: 4px;
+    background: #dc2626;
+    border-radius: 10px;
+    animation: waveAnim 1s ease-in-out infinite;
+}
+.audio-wave-visual span:nth-child(1) { height: 10px; animation-delay: 0.1s; }
+.audio-wave-visual span:nth-child(2) { height: 30px; animation-delay: 0.3s; }
+.audio-wave-visual span:nth-child(3) { height: 20px; animation-delay: 0.2s; }
+.audio-wave-visual span:nth-child(4) { height: 40px; animation-delay: 0.4s; }
+.audio-wave-visual span:nth-child(5) { height: 15px; animation-delay: 0.1s; }
+
+@keyframes waveAnim {
+    0%, 100% { transform: scaleY(1); }
+    50% { transform: scaleY(1.8); }
+}
+
+.intro-instruction-card {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 50px;
+}
+.ins-item {
+    background: #fbfbfd;
+    padding: 25px;
+    border-radius: 20px;
+    border: 1px solid #f2f2f7;
+    transition: 0.3s;
+}
+.ins-item i { font-size: 1.8rem; color: #b91c1c; margin-bottom: 15px; display: block; }
+.ins-item strong { display: block; margin-bottom: 8px; font-size: 1rem; }
+.ins-item span { font-size: 0.85rem; color: #86868b; line-height: 1.4; display: block; }
+
+/* 2. Audio Card - Hình ảnh Cinema */
+.podcast-audio-card {
+    background: #fff;
+    border-radius: 28px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.06);
+    border: 1px solid #f2f2f7;
+    margin-top: 40px;
+}
+
+.audio-cover-wrapper {
+    width: 100%;
+    height: 350px; /* Độ dài "dai đẹp" */
+    position: relative;
+    overflow: hidden;
+}
+.audio-cover-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: 1s ease;
+}
+.cover-overlay {
+    position: absolute;
+    bottom: 0; left: 0; width: 100%; height: 50%;
+    background: linear-gradient(to top, rgba(0,0,0,0.4), transparent);
+}
+
+/* Trình phát Audio Premium */
+.premium-audio-player {
+    padding: 30px 40px;
+    background: #fff;
+}
+
+.player-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 25px;
+}
+.btn-audio-play {
+    width: 65px; height: 65px;
+    border-radius: 50%;
+    background: #b91c1c;
+    color: #fff;
+    border: none;
+    font-size: 1.4rem;
+    cursor: pointer;
+    box-shadow: 0 8px 25px rgba(185, 28, 28, 0.3);
+    transition: 0.3s;
+}
+.btn-audio-play:hover { transform: scale(1.1); background: #991b1b; }
+
+.btn-audio-nav {
+    background: none; border: none; color: #86868b;
+    font-size: 1.5rem; cursor: pointer; transition: 0.2s;
+}
+.btn-audio-nav:hover { color: #1d1d1f; }
+
+.player-progress-area {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.progress-bar-container {
+    flex: 1; height: 6px; background: #e5e5ea; border-radius: 10px; cursor: pointer; position: relative;
+}
+.progress-fill {
+    width: 0%; height: 100%; background: #b91c1c; border-radius: 10px; position: relative;
+}
+.progress-fill::after {
+    content: ''; position: absolute; right: -7px; top: -4px;
+    width: 14px; height: 14px; background: #fff; border: 2px solid #b91c1c; border-radius: 50%;
+}
+.time-txt { font-size: 0.85rem; font-weight: 700; color: #86868b; width: 45px; }
+
+/* ========================================================= */
+/* BỔ SUNG: KHUNG GIỚI THIỆU & CÔNG CỤ PLAYER MỞ RỘNG        */
+/* ========================================================= */
+
+/* Khung giới thiệu nội dung mở rộng */
+.premium-divider {
+    height: 1px; width: 60px; background: #b91c1c; margin: 40px auto; opacity: 0.3;
+}
+.intro-text-block {
+    text-align: justify; max-width: 800px; margin: 0 auto; color: #515154; line-height: 1.8; font-size: 1.05rem;
+}
+.intro-text-block h3 {
+    text-align: center; color: #1d1d1f; font-size: 1.3rem; margin-bottom: 15px; font-weight: 700;
+}
+.styled-guide-list {
+    list-style: none; padding: 0;
+}
+.styled-guide-list li {
+    background: #fbfbfd; padding: 15px 20px; border-radius: 12px; margin-bottom: 10px; border: 1px solid #f2f2f7;
+}
+.styled-guide-list b { color: #b91c1c; }
+
+/* Trình phát nâng cấp (Player Box) */
+.premium-audio-player {
+    border-top: 1px solid #f2f2f7;
+    background: #fafafc; /* Đổi nền xám cực nhẹ để tách biệt với ảnh */
+}
+
+/* Khu vực công cụ mở rộng (Tốc độ, Loop, Âm lượng) */
+.player-extra-tools {
+    display: flex; justify-content: space-between; align-items: center; 
+    margin-top: 25px; padding-top: 20px; border-top: 1px dashed #e5e5ea;
+}
+
+.tool-btn {
+    background: #fff; border: 1px solid #e5e5ea; color: #64748b; font-weight: 700; 
+    font-size: 0.9rem; padding: 8px 16px; border-radius: 100px; cursor: pointer; transition: 0.2s;
+}
+.tool-btn:hover { border-color: #b91c1c; color: #b91c1c; }
+.tool-btn.active-state { background: #fef2f2; color: #b91c1c; border-color: #fca5a5; }
+
+/* Thanh trượt âm lượng */
+.volume-control-box {
+    display: flex; align-items: center; gap: 10px; background: #fff; padding: 5px 15px 5px 5px; 
+    border-radius: 100px; border: 1px solid #e5e5ea;
+}
+.volume-control-box .tool-btn { border: none; padding: 5px 10px; }
+.volume-control-box .tool-btn:hover { background: transparent; }
+
+.custom-slider {
+    -webkit-appearance: none; width: 100px; height: 4px; border-radius: 2px; background: #e5e5ea; outline: none;
+}
+.custom-slider::-webkit-slider-thumb {
+    -webkit-appearance: none; appearance: none; width: 12px; height: 12px; border-radius: 50%; background: #b91c1c; cursor: pointer;
+}
+
+/* ========================================================= */
+/* LỘT XÁC GIAO DIỆN: THẺ HƯỚNG DẪN SẶC SỠ & PLAYER NGẦU BÁ CHÁY */
+/* ========================================================= */
+
+/* 1. Thẻ Hướng Dẫn Sặc Sỡ */
+.colorful-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.guide-step { position: relative; border-radius: 28px; padding: 40px 25px; text-align: center; overflow: hidden; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); color: #fff; z-index: 1; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+.guide-step:hover { transform: translateY(-8px); }
+.guide-step::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.95; }
+
+/* Gradient sang trọng cho 3 thẻ */
+.step-red::before { background: linear-gradient(135deg, #ef4444, #991b1b); }
+.step-blue::before { background: linear-gradient(135deg, #3b82f6, #1e3a8a); }
+.step-orange::before { background: linear-gradient(135deg, #f59e0b, #9a3412); }
+
+.step-icon { width: 70px; height: 70px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; margin: 0 auto 20px; border: 2px solid rgba(255,255,255,0.4); backdrop-filter: blur(8px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+.step-number { position: absolute; top: -15px; right: 5px; font-size: 7rem; font-weight: 900; opacity: 0.12; font-family: 'Playfair Display', serif; }
+.guide-step h4 { font-size: 1.3rem; margin-bottom: 12px; color: #fff; font-weight: 800; text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+.guide-step p { font-size: 0.95rem; line-height: 1.6; color: rgba(255,255,255,0.95); margin: 0; }
+
+/* 2. Khung Player Có Viền Chuyển Màu (RGB Glow) */
+.podcast-audio-card {
+    position: relative;
+    border-radius: 30px;
+    z-index: 1;
+    background: #fff;
+    /* Xóa viền tĩnh cũ */
+    border: none !important;
+}
+
+/* Đèn LED viền chạy vòng quanh */
+.podcast-audio-card::before {
+    content: '';
+    position: absolute;
+    top: -3px; bottom: -3px; left: -3px; right: -3px;
+    background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+    z-index: -1;
+    border-radius: 32px;
+    background-size: 400%;
+    animation: glowingBorder 20s linear infinite;
+    opacity: 0.7;
+    filter: blur(3px); /* Làm nhòe viền phát sáng cho ảo diệu */
+}
+
+@keyframes glowingBorder {
+    0% { background-position: 0 0; }
+    50% { background-position: 400% 0; }
+    100% { background-position: 0 0; }
+}
+
+/* Trang trí Ảnh Cover mượt hơn */
+.audio-cover-wrapper { border-bottom: 4px solid #1e293b; border-radius: 28px 28px 0 0; }
+
+/* Giao diện nút Chọn thẻ (Radio Card) cho Popup */
+.radio-card input[type="radio"] { display: none; }
+.radio-card .rc-content { 
+    border: 2px solid #e5e5ea; border-radius: 16px; padding: 15px 10px; 
+    text-align: center; cursor: pointer; transition: 0.2s; color: #64748b; 
+    font-size: 0.85rem; font-weight: 700; display: flex; flex-direction: column; gap: 8px; 
+}
+.radio-card .rc-content i { font-size: 1.4rem; transition: 0.2s; }
+.radio-card input[type="radio"]:checked + .rc-content { 
+    border-color: #b91c1c; background: #fef2f2; color: #b91c1c; 
+    box-shadow: 0 4px 15px rgba(185, 28, 28, 0.1);
+}
+.radio-card input[type="radio"]:checked + .rc-content i { transform: scale(1.1); }
+
+/* ========================================================= */
+/* FIX LỖI GIAO DIỆN MẶC ĐỊNH TRONG MODAL HẸN GIỜ            */
+/* ========================================================= */
+
+/* Ô nhập số phút */
+.timer-input {
+    width: 100%; 
+    padding: 14px 16px; 
+    border-radius: 14px; 
+    border: 2px solid #e5e5ea; 
+    background: #fbfbfd; 
+    font-size: 1.05rem; 
+    font-weight: 600;
+    color: #1d1d1f; 
+    outline: none; 
+    transition: 0.2s ease; 
+    box-sizing: border-box; 
+    font-family: 'Be Vietnam Pro', sans-serif;
+}
+.timer-input:focus { 
+    border-color: #b91c1c; 
+    background: #fff; 
+    box-shadow: 0 4px 15px rgba(185, 28, 28, 0.08); 
+}
+
+/* Hai nút Khởi động và Hủy */
+.btn-timer-cancel, .btn-timer-start {
+    flex: 1; 
+    padding: 14px; 
+    border-radius: 14px; 
+    font-size: 1rem; 
+    font-weight: 700;
+    cursor: pointer; 
+    transition: 0.2s; 
+    border: none; 
+    font-family: 'Be Vietnam Pro', sans-serif;
+}
+
+/* Nút Hủy (Màu xám) */
+.btn-timer-cancel { 
+    background: #f2f2f7; 
+    color: #475569; 
+}
+.btn-timer-cancel:hover { 
+    background: #e5e5ea; 
+    color: #1d1d1f; 
+}
+
+/* Nút Khởi động (Màu đỏ) */
+.btn-timer-start { 
+    background: #dc2626; 
+    color: #fff; 
+    box-shadow: 0 4px 15px rgba(220, 38, 38, 0.2); 
+}
+.btn-timer-start:hover { 
+    background: #b91c1c; 
+    transform: translateY(-2px); 
+    box-shadow: 0 6px 20px rgba(220, 38, 38, 0.3); 
+}
+
+/* Nút Tắt hẹn giờ (Chỉ hiện khi hẹn giờ đang chạy) */
+.btn-timer-stop {
+    width: 100%; 
+    margin-top: 15px; 
+    padding: 14px; 
+    border-radius: 14px;
+    background: #fef2f2; 
+    color: #dc2626; 
+    border: 1px dashed #fca5a5;
+    font-size: 0.95rem;
+    font-weight: 700; 
+    cursor: pointer; 
+    transition: 0.2s; 
+    font-family: 'Be Vietnam Pro', sans-serif;
+}
+.btn-timer-stop:hover { 
+    background: #fee2e2; 
+    border-color: #f87171; 
+}

@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="vi" class="temporia-app-root">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cộng đồng - Temporia</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="css/global.css"> <link rel="stylesheet" href="css/cong-dong.css"> </head>
+<body class="temporia-app-root bg-gray-50">
+
+  <div class="page-transition-overlay"></div>
+
+   <nav class="navbar">
+        <a href="index.html" class="logo">
+            <img src="test/logox.png" alt="Temporia Logo">
+        </a>
+        <ul class="nav-menu">
+            <li><a href="trang-chu.html">Trang chủ</a></li>
+            <li class="dropdown">
+                <a href="#">Khám phá <i class="fas fa-chevron-down dropdown-icon"></i></a>
+                <ul class="dropdown-content">
+                    <li><a href="lo-trinh.html"><i class="fas fa-map-signs fa-fw"></i> Lộ trình học</a></li>
+                    <li><a href="user-mindmap.html" class="locked-feature"><i class="fas fa-project-diagram fa-fw"></i> Sơ đồ tư duy</a></li>
+                    <li><a href="podcast-view.html" class="locked-feature"><i class="fas fa-podcast fa-fw"></i> Podcast</a></li>
+                </ul>
+            </li>
+            <li><a href="quiz.html">Quiz</a></li>
+            <li><a href="cong-dong.html" class="active">Cộng đồng</a></li>
+        </ul>
+        <div class="nav-auth">
+            <div id="guestMenu">
+                <a href="auth.html#login" class="btn-login">Đăng nhập</a>
+                <a href="auth.html#register" class="btn-register">Đăng ký</a>
+            </div>
+            
+            <div id="userMenu" class="user-menu-dropdown hidden">
+                <div class="user-menu-trigger">
+                    <img src="" alt="Avatar" id="navAvatar" class="nav-avatar-img">
+                    <span class="nav-user-name" id="navUserName">...</span>
+                    <i class="fas fa-chevron-down" style="font-size: 12px; color: #86868b; margin-left: 2px;"></i>
+                </div>
+                
+                <ul class="user-dropdown-content">
+                    <li><a href="tai-khoan.html"><i class="fas fa-user fa-fw"></i> Hồ sơ cá nhân</a></li>
+                    <li><a href="tai-khoan.html"><i class="fas fa-cog fa-fw"></i> Cài đặt hệ thống</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a href="javascript:void(0)" id="navBtnLogout" class="text-red"><i class="fas fa-sign-out-alt fa-fw"></i> Đăng xuất</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+<div class="water-drum-decoration">
+        <img src="test/trongdong.png" alt="Trống đồng" class="spin-drum">
+    </div>
+    <div class="water-map-decoration">
+        <img src="hinh nhân vật/bản đồ.png" alt="Bản đồ Việt Nam" class="bg-map-art">
+    </div>
+
+    <main class="feed-container">
+ <aside class="sidebar-blur">
+        <i class="fas fa-house active" title="Trang chủ" onclick="window.location.href='trang-chu.html'"></i>
+        <i class="fas fa-magnifying-glass" title="Tìm kiếm" onclick="openPanel('searchPanel')"></i>
+        <i class="far fa-comment-dots" title="Thảo luận" onclick="openPanel('messagePanel')"></i>
+        <i class="far fa-heart" title="Thông báo" onclick="openPanel('notificationPanel')"></i>
+      <i class="fas fa-user" title="Cá nhân" onclick="goToMyProfile()"></i>
+    </aside>
+    <main class="feed-container">
+
+        <div class="create-post-card">
+            <div class="thread-layout">
+                <div class="thread-left-col">
+                    <img src="https://placehold.co/150x150/cbd5e1/ffffff?text=User" alt="Avatar" class="avatar-img" id="createPostAvatar" style="border: none;">
+                    <div class="thread-vertical-line"></div>
+                </div>
+
+                <div class="thread-right-col">
+                    <div class="create-meta">
+                        <h4 id="createPostName">Đang tải...</h4>
+                    </div>
+                    
+                    <textarea id="postInput" placeholder="Có gì mới trong lịch sử hôm nay?" rows="1"></textarea>
+                    
+                    <div id="previewArea"></div>
+
+                    <div class="create-tools">
+                        <div class="tool-icons">
+                            <label for="imageUpload"><i class="far fa-image"></i></label>
+                            <label for="fileUpload"><i class="fas fa-paperclip"></i></label>
+                            <label><i class="far fa-face-smile"></i></label>
+                        </div>
+                        <button id="publishBtn" class="btn-publish">Đăng bài</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <input type="file" id="imageUpload" accept="image/*" hidden>
+        <input type="file" id="fileUpload" hidden>
+
+        <article class="post-card premium-card" id="post-001">
+            
+            <div class="premium-header">
+                <img src="https://i.pravatar.cc/150?img=5" class="premium-avatar" alt="Avatar">
+                
+                <div class="premium-user-info">
+                    <div class="user-top-row">
+                        <h4 class="user-name">DS. Thiên Sinh <i class="fas fa-circle-check verified-badge"></i></h4>
+                        <span class="post-date"><i class="far fa-calendar"></i> 20/11/2006</span>
+                    </div>
+                    
+                    <div class="user-stats-row">
+                        <span class="stat-item"><i class="fas fa-medal text-red"></i> 198/200 Huy hiệu</span>
+                        <span class="stat-item"><i class="fas fa-fire text-red"></i> Chuỗi 45 ngày</span>
+                    </div>
+                    
+                    <div class="user-progress-bar">
+                        <div class="progress-fill" style="width: 99%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="rank-badge-container">
+                <span class="rank-badge legend-badge"><i class="fas fa-trophy"></i> Huyền Thoại</span>
+            </div>
+
+            <div class="post-body">
+                <a href="#" class="post-hashtag">#Kỷ_nguyên_Trần_Triều</a>
+                <p class="post-text">
+                    Hôm nay khi nghiên cứu chuyên sâu về chiến thuật "Thanh dã" (Vườn không nhà trống) của triều Trần trong 3 cuộc kháng chiến chống Mông - Nguyên, mình thực sự kinh ngạc trước khả năng tổ chức logistics và sự đồng lòng của cả dân tộc. Rời bỏ kinh thành Thăng Long sầm uất không phải là sự tháo chạy, mà là một đòn tâm lý chiến đỉnh cao, cắt đứt hoàn toàn nguồn tiếp tế của kỵ binh địch, buộc chúng phải rơi vào thế bị động cực độ. Mọi người nghĩ sao về vai trò của Hưng Đạo Vương trong quyết định mang tính bước ngoặt này?
+                </p>
+
+                <div class="link-preview-box">
+                    <i class="far fa-image placeholder-icon"></i> <span>Chiến thuật Trần Triều</span>
+                </div>
+            </div>
+
+            <div class="post-actions-full">
+                <button class="action-btn btn-like" onclick="toggleLike(this)">
+                    <i class="far fa-heart heart-icon"></i> <span class="like-count">218</span>
+                </button>
+                <button class="action-btn btn-comment" onclick="toggleComments('comments-001')">
+                    <i class="far fa-comment"></i> <span>42</span>
+                </button>
+                <div class="share-wrapper">
+                    <button class="action-btn btn-share" onclick="toggleShare('share-001')">
+                        <i class="fas fa-share"></i> <span>Chia sẻ</span>
+                    </button>
+                    <div class="share-dropdown" id="share-001">
+                        <button><i class="fas fa-link"></i> Sao chép liên kết</button>
+                        <button><i class="fab fa-facebook"></i> Chia sẻ Facebook</button>
+                        <button><i class="fab fa-twitter"></i> Đăng lên X</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="comments-section" id="comments-001">
+                <div class="comment-input-box">
+                    <img src="https://i.pravatar.cc/150?img=12" class="comment-avatar">
+                    <input type="text" placeholder="Viết bình luận của bạn..." class="comment-input">
+                    <button class="btn-send-comment"><i class="fas fa-paper-plane"></i></button>
+                </div>
+                <div class="comment-list">
+                    <div class="comment-item">
+                        <img src="https://i.pravatar.cc/150?img=8" class="comment-avatar">
+                        <div class="comment-content">
+                            <h5>Minh Khang</h5>
+                            <p>Đúng vậy, rút lui chiến lược đòi hỏi một sự kỷ luật thép từ quân và dân. Rất nể Hưng Đạo Vương!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </article>
+
+        <article class="post-card premium-card" id="post-002">
+            
+            <div class="premium-header">
+                <img src="https://i.pravatar.cc/150?img=5" class="premium-avatar" alt="Avatar">
+                
+                <div class="premium-user-info">
+                    <div class="user-top-row">
+                        <h4 class="user-name">DS. Thiên Sinh <i class="fas fa-circle-check verified-badge"></i></h4>
+                        <span class="post-date"><i class="far fa-calendar"></i> 20/11/2006</span>
+                    </div>
+                    
+                    <div class="user-stats-row">
+                        <span class="stat-item"><i class="fas fa-medal text-red"></i> 198/200 Huy hiệu</span>
+                        <span class="stat-item"><i class="fas fa-fire text-red"></i> Chuỗi 45 ngày</span>
+                    </div>
+                    
+                    <div class="user-progress-bar">
+                        <div class="progress-fill" style="width: 99%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="rank-badge-container">
+                <span class="rank-badge legend-badge"><i class="fas fa-trophy"></i> Huyền Thoại</span>
+            </div>
+
+            <div class="post-body">
+                <a href="#" class="post-hashtag">#Kỷ_nguyên_Trần_Triều</a>
+                <p class="post-text">
+                    Hôm nay khi nghiên cứu chuyên sâu về chiến thuật "Thanh dã" (Vườn không nhà trống) của triều Trần trong 3 cuộc kháng chiến chống Mông - Nguyên, mình thực sự kinh ngạc trước khả năng tổ chức logistics và sự đồng lòng của cả dân tộc. Rời bỏ kinh thành Thăng Long sầm uất không phải là sự tháo chạy, mà là một đòn tâm lý chiến đỉnh cao, cắt đứt hoàn toàn nguồn tiếp tế của kỵ binh địch, buộc chúng phải rơi vào thế bị động cực độ. Mọi người nghĩ sao về vai trò của Hưng Đạo Vương trong quyết định mang tính bước ngoặt này?
+                </p>
+
+                <div class="link-preview-box">
+                    <i class="far fa-image placeholder-icon"></i> <span>Chiến thuật Trần Triều</span>
+                </div>
+            </div>
+
+            <div class="post-actions-full">
+                <button class="action-btn btn-like" onclick="toggleLike(this)">
+                    <i class="far fa-heart heart-icon"></i> <span class="like-count">218</span>
+                </button>
+                <button class="action-btn btn-comment" onclick="toggleComments('comments-001')">
+                    <i class="far fa-comment"></i> <span>42</span>
+                </button>
+                <div class="share-wrapper">
+                    <button class="action-btn btn-share" onclick="toggleShare('share-001')">
+                        <i class="fas fa-share"></i> <span>Chia sẻ</span>
+                    </button>
+                    <div class="share-dropdown" id="share-001">
+                        <button><i class="fas fa-link"></i> Sao chép liên kết</button>
+                        <button><i class="fab fa-facebook"></i> Chia sẻ Facebook</button>
+                        <button><i class="fab fa-twitter"></i> Đăng lên X</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="comments-section" id="comments-001">
+                <div class="comment-input-box">
+                    <img src="https://i.pravatar.cc/150?img=12" class="comment-avatar">
+                    <input type="text" placeholder="Viết bình luận của bạn..." class="comment-input">
+                    <button class="btn-send-comment"><i class="fas fa-paper-plane"></i></button>
+                </div>
+                <div class="comment-list">
+                    <div class="comment-item">
+                        <img src="https://i.pravatar.cc/150?img=8" class="comment-avatar">
+                        <div class="comment-content">
+                            <h5>Minh Khang</h5>
+                            <p>Đúng vậy, rút lui chiến lược đòi hỏi một sự kỷ luật thép từ quân và dân. Rất nể Hưng Đạo Vương!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </article>
+
+    </main>
+<div class="msg-overlay" id="msgOverlay" onclick="closeMessagePanel()"></div>
+
+    
+
+    <div class="chat-box-floating" id="chatBox">
+        <div class="chat-box-header" onclick="toggleChatBoxMinimize()">
+            <div class="chat-user">
+                <img src="" id="chatBoxAvatar" alt="Avatar">
+                <div class="chat-user-status">
+                    <h4 id="chatBoxName">Người dùng</h4>
+                    <span>Đang hoạt động</span>
+                </div>
+            </div>
+            <div class="chat-actions">
+                <button><i class="fas fa-phone-alt"></i></button>
+                <button onclick="closeChatBox(event)"><i class="fas fa-times"></i></button>
+            </div>
+        </div>
+        
+        <div class="chat-box-body" id="chatBoxBody">
+            <div class="chat-bubble left">
+                <img src="" class="chat-bubble-avatar target-avatar" alt="Avatar">
+                <div class="bubble-text">Chào Sinh, giao diện Temporia bạn làm đỉnh quá!</div>
+            </div>
+            <div class="chat-bubble right">
+                <div class="bubble-text">Cảm ơn cậu nhé! Cậu cần hỗ trợ tài liệu gì không?</div>
+            </div>
+            <div class="chat-bubble left">
+                <img src="" class="chat-bubble-avatar target-avatar" alt="Avatar">
+                <div class="bubble-text">Cậu gửi cho mình tài liệu nhà Trần nhé! Mình đang làm luận văn.</div>
+            </div>
+        </div>
+        
+        <div class="chat-box-footer">
+            <button><i class="fas fa-image"></i></button>
+            <input type="text" placeholder="Aa" id="chatInput" onkeypress="handleChatEnter(event)">
+            <button class="btn-send-msg" onclick="sendChatMsg()"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+    <script src="js/cong-dong.js"></script>
+    <script src="js/main.js"></script>
+    <div class="msg-overlay" id="globalOverlay" onclick="closeAllPanels()"></div>
+
+    <div class="slide-panel panel-left" id="searchPanel">
+        <div class="panel-header">
+            <h3>Tìm kiếm</h3>
+            <button onclick="closeAllPanels()"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="panel-search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchInput" placeholder="Nhập tên người dùng..." oninput="debounceSearch()">
+        </div>
+        <div class="panel-content-list" id="searchResults">
+            <p style="text-align:center; color:#86868b; margin-top:20px;">Gõ tên để tìm kiếm...</p>
+        </div>
+    </div>
+
+    <div class="slide-panel panel-right" id="notificationPanel">
+        <div class="panel-header">
+            <h3>Thông báo</h3>
+            <button onclick="closeAllPanels()"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="panel-content-list" id="notificationList">
+            </div>
+    </div>
+
+    <div class="slide-panel panel-right" id="messagePanel">
+        <div class="panel-header">
+            <h3>Tin nhắn</h3>
+            <button onclick="closeAllPanels()"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="panel-search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Tìm kiếm bạn bè...">
+        </div>
+        <div class="panel-content-list" id="friendChatList">
+            </div>
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="vi" class="temporia-app-root">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sơ đồ Lịch sử - Temporia</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="css/global.css">
+    
+    <link rel="stylesheet" href="css/user-mindmap.css">
+
+    <style>
+        body { overflow: hidden; background: #f8fafc; margin: 0; }
+        
+        /* Khung bọc bản đồ: Đẩy xuống để không bị Navbar đè lên */
+        .mindmap-page-wrapper {
+            margin-top: 70px; /* Tương đương chiều cao Navbar của Temporia */
+            height: calc(100vh - 70px);
+            position: relative;
+        }
+
+        /* Kéo thanh công cụ (Tối giản/Ghi chú) lên sát viền trên của bản đồ */
+        .global-tools { 
+            top: 20px !important; 
+        }
+        
+        /* Loại bỏ border-radius nếu có để bản đồ tràn viền mượt mà */
+        .mindmap-viewport { height: 100% !important; border-radius: 0 !important; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="logo">
+            <img src="test/logox.png" alt="Temporia Logo">
+        </a>
+        <ul class="nav-menu">
+            <li><a href="trang-chu.html">Trang chủ</a></li>
+            <li class="dropdown">
+                <a href="#" class="active">Khám phá <i class="fas fa-chevron-down dropdown-icon"></i></a>
+                <ul class="dropdown-content">
+                    <li><a href="lo-trinh.html"><i class="fas fa-map-signs fa-fw"></i> Lộ trình học</a></li>
+                    <li class="active"><a href="user-mindmap.html" class="locked-feature"><i class="fas fa-project-diagram fa-fw"></i> Sơ đồ tư duy</a></li>
+                    <li><a href="podcast-view.html" class="locked-feature"><i class="fas fa-podcast fa-fw"></i> Podcast</a></li>
+                </ul>
+            </li>
+            <li><a href="quiz.html">Quiz</a></li>
+            <li><a href="cong-dong.html">Cộng đồng</a></li>
+        </ul>
+        <div class="nav-auth">
+            <div id="guestMenu">
+                <a href="auth.html#login" class="btn-login">Đăng nhập</a>
+                <a href="auth.html#register" class="btn-register">Đăng ký</a>
+            </div>
+            
+            <div id="userMenu" class="user-menu-dropdown hidden">
+                <div class="user-menu-trigger">
+                    <img src="" alt="Avatar" id="navAvatar" class="nav-avatar-img">
+                    <span class="nav-user-name" id="navUserName">...</span>
+                    <i class="fas fa-chevron-down" style="font-size: 12px; color: #86868b; margin-left: 2px;"></i>
+                </div>
+                
+                <ul class="user-dropdown-content">
+                    <li><a href="tai-khoan.html"><i class="fas fa-user fa-fw"></i> Hồ sơ cá nhân</a></li>
+                    <li><a href="tai-khoan.html"><i class="fas fa-cog fa-fw"></i> Cài đặt hệ thống</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a href="javascript:void(0)" id="navBtnLogout" class="text-red"><i class="fas fa-sign-out-alt fa-fw"></i> Đăng xuất</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="mindmap-page-wrapper">
+        
+        <div class="global-tools">
+            <button id="btnToggleAll" onclick="toggleAllNodes()" class="active">
+                <i class="fa-solid fa-compress"></i> Tối giản (Mặc định)
+            </button>
+            <button id="btnTogglePanel" onclick="toggleNotePanel()">
+                <i class="fa-regular fa-clipboard"></i> Sổ Ghi Chú
+            </button>
+        </div>
+
+        <div class="mindmap-viewport" id="mindmapViewport">
+            <div class="zoom-controls">
+                <button onclick="zoomMindmap(0.15)" title="Phóng to"><i class="fa-solid fa-plus"></i></button>
+                <button onclick="resetZoomMindmap()" title="Mặc định"><i class="fa-solid fa-expand"></i></button>
+                <button onclick="zoomMindmap(-0.15)" title="Thu nhỏ"><i class="fa-solid fa-minus"></i></button>
+            </div>
+            
+            <div class="mindmap-canvas" id="mindmapCanvas">
+                <div class="timeline-trunk"></div>
+                <svg class="mindmap-edges" id="mindmapEdges"></svg>
+                <div class="mindmap-nodes-container" id="mindmapNodesContainer">
+                    </div>
+            </div>
+        </div>
+
+        <div class="side-note-panel" id="sideNotePanel">
+            <div class="snp-header">
+                <h3><i class="fa-solid fa-pen-nib" style="color:#d97706;"></i> Cuốn Sổ Dấu Ấn</h3>
+                <button class="btn-icon" onclick="toggleNotePanel()" style="background: none; border: none; cursor: pointer; font-size: 1.2rem; color: #64748b;"><i class="fa-solid fa-times"></i></button>
+            </div>
+            
+            <div class="snp-body" id="snpNotesContainer">
+                <div class="snp-empty">
+                    <i class="fa-solid fa-book-open"></i>
+                    <p>Cuốn sổ đang trống.<br>Hãy bấm nút <b>Note</b> trên bất kỳ bảng sơ đồ nào để bắt đầu ghi chép nhé!</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="js/guard.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/user-mindmap.js"></script>
+</body>
+</html>

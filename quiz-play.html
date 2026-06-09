@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="vi" class="temporia-app-root">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phòng Thi Kỷ Nguyên Số - Temporia</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/quiz-play.css">
+</head>
+<body class="temporia-app-root">
+    
+    <nav class="navbar">
+        <a href="index.html" class="logo">
+            <img src="test/logox.png" alt="Temporia Logo">
+        </a>
+        <ul class="nav-menu">
+            <li><a href="trang-chu.html" >Trang chủ</a></li>
+            <li class="dropdown">
+                <a href="#">Khám phá <i class="fas fa-chevron-down dropdown-icon"></i></a>
+                <ul class="dropdown-content">
+                    <li><a href="lo-trinh.html"><i class="fas fa-map-signs fa-fw"></i> Lộ trình học</a></li>
+                    <li><a href="user-mindmap.html" class="locked-feature"><i class="fas fa-project-diagram fa-fw"></i> Sơ đồ tư duy</a></li>
+                    <li><a href="podcast-view.html" class="locked-feature"><i class="fas fa-podcast fa-fw"></i> Podcast</a></li>
+                </ul>
+            </li>
+            <li><a href="quiz.html" class="active">Quiz</a></li>
+            <li><a href="cong-dong.html">Cộng đồng</a></li>
+        </ul>
+        <div class="nav-auth">
+            <div id="guestMenu">
+                <a href="auth.html#login" class="btn-login">Đăng nhập</a>
+                <a href="auth.html#register" class="btn-register">Đăng ký</a>
+            </div>
+            
+            <div id="userMenu" class="user-menu-dropdown hidden">
+                <div class="user-menu-trigger">
+                    <img src="" alt="Avatar" id="navAvatar" class="nav-avatar-img">
+                    <span class="nav-user-name" id="navUserName">...</span>
+                    <i class="fas fa-chevron-down" style="font-size: 12px; color: #86868b; margin-left: 2px;"></i>
+                </div>
+                
+                <ul class="user-dropdown-content">
+                    <li><a href="tai-khoan.html"><i class="fas fa-user fa-fw"></i> Hồ sơ cá nhân</a></li>
+                    <li><a href="tai-khoan.html"><i class="fas fa-cog fa-fw"></i> Cài đặt hệ thống</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a href="javascript:void(0)" id="navBtnLogout" class="text-red"><i class="fas fa-sign-out-alt fa-fw"></i> Đăng xuất</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="quiz-play-layout">
+        <aside class="qp-sidebar anim-slide-left">
+            <div class="qp-sidebar-card">
+                <h3 class="qp-sidebar-title">
+                    <div class="title-icon-bg"><i class="fa-solid fa-list-check"></i></div>
+                    Lộ Trình Rèn Luyện
+                </h3>
+                <div class="qp-nav-list" id="quizSidebarList">
+                    <div style="padding: 20px; text-align: center; color: #94a3b8;"><i class="fa-solid fa-spinner fa-spin"></i> Đang tải dữ liệu...</div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="qp-main-area" id="quizMainContent">
+            
+           <div id="state-intro" class="qp-content-state active-state">
+                <div class="intro-hero-card anim-fade-up">
+                    <div class="ihc-header-block">
+                        <div class="ihc-icon-glow"><i class="fa-solid fa-chess-knight"></i></div>
+                        <div class="ihc-badge">HƯỚNG DẪN TƯƠNG TÁC</div>
+                        <h1>Thao Trường Kỷ Nguyên Số</h1>
+                        <p class="ihc-lead">Không chỉ là nơi kiểm tra trí nhớ thuần túy, đây là đấu trường mô phỏng thực tế. Bạn sẽ đối mặt với các tình huống lịch sử đầy cam go dưới áp lực thời gian. Hãy nắm rõ 4 quy tắc vận hành dưới đây trước khi bước vào phòng thi chính thức!</p>
+                    </div>
+
+                    <div class="intro-rules-grid">
+                        
+                        <div class="rule-card anim-fade-up delay-100">
+                            <div class="rule-text">
+                                <h3><i class="fa-solid fa-clock-rotate-left" style="color: #8b5cf6;"></i> Áp lực thời gian</h3>
+                                <p>Đồng hồ đếm lùi không ngừng nghỉ. Hệ thống tự động nộp bài khi cạn giây cuối cùng.</p>
+                            </div>
+                            <div class="rule-mockup">
+                                <div class="mock-clock"><i class="fa-solid fa-stopwatch"></i> <span id="mockClockText">00:10</span></div>
+                            </div>
+                        </div>
+
+                        <div class="rule-card anim-fade-up delay-200">
+                            <div class="rule-text">
+                                <h3 class="text-orange"><i class="fa-solid fa-bolt"></i> Chấm điểm tức thì</h3>
+                                <p>Báo ngay kết quả Đúng/Sai sau mỗi cú click. Tích lũy điểm số theo thời gian thực.</p>
+                            </div>
+                            <div class="rule-mockup flex-col">
+                                <div class="mock-progress-info">
+                                    <span>Hoàn thành: 5/5</span>
+                                    <span class="text-orange"><i class="fa-solid fa-fire"></i> Điểm: <b id="mockScore">0</b></span>
+                                </div>
+                                <div class="mock-bar-bg"><div class="mock-bar-fill" id="mockBarFill"></div></div>
+                            </div>
+                        </div>
+
+                        <div class="rule-card anim-fade-up delay-300">
+                            <div class="rule-text">
+                                <h3 class="text-green"><i class="fa-solid fa-circle-check"></i> Tick Xanh Lộ Trình</h3>
+                                <p>Đạt trên 50% số điểm để mở khóa bài tiếp theo và nhận dấu tích vinh quang.</p>
+                            </div>
+                            <div class="rule-mockup">
+                                <div class="mock-list">
+                                    <div class="mock-item active" id="mockTickItem">
+                                        <i class="fa-regular fa-circle" id="mockTickIcon"></i> Bài 1: Khởi nguồn
+                                    </div>
+                                    <div class="mock-item">
+                                        <i class="fa-solid fa-lock" style="font-size:10px;"></i> Bài 2: Âu Lạc
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="rule-card anim-fade-up delay-400">
+                            <div class="rule-text">
+                                <h3 class="text-red"><i class="fa-solid fa-trophy"></i> Thăng hạng Bảng Vàng</h3>
+                                <p>Cày XP để vượt mặt đối thủ, leo rank thần tốc và ghi danh vào ngôi đền Huyền Thoại.</p>
+                            </div>
+                            <div class="rule-mockup rank-mockup-container">
+                                <div class="mock-rank-item" id="mockRankTop">
+                                    <div class="mr-left"><b>1</b> <div class="mr-avt bg-blue"></div> <span>Học giả A</span></div>
+                                    <div class="mr-score">1200 XP</div>
+                                </div>
+                                <div class="mock-rank-item highlight" id="mockRankBot">
+                                    <div class="mr-left"><b>2</b> <div class="mr-avt bg-red"></div> <span>Bạn</span></div>
+                                    <div class="mr-score text-red"><b id="mockRankScore">1150</b> <i class="fa-solid fa-arrow-up"></i></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div id="state-waiting" class="qp-content-state" style="display: none;">
+                <div class="battle-waiting-card">
+                    
+                    <div class="bwc-cover-section anim-slide-left">
+                        <img src="https://i.pinimg.com/originals/fb/68/56/fb6856ba5c1046251cc4aed184b4c2c5.png" class="bwc-cover-image" alt="Cover">
+                    </div>
+                    
+                    <div class="bwc-body-section anim-slide-right delay-100">
+                        <div class="bwc-header-info">
+                            <span class="bwc-label">BÀI TẬP LỘ TRÌNH</span>
+                            <h1 id="qscTitle" class="bwc-title">Tên bài học</h1>
+                        </div>
+
+                        <div class="bwc-meta-flex">
+                            <div class="bwc-meta-item">
+                                <div class="meta-icon bg-red"><i class="fa-solid fa-layer-group"></i></div>
+                                <div class="meta-text"><small>SỐ LƯỢNG</small><strong id="qscCount">--</strong></div>
+                            </div>
+                            <div class="bwc-meta-item">
+                                <div class="meta-icon bg-blue"><i class="fa-regular fa-clock"></i></div>
+                                <div class="meta-text"><small>THỜI GIAN</small><strong id="qscTime">--</strong></div>
+                            </div>
+                            <div class="bwc-meta-item">
+                                <div class="meta-icon" id="qscDiffBox"><i class="fa-solid fa-bolt" id="qscDiffIcon"></i></div>
+                                <div class="meta-text"><small>MỨC ĐỘ</small><strong id="qscDiff">--</strong></div>
+                            </div>
+                        </div>
+
+                        <div class="bwc-warning">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                            <p><b>Sẵn sàng chưa?</b> Đồng hồ sẽ đếm ngược ngay khi bấm nút. Không thể tạm dừng.</p>
+                        </div>
+                        
+                        <button class="btn-battle-start" onclick="startActiveQuiz()">
+                            <i class="fa-solid fa-play"></i> BẮT ĐẦU LÀM BÀI
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+            <div id="state-quiz" class="qp-content-state" style="display: none;">
+                
+                <div class="battle-top-bar anim-fade-up">
+                    <div class="btb-timer" id="quizTimerDisplay">
+                        <i class="fa-solid fa-stopwatch timer-icon-pulse"></i> <span id="timerText">00:00</span>
+                    </div>
+                    <div class="btb-progress">
+                        <div class="btb-p-info">
+                            <span><i class="fa-regular fa-flag"></i> Hoàn thành: <b id="progressText">0/10</b></span>
+                            <span class="text-orange" id="liveScoreText"><i class="fa-solid fa-fire"></i> Điểm: 0</span>
+                        </div>
+                        <div class="btb-p-bg"><div class="btb-p-fill" id="progressBarFill"></div></div>
+                    </div>
+                </div>
+
+                <div class="battle-grid-engine anim-fade-up delay-100">
+                    
+                    <div class="battle-question-box">
+                        <div class="bqb-top">
+                            <span class="bqb-q-num">CÂU HỎI SỐ <span id="currentQNumber">1</span></span>
+                        </div>
+                        
+                        <h2 class="bqb-text" id="questionText">Đang tải nội dung...</h2>
+                        
+                        <div class="bqb-options-grid" id="optionsContainer">
+                            </div>
+
+                        <div class="bqb-nav">
+                            <button class="btn-bqb-nav" onclick="prevQuestion()"><i class="fa-solid fa-chevron-left"></i> Câu trước</button>
+                            <button class="btn-bqb-nav next" onclick="nextQuestion()">Câu kế tiếp <i class="fa-solid fa-chevron-right"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="battle-nav-panel">
+                        <div class="bnp-map-section">
+                            <h3>Bản đồ câu hỏi</h3>
+                            <p class="qnp-sub">Đỏ: Sai | Xanh: Đúng | Xám: Trống</p>
+                            <div class="battle-grid-dots" id="qNavGrid">
+                                </div>
+                            <button class="btn-finish-battle" onclick="submitQuizFinal()">NỘP BÀI THI</button>
+                        </div>
+
+                        <div class="bqb-explanation hidden" id="explanationBox">
+                            <div class="exp-title"><i class="fa-solid fa-lightbulb"></i> LỜI GIẢI CHI TIẾT</div>
+                            <div class="exp-scroll-area">
+                                <p id="explanationText">...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </main>
+    </div>
+<div class="custom-confirm-overlay hidden" id="exitConfirmOverlay">
+        <div class="custom-confirm-box">
+            <div class="ccb-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+            <h3>Rời khỏi phòng thi?</h3>
+            <p>Bài làm của bạn chưa được nộp. Nếu bạn rời đi bây giờ, toàn bộ dữ liệu làm bài sẽ bị mất và bạn sẽ nhận 0 điểm.</p>
+            <div class="ccb-actions">
+                <button class="btn-ccb-cancel" onclick="cancelExit()">Ở lại tiếp tục</button>
+                <button class="btn-ccb-confirm" onclick="confirmExit()">Đồng ý rời đi</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="agt-overlay hidden" id="customAlertOverlay" onclick="closeCustomAlert()"></div>
+    <div class="auth-gate-toast hidden" id="customAlertModal" style="max-width: 350px; text-align: center; z-index: 9999999; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+        <div class="agt-icon" style="margin: 0 auto 15px; width: 60px; height: 60px; font-size: 1.5rem; background: #fef2f2; color: #dc2626; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+            <i class="fa-solid fa-bell"></i>
+        </div>
+        <h3 style="margin: 0 0 10px; color: #1d1d1f; font-size: 1.25rem;" id="customAlertTitle">Thông báo</h3>
+        <p style="font-size: 0.95rem; color: #64748b; margin: 0 0 25px; line-height: 1.5;" id="customAlertMsg">Nội dung thông báo...</p>
+        <button class="btn-primary-red" style="width: 100%; border-radius: 14px; padding: 14px; font-size: 1rem; border: none; background: #dc2626; color: white; cursor: pointer; font-weight: bold;" onclick="closeCustomAlert()">Đã hiểu</button>
+    </div>
+    <script src="js/main.js"></script>
+    <script src="js/quiz-play.js"></script>
+</body>
+</html>

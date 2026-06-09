@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="vi" class="temporia-app-root">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hồ sơ cá nhân - Temporia</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/tai-khoan.css">
+    
+    <script src="js/guard.js"></script>
+</head>
+<body class="profile-page-root">
+
+   <div class="page-transition-overlay"></div>
+
+       <nav class="navbar">
+        <a href="index.html" class="logo">
+            <img src="test/logox.png" alt="Temporia Logo">
+        </a>
+        <ul class="nav-menu">
+            <li><a href="trang-chu.html">Trang chủ</a></li>
+            <li class="dropdown">
+                <a href="#">Khám phá <i class="fas fa-chevron-down dropdown-icon"></i></a>
+                <ul class="dropdown-content">
+                    <li><a href="lo-trinh.html"><i class="fas fa-map-signs fa-fw"></i> Lộ trình học</a></li>
+                    <li><a href="user-mindmap.html" class="locked-feature"><i class="fas fa-project-diagram fa-fw"></i> Sơ đồ tư duy</a></li>
+                    <li><a href="podcast-view.html" class="locked-feature"><i class="fas fa-podcast fa-fw"></i> Podcast</a></li>
+                </ul>
+            </li>
+            <li><a href="quiz.html">Quiz</a></li>
+            <li><a href="cong-dong.html">Cộng đồng</a></li>
+        </ul>
+        <div class="nav-auth">
+            <div id="guestMenu">
+                <a href="auth.html#login" class="btn-login">Đăng nhập</a>
+                <a href="auth.html#register" class="btn-register">Đăng ký</a>
+            </div>
+            
+            <div id="userMenu" class="user-menu-dropdown hidden">
+                <div class="user-menu-trigger">
+                    <img src="" alt="Avatar" id="navAvatar" class="nav-avatar-img">
+                    <span class="nav-user-name" id="navUserName">...</span>
+                    <i class="fas fa-chevron-down" style="font-size: 12px; color: #86868b; margin-left: 2px;"></i>
+                </div>
+                
+                <ul class="user-dropdown-content">
+                    <li><a href="tai-khoan.html"><i class="fas fa-user fa-fw"></i> Hồ sơ cá nhân</a></li>
+                    <li><a href="tai-khoan.html"><i class="fas fa-cog fa-fw"></i> Cài đặt hệ thống</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a href="javascript:void(0)" id="navBtnLogout" class="text-red"><i class="fas fa-sign-out-alt fa-fw"></i> Đăng xuất</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="profile-container">
+        
+        <header class="profile-hero-banner reveal">
+            <div class="hero-glass-bg"></div>
+            
+            <button class="btn-edit-corner" id="btnEditProfile" title="Cài đặt tài khoản"><i class="fa-solid fa-gear"></i></button>
+
+            <div class="hero-content-split">
+                
+                <div class="hero-profile-left">
+                    <div class="avatar-group">
+                        <div class="avatar-ring">
+                           <img src="data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23cbd5e1'%3e%3cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z'/%3e%3c/svg%3e" alt="Avatar" class="avatar-img" id="displayAvatar">
+                        </div>
+                    </div>
+                    
+                    <div class="hero-info-text">
+                        <div class="name-row">
+                            <h1 class="profile-name" id="displayName">Đang tải...</h1>
+                            <i class="fa-solid fa-circle-check verified-icon" title="Định danh hợp lệ"></i>
+                        </div>
+                        <p class="profile-bio" id="displayBio">"Kẻ không biết lịch sử mình, mãi mãi là một đứa trẻ."</p>
+                        
+                        <div class="hero-meta-row">
+                            <p class="profile-email" id="displayEmail">loading@solvia.vn</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-rank-right">
+                    <div class="rank-display-huge">
+                        <div class="rank-text-group">
+                            <span class="rank-label">ĐẲNG CẤP HIỆN TẠI</span>
+                            <h2 class="rank-name-huge" id="displayRankName">Đang tải...</h2>
+                        </div>
+                        <div class="rank-icon-3d"><i class="fa-solid fa-dragon" id="displayRankIcon"></i></div>
+                    </div>
+                    
+                    <div class="m-progress-container">
+                        <div class="m-points-row">
+                            <span class="m-xp-text">Năng lượng lịch sử</span>
+                            <div class="m-points-right"><span class="m-current-xp" id="displayTotalXP">0</span> <span class="m-xp-unit">XP</span></div>
+                        </div>
+                        <div class="m-progress-track">
+                            <div class="m-progress-fill" id="rankProgressBar" style="width: 0%;">
+                                <div class="m-progress-glow"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </header>
+
+        <div class="profile-bento-grid">
+            
+            <section class="bento-card bento-info reveal">
+                <div class="bento-header">
+                    <h3><i class="fa-regular fa-id-card"></i> Hồ sơ định danh</h3>
+                </div>
+                <div class="info-list"> 
+                    <div class="info-item">
+                        <div class="i-icon"><i class="fa-regular fa-calendar"></i></div>
+                        <div class="i-text"><span class="label">Ngày sinh</span><span class="value" id="displayDob">--/--/----</span></div>
+                    </div>
+                    <div class="info-item">
+                        <div class="i-icon"><i class="fa-solid fa-venus-mars"></i></div>
+                        <div class="i-text"><span class="label">Giới tính</span><span class="value" id="displayGender">Chưa cập nhật</span></div>
+                    </div>
+                    <div class="info-item">
+                        <div class="i-icon"><i class="fa-solid fa-location-dot"></i></div>
+                        <div class="i-text"><span class="label">Quê quán</span><span class="value" id="displayHometown">Chưa cập nhật</span></div>
+                    </div>
+                    <div class="info-item">
+                        <div class="i-icon"><i class="fa-solid fa-phone"></i></div>
+                        <div class="i-text"><span class="label">Điện thoại</span><span class="value" id="displayPhone">Chưa cập nhật</span></div>
+                    </div>
+                    <div class="info-item">
+                        <div class="i-icon"><i class="fa-solid fa-briefcase"></i></div>
+                        <div class="i-text"><span class="label">Vai trò</span><span class="value" id="displayRole">Nhà thám hiểm</span></div>
+                    </div>
+                    <div class="info-item">
+                        <div class="i-icon"><i class="fa-solid fa-hourglass-half"></i></div>
+                        <div class="i-text"><span class="label">Kỷ nguyên</span><span class="value" id="displayEra">Chưa chọn</span></div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="bento-card bento-stats reveal">
+                <div class="bento-header">
+                    <h3><i class="fa-solid fa-chart-pie"></i> Chỉ số cá nhân</h3>
+                </div>
+                <div class="stats-mini-grid">
+                    <div class="stat-box">
+                        <div class="stat-icon-wrap bg-orange-light"><i class="fa-solid fa-fire text-orange"></i></div>
+                        <div class="stat-text-wrap">
+                            <h4 id="displayStreak">0</h4>
+                            <span>Chuỗi ngày</span>
+                        </div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-icon-wrap bg-red-light"><i class="fa-solid fa-medal text-red"></i></div>
+                        <div class="stat-text-wrap">
+                            <h4 id="displayBadgesCount">0</h4>
+                            <span>Huy hiệu</span>
+                        </div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-icon-wrap bg-blue-light"><i class="fa-solid fa-bullseye text-blue"></i></div>
+                        <div class="stat-text-wrap">
+                            <h4>100%</h4>
+                            <span>Độ chính xác</span>
+                        </div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-icon-wrap bg-green-light"><i class="fa-solid fa-map-location-dot text-green"></i></div>
+                        <div class="stat-text-wrap">
+                            <!-- THÊM ID VÀO DÒNG NÀY -->
+                            <h4 id="displayCompletedLessons">0</h4>
+                            <span>Bài đã học</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="bento-card bento-progress reveal">
+                <div class="bento-header">
+                    <h3><i class="fa-solid fa-route"></i> Tiến trình lịch sử</h3>
+                </div>
+                <div class="progress-list">
+                    <div class="prog-item">
+                        <span class="prog-name">Thời kỳ Nguyên Sử</span>
+                        <div class="prog-bar-bg"><div class="prog-bar-fill fill-red" style="width: 10%;"></div></div>
+                        <span class="prog-percent">10%</span>
+                    </div>
+                    <div class="prog-item">
+                        <span class="prog-name">Thời kỳ Bắc thuộc</span>
+                        <div class="prog-bar-bg"><div class="prog-bar-fill" style="width: 0%;"></div></div>
+                        <span class="prog-percent">0%</span>
+                    </div>
+                    <div class="prog-item">
+                        <span class="prog-name">Thời kỳ Độc lập</span>
+                        <div class="prog-bar-bg"><div class="prog-bar-fill" style="width: 0%;"></div></div>
+                        <span class="prog-percent">0%</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="bento-card bento-badges reveal">
+                <div class="bento-header" style="display: flex; justify-content: space-between; align-items: center;">
+                    <h3><i class="fa-solid fa-award"></i> Bộ sưu tập Hoàng Gia</h3>
+                    <div class="badges-tabs">
+                        <button class="badge-tab active" id="tabOwned">Đã đạt</button>
+                        <button class="badge-tab" id="tabLocked">Khóa</button>
+                    </div>
+                </div>
+
+                <div class="badges-grid" id="badgesGrid">
+                    <div class="badge-card locked">
+                        <img src="hinh nhân vật/KDVx.png" alt="Hùng Vương" class="badge-image-real" onerror="this.src='https://placehold.co/100x100/f8fafc/dc2626?text=Lock'">
+                        <h4 class="badge-title">Hùng Vương</h4>
+                        <p class="badge-desc">Hoàn thành kỷ nguyên sơ khai</p>
+                    </div>
+                    <div class="badge-card locked">
+                        <img src="hinh nhân vật/ADVx.png" alt="Bắc Thuộc" class="badge-image-real" onerror="this.src='https://placehold.co/100x100/f8fafc/dc2626?text=Lock'">
+                        <h4 class="badge-title">Âu Lạc</h4>
+                        <p class="badge-desc">Xây dựng Loa Thành</p>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <div class="edit-modal-overlay" id="editProfileModal">
+        <div class="edit-modal-content">
+            <div class="modal-header">
+                <h3>Cài đặt định danh</h3>
+                <button class="btn-close-modal" id="btnCloseModal"><i class="fas fa-xmark"></i></button>
+            </div>
+
+            <form id="formEditProfile">
+                <div class="edit-avatar-section">
+                    <div class="edit-avatar-wrapper">
+                        <img src="data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23cbd5e1'%3e%3cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z'/%3e%3c/svg%3e" alt="Preview" id="previewEditAvatar" class="edit-avatar-img">
+                        <label for="inputAvatarUpload" class="btn-upload-avatar" title="Tải ảnh lên">
+                            <i class="fas fa-camera"></i>
+                        </label>
+                        <input type="file" id="inputAvatarUpload" accept="image/*" hidden>
+                    </div>
+                    <p class="edit-avatar-hint">Ảnh đại diện mới</p>
+                </div>
+                <div class="form-group">
+                    <label>Họ và tên</label>
+                    <input type="text" id="editName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Châm ngôn / Tiểu sử</label>
+                    <input type="text" id="editBio" placeholder="Viết một câu nói yêu thích của bạn...">
+                </div>
+
+                <div class="form-row-2">
+                    <div class="form-group" style="flex: 1;">
+                        <label>Ngày sinh</label>
+                        <input type="date" id="editDob">
+                    </div>
+                    <div class="form-group" style="flex: 1;">
+                        <label>Giới tính</label>
+                        <select id="editGender" class="apple-select">
+                            <option value="">Chọn giới tính</option>
+                            <option value="Nam">Nam</option>
+                            <option value="Nữ">Nữ</option>
+                            <option value="Khác">Khác</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row-2">
+                    <div class="form-group" style="flex: 1;">
+                        <label>Quê quán</label>
+                        <input type="text" id="editHometown" placeholder="VD: Đà Nẵng">
+                    </div>
+                    <div class="form-group" style="flex: 1;">
+                        <label>Số điện thoại</label>
+                        <input type="tel" id="editPhone" placeholder="VD: 0987...">
+                    </div>
+                </div>
+
+                <div class="form-row-2">
+                    <div class="form-group" style="flex: 1;">
+                        <label>Vai trò</label>
+                        <input type="text" id="editRole" placeholder="VD: Học sinh, Sinh viên...">
+                    </div>
+                    <div class="form-group" style="flex: 1;">
+                        <label>Kỷ nguyên yêu thích</label>
+                        <select id="editEra" class="apple-select">
+                            <option value="">Chưa chọn</option>
+                            <option value="Kỷ Hồng Bàng">Kỷ Hồng Bàng</option>
+                            <option value="Thời Bắc Thuộc">Thời Bắc Thuộc</option>
+                            <option value="Thời Phong Kiến">Thời Phong Kiến</option>
+                            <option value="Thời Cận Đại">Thời Cận Đại</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn-save-profile">Lưu thay đổi</button>
+            </form>
+        </div>
+    </div>
+   <footer class="temporia-global-footer">
+    
+    <div class="footer-bg-wrapper">
+        <img src="images/footer-bg.jpg" alt="Background" class="footer-bg-img" onerror="this.src='test/NPTx.png'">
+        <div class="footer-glass-overlay"></div>
+    </div>
+
+    <div class="container-full footer-content-container">
+        <div class="footer-main-grid">
+            
+            <div class="footer-col brand-col">
+                <div class="footer-logo">
+                    <span class="logo-text"><a href="index.html" class="logo" >
+            <img src="test/logox.png" alt="Temporia Logo" style="width: 180px; height: auto;">
+        </a></span>
+                </div>
+                <p class="footer-desc">
+                    Hành trình ngược dòng thời gian, chạm vào những trang sử thiêng liêng và hào hùng của dân tộc Việt Nam qua lăng kính công nghệ tương tác hiện đại.
+                </p>
+                <div class="footer-socials">
+                    <a href="#" class="f-social-btn" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="f-social-btn" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#" class="f-social-btn" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="#" class="f-social-btn" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-col links-col">
+                <div class="f-heading">
+                    <h4>Liên kết nhanh</h4>
+                </div>
+                <ul class="f-links-list">
+                    <li><a href="#">Trang chủ</a></li>
+                    <li><a href="#">Khám phá dòng sử</a></li>
+                    <li><a href="#">Hệ thống Quiz</a></li>
+                    <li><a href="#">Cộng đồng sử học</a></li>
+                    <li><a href="#">Về Đội ngũ phát triển</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col links-col">
+                <div class="f-heading">
+                    <h4>Tính năng</h4>
+                </div>
+                <ul class="f-links-list">
+                    <li><a href="#">Bản đồ thời gian 3D</a></li>
+                    <li><a href="#">Hồ sơ danh nhân</a></li>
+                    <li><a href="#">Bảng vàng leo Rank</a></li>
+                    <li><a href="#">Sưu tầm 200+ Huy hiệu</a></li>
+                    <li><a href="#">Hồ sơ thành tích cá nhân</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col contact-col">
+                <div class="f-heading">
+                    <h4>Liên hệ</h4>
+                </div>
+                <div class="f-contact-info">
+                    <div class="f-c-item">
+                        <div class="f-c-icon"><i class="fa-regular fa-envelope"></i></div>
+                        <div class="f-c-text">
+                            <span>Email</span>
+                            <strong>temporiahistory@gmail.com</strong>
+                        </div>
+                    </div>
+                    <div class="f-c-item">
+                        <div class="f-c-icon"><i class="fa-solid fa-phone-flip"></i></div>
+                        <div class="f-c-text">
+                            <span>Điện thoại</span>
+                            <strong>0962705125</strong>
+                        </div>
+                    </div>
+                    <div class="f-c-item">
+                        <div class="f-c-icon"><i class="fa-solid fa-location-dot"></i></div>
+                        <div class="f-c-text">
+                            <span>Địa chỉ</span>
+                            <strong>Ngũ Hành Sơn, Tp. Đà Nẵng</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-col sponsor-col">
+                <div class="f-heading">
+                    <h4>Đối tác tài trợ</h4>
+                </div>
+                <p class="sponsor-desc">Đồng hành cùng sự nghiệp bảo tồn và số hóa di sản Lịch sử Việt Nam.</p>
+                
+                <div class="sponsors-grid">
+                    <div class="sponsor-badge" title="Tập đoàn Công nghệ Solvia">
+                        <i class="fa-solid fa-microchip"></i> <span>Solvia</span>
+                    </div>
+                    <div class="sponsor-badge" title="25DS Studio - AI Data Analysis">
+                        <i class="fa-solid fa-database"></i> <span>25DS</span>
+                    </div>
+                    <div class="sponsor-badge" title="Quỹ Phát triển Công nghệ & Giáo dục">
+                        <i class="fa-solid fa-graduation-cap"></i> <span>VKU</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom-bar">
+            <div class="f-copyright">
+                <i class="fa-solid fa-seedling" style="color: #22c55e;"></i>
+                <span>© 2026 Temporia. Bản quyền phát triển thuộc về Solvia.</span>
+            </div>
+            
+            <div class="f-bottom-links">
+                <a href="#">Điều khoản sử dụng</a>
+                <a href="#">Chính sách bảo mật</a>
+                <span class="f-credits">Thiết kế bởi <strong>25DS Team</strong></span>
+            </div>
+        </div>
+
+    </div>
+</footer>
+    <script src="js/tai-khoan.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

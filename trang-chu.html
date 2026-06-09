@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang chủ - Temporia</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Xóa link Google Fonts cũ và thay bằng cụm này -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/trang-chu.css">
+</head> 
+<body>
+    <div class="page-transition-overlay"></div>
+
+    <nav class="navbar">
+        <a href="index.html" class="logo">
+            <img src="test/logox.png" alt="Temporia Logo">
+        </a>
+        <ul class="nav-menu">
+            <li><a href="trang-chu.html" class="active">Trang chủ</a></li>
+            <li class="dropdown">
+                <a href="#">Khám phá <i class="fas fa-chevron-down dropdown-icon"></i></a>
+                <ul class="dropdown-content">
+                    <li><a href="lo-trinh.html"><i class="fas fa-map-signs fa-fw"></i> Lộ trình học</a></li>
+                    <li><a href="user-mindmap.html" class="locked-feature"><i class="fas fa-project-diagram fa-fw"></i> Sơ đồ tư duy</a></li>
+                    <li><a href="podcast-view.html" class="locked-feature"><i class="fas fa-podcast fa-fw"></i> Podcast</a></li>
+                </ul>
+            </li>
+            <li><a href="quiz.html">Quiz</a></li>
+            <li><a href="cong-dong.html">Cộng đồng</a></li>
+        </ul>
+        <div class="nav-auth">
+            <div id="guestMenu">
+                <a href="auth.html#login" class="btn-login">Đăng nhập</a>
+                <a href="auth.html#register" class="btn-register">Đăng ký</a>
+            </div>
+            
+            <div id="userMenu" class="user-menu-dropdown hidden">
+                <div class="user-menu-trigger">
+                    <img src="" alt="Avatar" id="navAvatar" class="nav-avatar-img">
+                    <span class="nav-user-name" id="navUserName">...</span>
+                    <i class="fas fa-chevron-down" style="font-size: 12px; color: #86868b; margin-left: 2px;"></i>
+                </div>
+                
+                <ul class="user-dropdown-content">
+                    <li><a href="tai-khoan.html"><i class="fas fa-user fa-fw"></i> Hồ sơ cá nhân</a></li>
+                    <li><a href="tai-khoan.html"><i class="fas fa-cog fa-fw"></i> Cài đặt hệ thống</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a href="javascript:void(0)" id="navBtnLogout" class="text-red"><i class="fas fa-sign-out-alt fa-fw"></i> Đăng xuất</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <main class="dashboard-layout">
+        <div class="water-drum-decoration">
+            <!-- Thay 'link-anh-trong-dong.png' bằng đường dẫn file ảnh trống đồng của bạn -->
+            <img src="test/trongdong.png" alt="Trống đồng" class="spin-drum">
+        </div>
+        <!-- PHẦN 1: BANNER NGANG GIỚI THIỆU -->
+        <section class="intro-glass-banner">
+            
+            <div class="banner-content">
+                <div class="badge-pill">
+                    <i class="fa-solid fa-book-open-reader"></i> Nền tảng Giáo dục
+                </div>
+                
+                <!-- Tiêu đề nghệ thuật đồng bộ hoàn toàn -->
+                <h1 class="apple-heading">
+                    <span class="art-text">Lịch sử</span> dễ dàng <br>
+                    <span class="art-text">Mở ngàn</span> tri thức
+                </h1>
+                <p class="apple-sub">
+                    Temporia đưa bạn vào một không gian học tập tương tác hiện đại. 
+                    Nơi những trang sử hào hùng được tái hiện sinh động qua lăng kính công nghệ, 
+                    giúp hành trình khám phá quá khứ trở nên gần gũi và trực quan.
+                </p>
+
+                <div class="action-group">
+                    <button class="btn-dark">Bắt đầu hành trình <i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+           <div class="banner-visual">
+                <div class="hero-slider-wrapper">
+                    
+                    <div class="slider-viewport">
+                        <div class="slider-track" id="heroSlider">
+                            <img src="https://i.pinimg.com/736x/a2/64/74/a26474e94120804fe808f64fb9f4f1f1.jpg" alt="Lịch sử 1">
+                            <img src="https://i.pinimg.com/736x/99/ec/34/99ec34e12a884237ef06ccfe08ea9253.jpg" alt="Lịch sử 2">
+                            <img src="https://i.pinimg.com/1200x/36/1e/8f/361e8fd2563dbf90083a2939690e79a1.jpg" alt="Lịch sử 3">
+                        </div>
+                    </div>
+                    
+                    <div class="slider-dots">
+                        <span class="dot active" onclick="goToSlide(0)"></span>
+                        <span class="dot" onclick="goToSlide(1)"></span>
+                        <span class="dot" onclick="goToSlide(2)"></span>
+                    </div>
+                </div>
+            </div>
+            
+        </section>
+
+        <!-- ========================================================= -->
+        <!-- PHẦN 2: TÁI ĐỊNH NGHĨA CÁCH HỌC (VÌ SAO CHỌN CHÚNG TÔI)   -->
+        <!-- ========================================================= -->
+        <section class="redefine-section">
+             <div class="bento-bg-decorations">
+                <!-- Nhớ thay src bằng link ảnh của bạn nhé -->
+            
+                <img src="test/tc2x.png" class="bg-artwork bottom-right-art" alt="Họa tiết 2">
+            </div>
+            <div class="section-header reveal">
+                <h2 class="apple-heading section-title">
+                    Tái định nghĩa <br> <span class="art-text">cách học</span> Lịch sử
+                </h2>
+                <p class="apple-sub text-center">
+                    Nằm trong hệ sinh thái công nghệ Solvia, Temporia ra đời để xóa bỏ ranh giới giữa những trang sách khô khan và một không gian trải nghiệm sống động.
+                </p>
+            </div>
+
+            <div class="pillars-container">
+                
+                <!-- Trụ cột 1 -->
+                <div class="pillar-card reveal">
+                    <div class="pillar-glow glow-red"></div>
+                    <div class="pillar-glass">
+                        <div class="pillar-icon"><i class="fa-solid fa-eye-slash"></i></div>
+                        <h3 class="pillar-title">Không còn <br> Khô khan</h3>
+                        <p>Từ bỏ việc học vẹt những con số và ngày tháng. Lịch sử giờ đây là một bộ phim quay chậm mà bạn là người trực tiếp tương tác.</p>
+                    </div>
+                </div>
+
+                <!-- Trụ cột 2 -->
+                <div class="pillar-card reveal">
+                    <div class="pillar-glow glow-gold"></div>
+                    <div class="pillar-glass">
+                        <div class="pillar-icon"><i class="fa-solid fa-microchip"></i></div>
+                        <h3 class="pillar-title">Công nghệ <br> Dẫn dắt</h3>
+                        <p>Hệ thống tự động liên kết các sự kiện, nhân vật một cách thông minh, tạo ra một mạng lưới tri thức trực quan và dễ nhớ.</p>
+                    </div>
+                </div>
+
+                <!-- Trụ cột 3 -->
+                <div class="pillar-card reveal">
+                    <div class="pillar-glow glow-blue"></div>
+                    <div class="pillar-glass">
+                        <div class="pillar-icon"><i class="fa-solid fa-earth-asia"></i></div>
+                        <h3 class="pillar-title">Góc nhìn <br> Toàn cảnh</h3>
+                        <p>Đứng trên vai những người khổng lồ để nhìn nhận lịch sử một cách đa chiều, khách quan và sâu sắc nhất.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        <!-- ========================================================= -->
+        <!-- PHẦN 3: KHÔNG GIAN BENTO BOX (GỌN GÀNG, SÚC TÍCH)         -->
+        <!-- ========================================================= -->
+        <section class="bento-section">
+            <!-- HỌA TIẾT NỀN TĨNH (Dành riêng cho Phần 2) -->
+            <div class="bento-bg-decorations">
+                <!-- Nhớ thay src bằng link ảnh của bạn nhé -->
+                <img src="test/tc1x.png" class="bg-artwork top-left-art" alt="Họa tiết 1">
+                <img src="link-anh-2.png" class="bg-artwork bottom-right-art" alt="Họa tiết 2">
+            </div>
+            <div class="section-header reveal">
+                <h2 class="apple-heading section-title ">
+                    Trải nghiệm <span class="art-text">Đa chiều</span>
+                </h2>
+                <p class="apple-sub text-center">
+                    Mỗi mảnh ghép là một lăng kính mới để bạn chạm tay vào dòng chảy quá khứ.
+                </p>
+            </div>
+
+            <!-- Thêm class compact-grid để bóp nhỏ kích thước lưới -->
+            <div class="bento-grid compact-grid">
+                <div class="bento-card bento-tall reveal">
+                    <div class="card-glass-bg"></div>
+                    <div class="card-content">
+                        <div class="card-icon gradient-red"><i class="fa-solid fa-timeline"></i></div>
+                        <h3>Dòng chảy Lịch sử</h3>
+                        <p>
+                            Tiến trình lịch sử Việt Nam được sắp xếp trực quan theo <span class="text-highlight">trình tự thời gian</span> của các triều đại. Dễ dàng nắm bắt <span class="text-gradient-red">cột mốc cốt lõi</span>.
+                        </p>
+                        <a href="#" class="card-link">Khám phá <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="bento-card bento-wide-sm reveal">
+                    <div class="card-glass-bg"></div>
+                    <div class="card-content wide-flex-sm">
+                        <div class="card-icon gradient-gold"><i class="fa-solid fa-podcast"></i></div>
+                        <div class="wide-text">
+                            <h3>Podcast Lịch sử</h3>
+                            <p>
+                                Thả mình vào những giai thoại qua <span class="text-gradient-gold">giọng đọc truyền cảm</span>. Nghe kể chuyện để hiểu sâu và nhớ lâu hơn.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ô VUÔNG 1 (Phía dưới, Giữa): BẢN ĐỒ CHIẾN DỊCH -->
+                <div class="bento-card bento-square reveal">
+                    <div class="card-glass-bg"></div>
+                    <div class="card-content">
+                        <div class="card-icon gradient-blue"><i class="fa-solid fa-map-location-dot"></i></div>
+                        <h3>Bản đồ Chiến dịch</h3>
+                        <p>Mô phỏng <span class="text-highlight">sa bàn trực quan</span> các trận đánh và chiến dịch hào hùng.</p>
+                    </div>
+                </div>
+
+                <!-- Ô VUÔNG 2 (Phía dưới, Bên phải): CỘNG ĐỒNG -->
+                <div class="bento-card bento-square reveal">
+                    <div class="card-glass-bg"></div>
+                    <div class="card-content">
+                        <div class="card-icon gradient-dark"><i class="fa-solid fa-users-rays"></i></div>
+                        <h3>Cộng đồng</h3>
+                        <p>Giao lưu, chia sẻ kiến thức cùng những người <span class="text-highlight">đam mê lịch sử</span>.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+         <!-- ========================================================= -->
+        <!-- PHẦN 4:          -->
+        <!-- ========================================================= -->
+
+        <section class="experience-section reveal">
+    <div class="container-full">
+        
+        <div class="section-header text-center">
+            <span class="badge-title">Temporia Ecosystem</span>
+            <h2 class="apple-heading section-title ">Trải nghiệm Sử Việt <br><span class="art-text">Cách Hoàn Toàn Mới</span></h2>
+        </div>
+
+        <div class="experience-bento-grid">
+            
+            <div class="bento-item badge-collection reveal" onclick="openTemporiaModal(event, 'badgeModal')">
+                <div class="bento-content">
+                    <h3>200+ Huy hiệu</h3>
+                    <p>Mở khóa các thành tựu ẩn và xây dựng bộ sưu tập kiêu hãnh qua từng thời kỳ lịch sử dân tộc.</p>
+                    <div class="badge-display">
+                        <div class="floating-badge"><i class="fa-solid fa-shield-halved"></i></div>
+                        <div class="floating-badge"><i class="fa-solid fa-crown"></i></div>
+                        <div class="floating-badge"><i class="fa-solid fa-dragon"></i></div>
+                    </div>
+                </div>
+                <div class="bento-bg-icon"><i class="fa-solid fa-award"></i></div>
+                <div class="explore-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></div>
+            </div>
+            
+        
+
+            <div class="bento-item leaderboard-box reveal" onclick="openTemporiaModal(event, 'leaderboardModal')">
+                <div class="leaderboard-header">
+                    <div class="title-group">
+                        <h4>Bảng Vàng Danh Nhân</h4>
+                        <span class="sub-text">Cập nhật thời gian thực</span>
+                    </div>
+                    <span class="live-status">LIVE</span>
+                </div>
+
+                <div class="player-list">
+                    
+                    <div class="player-card premium-card">
+                        <div class="p-rank-badge">01</div>
+                        <img src="test/user1.jpg" alt="Avatar" class="p-avatar">
+                        
+                        <div class="p-info-grid">
+                            <div class="p-header">
+                                <strong>Nguyễn Hoàng Nam</strong>
+                                <span class="p-dob"><i class="fa-regular fa-calendar"></i> 15/05/2004</span>
+                            </div>
+                            
+                            <div class="p-metrics">
+                                <span class="m-item"><i class="fa-solid fa-medal"></i> 198/200 Huy hiệu</span>
+                                <span class="m-item"><i class="fa-solid fa-fire"></i> Chuỗi 45 ngày</span>
+                            </div>
+
+                            <div class="p-progress-bar">
+                                <div class="fill-rate" style="width: 99%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="p-tier-badge legendary">
+                            <i class="fa-solid fa-trophy"></i> Huyền Thoại
+                        </div>
+                    </div>
+
+                    <div class="player-card premium-card">
+                        <div class="p-rank-badge rank-two">02</div>
+                        <img src="test/user2.jpg" alt="Avatar" class="p-avatar">
+                        
+                        <div class="p-info-grid">
+                            <div class="p-header">
+                                <strong>Lê Minh Tú</strong>
+                                <span class="p-dob"><i class="fa-regular fa-calendar"></i> 22/09/2005</span>
+                            </div>
+                            
+                            <div class="p-metrics">
+                                <span class="m-item"><i class="fa-solid fa-medal"></i> 182/200 Huy hiệu</span>
+                                <span class="m-item"><i class="fa-solid fa-fire"></i> Chuỗi 31 ngày</span>
+                            </div>
+
+                            <div class="p-progress-bar">
+                                <div class="fill-rate master-fill" style="width: 91%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="p-tier-badge master">
+                            <i class="fa-solid fa-star"></i> Đại Sư
+                        </div>
+                    </div>
+
+                    <div class="player-card premium-card">
+                        <div class="p-rank-badge rank-three">03</div>
+                        <img src="test/user3.jpg" alt="Avatar" class="p-avatar">
+                        
+                        <div class="p-info-grid">
+                            <div class="p-header">
+                                <strong>Trần Bảo Ngọc</strong>
+                                <span class="p-dob"><i class="fa-regular fa-calendar"></i> 08/11/2006</span>
+                            </div>
+                            
+                            <div class="p-metrics">
+                                <span class="m-item"><i class="fa-solid fa-medal"></i> 165/200 Huy hiệu</span>
+                                <span class="m-item"><i class="fa-solid fa-fire"></i> Chuỗi 28 ngày</span>
+                            </div>
+
+                            <div class="p-progress-bar">
+                                <div class="fill-rate elite-fill" style="width: 82%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="p-tier-badge elite">
+                            <i class="fa-solid fa-bolt"></i> Cao Thủ
+                        </div>
+                    </div>
+
+                </div>
+                <div class="bento-bg-icon"><i class="fa-solid fa-crown"></i></div>
+                <div class="explore-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></div>
+            </div>
+
+            <div class="bento-item metrics-box reveal" onclick="toggleCommunityFeed(event)">
+                <div class="metric-content">
+                    <span class="sub-label">CỘNG ĐỒNG SỬ HỌC</span>
+                    <div class="big-number">2,480+</div>
+                    <p>Thành viên đang tích cực thảo luận và rèn luyện mỗi ngày.</p>
+                </div>
+                
+                <div class="chart-container">
+                    <div class="chart-visual">
+                        <div class="bar-group"><div class="bar-item" style="height: 45%;"></div></div>
+                        <div class="bar-group"><div class="bar-item" style="height: 65%;"></div></div>
+                        <div class="bar-group"><div class="bar-item" style="height: 85%;"></div></div>
+                        
+                        <div class="bar-group you-column">
+                            <span class="bar-label">YOU</span>
+                            <div class="bar-item active" style="height: 100%;"></div>
+                        </div>
+                        
+                        <div class="bar-group"><div class="bar-item" style="height: 75%;"></div></div>
+                        <div class="bar-group"><div class="bar-item" style="height: 50%;"></div></div>
+                    </div>
+                </div>
+                <div class="explore-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></div>
+            </div>
+
+            <div class="bento-item feedback-box reveal"  onclick="openTemporiaModal(event, 'feedbackModal')">
+                <div class="rating-overview">
+                    <div class="rating-score">
+                        <span class="score-num">4.9</span>
+                        <div class="stars">★★★★★</div>
+                        <span class="total-reviews">Hơn 1,800 lượt đánh giá</span>
+                    </div>
+
+                    <div class="rating-bars">
+                        <div class="r-row">
+                            <span>5★</span>
+                            <div class="r-track"><div class="r-fill" style="width: 92%;"></div></div>
+                            <span class="r-percent">92%</span>
+                        </div>
+                        <div class="r-row">
+                            <span>4★</span>
+                            <div class="r-track"><div class="r-fill" style="width: 6%;"></div></div>
+                            <span class="r-percent">6%</span>
+                        </div>
+                        <div class="r-row">
+                            <span>3★</span>
+                            <div class="r-track"><div class="r-fill" style="width: 1.5%;"></div></div>
+                            <span class="r-percent">1.5%</span>
+                        </div>
+                        <div class="r-row">
+                            <span>2★</span>
+                            <div class="r-track"><div class="r-fill" style="width: 0.3%;"></div></div>
+                            <span class="r-percent">0.3%</span>
+                        </div>
+                        <div class="r-row">
+                            <span>1★</span>
+                            <div class="r-track"><div class="r-fill" style="width: 0.2%;"></div></div>
+                            <span class="r-percent">0.2%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feedback-carousel">
+                    
+                    <div class="comment-item active">
+                        <p>"Hệ thống xếp hạng khốc liệt và công bằng. Giao diện UX/UI thực sự quá đỉnh!"</p>
+                        <strong>- DS. Thiên Sinh</strong>
+                    </div>
+
+                    <div class="comment-item">
+                        <p>"Sưu tầm đủ bộ huy hiệu Trần Triều mang lại cảm giác tự hào cực kỳ. Web mượt như app quốc tế!"</p>
+                        <strong>- SV. Minh Anh</strong>
+                    </div>
+
+                    <div class="comment-item">
+                        <p>"Học sử qua tương tác số giúp mình nhớ lâu hơn đọc sách gấp 10 lần. Đánh giá 5 sao tuyệt đối!"</p>
+                        <strong>- GV. Hoàng Hải</strong>
+                    </div>
+
+                    <div class="comment-item">
+                        <p>"Tính năng leo rank làm nhóm lớp mình đua nhau cày nhiệm vụ lịch sử mỗi tối. Rất sáng tạo!"</p>
+                        <strong>- Nguyễn Hoàng Nam</strong>
+                    </div>
+
+                </div>
+
+                <div class="bento-bg-icon"><i class="fa-solid fa-heart"></i></div>
+                <div class="explore-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></div>
+            </div>
+
+        </div>
+
+        <!-- chi tiết thẻ 1          -->
+        
+    </div>
+</section>
+<section class="community-feed-expansion" id="communityFeedArea">
+    <div class="container-full">
+        
+        <div class="feed-header-wrapper">
+            <div class="feed-header-left">
+                <span class="sub-tag">Diễn đàn Mở</span>
+                <h3>Dòng Chảy Thảo Luận Sử Học</h3>
+            </div>
+            <button class="close-feed-btn" onclick="toggleCommunityFeed(event)"><i class="fa-solid fa-chevron-up"></i> Thu gọn</button>
+        </div>
+
+        <div class="social-posts-grid">
+            
+            <div class="premium-card social-post-card">
+                
+                <div class="post-user-profile-header">
+                    <img src="test/Thien Sinh.png" alt="Avatar" class="p-avatar">
+                    
+                    <div class="p-info-grid">
+                        <div class="p-header">
+                            <div class="user-name-group">
+                                <strong>DS. Thiên Sinh</strong>
+                                <i class="fa-solid fa-circle-check verified-badge" title="Đã xác thực"></i>
+                            </div>
+                            <span class="p-dob"><i class="fa-regular fa-calendar"></i> 03/04/2007</span>
+                        </div>
+                        
+                        <div class="p-metrics">
+                            <span class="m-item"><i class="fa-solid fa-medal"></i> 198/200 Huy hiệu</span>
+                            <span class="m-item"><i class="fa-solid fa-fire"></i> Chuỗi 45 ngày</span>
+                        </div>
+
+                        <div class="p-progress-bar"><div class="fill-rate" style="width: 99%;"></div></div>
+                    </div>
+
+                    <div class="p-tier-badge legendary static-badge"><i class="fa-solid fa-trophy"></i> Huyền Thoại</div>
+                </div>
+
+                <div class="post-body">
+                    <span class="post-topic-tag">#Kỷ_nguyên_Trần_Triều</span>
+                    <p class="post-text">
+                        Hôm nay khi nghiên cứu chuyên sâu về chiến thuật "Thanh dã" (Vườn không nhà trống) của triều Trần trong 3 cuộc kháng chiến chống Mông - Nguyên, mình thực sự kinh ngạc trước khả năng tổ chức logistics và sự đồng lòng của cả dân tộc. Rời bỏ kinh thành Thăng Long sầm uất không phải là sự tháo chạy, mà là một đòn tâm lý chiến đỉnh cao, cắt đứt hoàn toàn nguồn tiếp tế của kỵ binh địch, buộc chúng phải rơi vào thế bị động cực độ. Mọi người nghĩ sao về vai trò của Hưng Đạo Vương trong quyết định mang tính bước ngoặt này?
+                    </p>
+                    
+                    
+                </div>
+
+                <div class="post-footer">
+                    <div class="post-timestamp"><i class="fa-regular fa-clock"></i> Đăng 25 phút trước</div>
+                    
+                    <div class="social-actions-bar">
+                        <div class="social-actions">
+                            <button class="action-btn heart-btn"><i class="fa-regular fa-heart"></i> <span>342</span></button>
+                            <button class="action-btn"><i class="fa-regular fa-comment"></i> <span>85</span></button>
+                            <button class="action-btn"><i class="fa-solid fa-share-nodes"></i> <span>24</span></button>
+                        </div>
+                        <a href="#detail" class="detail-link-btn">Xem chi tiết <i class="fa-solid fa-arrow-right-long"></i></a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="premium-card social-post-card">
+                
+                <div class="post-user-profile-header">
+                    <img src="test/user5.jpg" alt="Avatar" class="p-avatar">
+                    
+                    <div class="p-info-grid">
+                        <div class="p-header">
+                            <div class="user-name-group">
+                                <strong>SV. Minh Anh</strong>
+                                <i class="fa-solid fa-circle-check verified-badge"></i>
+                            </div>
+                            <span class="p-dob"><i class="fa-regular fa-calendar"></i> 15/05/2004</span>
+                        </div>
+                        
+                        <div class="p-metrics">
+                            <span class="m-item"><i class="fa-solid fa-medal"></i> 182/200 Huy hiệu</span>
+                            <span class="m-item"><i class="fa-solid fa-fire"></i> Chuỗi 31 ngày</span>
+                        </div>
+
+                        <div class="p-progress-bar"><div class="fill-rate master-fill" style="width: 91%;"></div></div>
+                    </div>
+
+                    <div class="p-tier-badge master static-badge"><i class="fa-solid fa-star"></i> Đại Sư</div>
+                </div>
+
+                <div class="post-body">
+                    <span class="post-topic-tag">#Tự_hào_Việt_Nam</span>
+                    <p class="post-text">
+                        Góc chia sẻ: Vừa hoàn thành chuỗi nhiệm vụ leo rank tuần này và mở khóa thành công bảo vật "Chiếu Dời Đô" thời Lý Thái Tổ. Lời văn uy hùng, tầm nhìn chiến lược đặt đô ở nơi "trung tâm trời đất, được thế rồng cuộn hổ ngồi" thực sự làm mình nổi da gà. Bức ảnh dưới đây là mô hình phục dựng Cố đô mà nhóm mình đang dựng thử trên phần mềm 3D, mời anh em góp ý nhé!
+                    </p>
+                    
+                    <div class="post-image-wrapper">
+                        <img src="test/tc1.jpg" alt="Chiếu Dời Đô" class="post-img">
+                    </div>
+                </div>
+
+                <div class="post-footer">
+                    <div class="post-timestamp"><i class="fa-regular fa-clock"></i> Đăng 1 giờ trước</div>
+                    
+                    <div class="social-actions-bar">
+                        <div class="social-actions">
+                            <button class="action-btn heart-btn"><i class="fa-regular fa-heart"></i> <span>218</span></button>
+                            <button class="action-btn"><i class="fa-regular fa-comment"></i> <span>42</span></button>
+                            <button class="action-btn"><i class="fa-solid fa-share-nodes"></i> <span>12</span></button>
+                        </div>
+                        <a href="#detail" class="detail-link-btn">Xem chi tiết <i class="fa-solid fa-arrow-right-long"></i></a>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+         
+        <!-- ========================================================= -->
+        <!-- PHẦN 5: KHÁT VỌNG TRUYỀN LẠI (FLOATING TEXT & FADED VIDEO)-->
+        <!-- ========================================================= -->
+        <section class="mission-blend-section">
+            
+            <!-- Video mờ ảo bị khóa cứng (Sticky) -->
+            <div class="video-blend-wrapper">
+                <video autoplay muted loop playsinline class="bg-video-fade">
+                    <source src="test/video test.mp4" type="video/mp4">
+                </video>
+            </div>
+
+            <!-- Nội dung CHỈ CÓ CHỮ, không bỏ vào khung -->
+            <div class="editorial-grid">
+                    
+                    <!-- CỘT TRÁI: Dài, Cảm xúc, Ép sát lề trái hoàn toàn -->
+                    <div class="editorial-text-col reveal">
+                      
+                        <h2 class="apple-heading">Khát vọng <br> <span class="art-text">Truyền lại</span></h2>
+                        
+                        <p class="lead-text">
+                            Temporia ra đời không chỉ là một nền tảng công nghệ vô tri, mà là tiếng vọng khắc khoải gửi từ quá khứ đến tương lai. Giữa nhịp sống hối hả, vội vã của thời đại số, chúng tôi luôn mang trong mình những trăn trở lớn lao:
+                        </p>
+                        
+                        <!-- Block 1: Những câu hỏi trăn trở -->
+                        <ul class="question-list">
+                            <li><i class="fa-solid fa-fire"></i> Làm sao để ngọn lửa sử Việt không lụi tàn trong tâm trí người trẻ?</li>
+                            <li><i class="fa-solid fa-book-open"></i> Làm sao để gỡ bỏ lớp áo khô khan của những con số, ngày tháng?</li>
+                            <li><i class="fa-solid fa-bolt"></i> Làm sao để đánh thức những trang sách ngủ yên thành nhịp đập sống động?</li>
+                            <li><i class="fa-solid fa-hand-holding-heart"></i> Làm sao để đưa người trẻ thực sự chạm tay vào cội nguồn của dân tộc?</li>
+                        </ul>
+
+                        <h3 class="sub-heading">Cái giá ngàn cân của <br> <span class="text-gradient-gold">Độc lập & Hòa bình</span></h3>
+                        
+                        <!-- Block 2: Danh sách các Phân đoạn cảm xúc (Legacy Blocks) -->
+                        <div class="legacy-blocks">
+                            
+                            <!-- Ý 1: Không phải danh từ miễn phí -->
+                            <div class="legacy-item">
+                                <div class="l-icon"><i class="fa-solid fa-dove"></i></div>
+                                <div class="l-content">
+                                    <h4>Hòa bình không tự nhiên mà có</h4>
+                                    <p>Hòa bình mà chúng ta đang hít thở hôm nay chưa bao giờ là một danh từ miễn phí. Để có được bầu trời xanh vô tận, để những cánh đồng lúa chín vàng không còn vương mùi thuốc súng, tổ quốc đã phải đánh đổi bằng hàng triệu bước chân không mỏi và hàng triệu trái tim mãi mãi ngừng đập ở tuổi đôi mươi.</p>
+                                </div>
+                            </div>
+
+                            <!-- Ý 2: Nỗi đau thể xác và tinh thần -->
+                            <div class="legacy-item">
+                                <div class="l-icon"><i class="fa-solid fa-droplet"></i></div>
+                                <div class="l-content">
+                                    <h4>Máu xương nơi chiến hào</h4>
+                                    <p>Lịch sử không nên chỉ là văn bản nằm im lìm trên giấy. Chúng tôi muốn bạn cảm nhận được cái rét cắt da cắt thịt nơi rừng thiêng nước độc, cơn sốt rét run bần bật nhưng tay súng vẫn siết chặt. Là cái nắng cháy rát trên đồi A1, là những lá thư viết dở bằng máu chưa kịp gửi về quê mẹ, và cả những ánh mắt kiên cường không lùi bước trước làn đạn quân thù.</p>
+                                </div>
+                            </div>
+
+                            <!-- Ý 3: Sự hy sinh hậu phương -->
+                            <div class="legacy-item">
+                                <div class="l-icon"><i class="fa-solid fa-person-breastfeeding"></i></div>
+                                <div class="l-content">
+                                    <h4>Nước mắt của những người Mẹ</h4>
+                                    <p>Đằng sau vinh quang chiến thắng là tận cùng của nỗi đau. Là những người mẹ mòn mỏi tựa cửa chờ con, khóc cạn nước mắt đến mù lòa. Là những vành khăn tang trắng ngợp trời đất nước. Đọc sử là để biết đau nỗi đau của dân tộc, để thấu hiểu cái giá quá đắt của hai chữ "Giải phóng".</p>
+                                </div>
+                            </div>
+
+                            <!-- Ý 4: Nhận thức của thế hệ trẻ -->
+                            <div class="legacy-item">
+                                <div class="l-icon"><i class="fa-solid fa-scale-balanced"></i></div>
+                                <div class="l-content">
+                                    <h4>Sức nặng của Di sản</h4>
+                                    <p>Chỉ khi thấu cảm trọn vẹn những hy sinh ấy, ta mới giật mình nhận ra sức nặng ngàn cân của <span class="text-highlight">"Độc lập"</span> và <span class="text-highlight">"Tự do"</span>. Lịch sử dạy người trẻ biết cúi đầu biết ơn quá khứ, để từ đó nuôi dưỡng lòng tự tôn, ngẩng cao đầu kiêu hãnh bước ra biển lớn.</p>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- ... (Phần Cái giá của Độc lập & legacy-blocks giữ nguyên ở trên) ... -->
+
+                        <!-- ========================================== -->
+                        <!-- KHỐI MỚI: TẠI SAO PHẢI HỌC LỊCH SỬ?        -->
+                        <!-- ========================================== -->
+                        <h3 class="sub-heading mt-60">Hành trang cốt lõi: <br> <span class="text-gradient-blue">Học Lịch Sử để làm gì?</span></h3>
+                        
+                        
+                        <div class="purpose-cards-container">
+                            
+                            <!-- Thẻ 1: Cội nguồn -->
+                            <div class="purpose-card reveal">
+                                <div class="p-icon bg-green-gradient"><i class="fa-solid fa-seedling"></i></div>
+                                <div class="p-text">
+                                    <h4>Chạm vào Cội nguồn, thấu hiểu Tổ tiên</h4>
+                                    <p>Đọc sử là để thấu tỏ rằng, cành lá xum xuê và trái ngọt hôm nay được vươn lên từ bộ rễ bám sâu vào lòng đất mẹ hàng ngàn năm trước. Để ta biết cúi đầu trân trọng những đôi bàn tay trần rướm máu đã khai sơn phá thạch, lập làng, giữ nước. Để mỗi khi nhắm mắt lại, ta vẫn nghe thấy tiếng trống đồng hào hùng và dòng máu Lạc Hồng đang cuộn chảy rần rật trong huyết quản của chính mình.</p>
+                                </div>
+                            </div>
+
+                            <!-- Thẻ 2: Tự hào -->
+                            <div class="purpose-card reveal">
+                                <div class="p-icon bg-red-gradient"><i class="fa-solid fa-star"></i></div>
+                                <div class="p-text">
+                                    <h4>Nuôi dưỡng Khí chất và Lòng tự hào</h4>
+                                    <p>Đọc sử là để lồng ngực căng tràn niềm kiêu hãnh về nơi mình đã sinh ra và lớn lên. Dù đất nước nhỏ bé trải qua muôn vàn thăng trầm, chịu vô số vết thương chằng chịt của đạn bom, nhưng cha ông ta vẫn kiên cường rũ bùn đứng dậy chói lòa. Niềm tự hào ấy sẽ hun đúc nên bản lĩnh người Việt, dạy chúng ta tuyệt đối không bao giờ được phép cúi đầu hay bỏ cuộc trước bất kỳ nghịch cảnh nào.</p>
+                                </div>
+                            </div>
+
+                            <!-- Thẻ 3: Vươn ra biển lớn -->
+                            <div class="purpose-card reveal">
+                                <div class="p-icon bg-blue-gradient"><i class="fa-solid fa-earth-asia"></i></div>
+                                <div class="p-text">
+                                    <h4>Kiến tạo Tương lai, Vươn ra Biển lớn</h4>
+                                    <p>Một cái cây không thể vươn cao đón nắng mặt trời nếu bộ rễ của nó hời hợt. Lịch sử chính là hành trang, là căn cước văn hóa vững chắc nhất để người trẻ Việt Nam tự tin hội nhập toàn cầu mà không sợ bị hòa tan. Học sử để nhận thức được trách nhiệm của đôi vai mình: Phải sống sao cho xứng đáng, phải cống hiến chất xám để kiến tạo cơ đồ, đưa đất nước "vươn vai đứng dậy sánh vai cùng các cường quốc năm châu" như lời Bác hằng mong ước.</p>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- ========================================== -->
+
+                        <!-- (Đoạn kết Sân chơi emotional-outro nằm ở đây) -->
+                    
+
+                        <!-- Block 3: Đoạn kết mở ra sân chơi -->
+                        <div class="emotional-outro">
+                            <i class="fa-solid fa-quote-left quote-icon"></i>
+                            <p>
+                                Và khi tình yêu nước đã ngấm sâu vào huyết quản, Temporia sẽ trở thành không gian để bạn thắp sáng tiếp ngọn lửa ấy. Không chỉ là học, đây là đấu trường tri thức, là nơi những trái tim đồng điệu cùng nhau giao lưu, tự hào chia sẻ và sát cánh viết tiếp câu chuyện vẻ vang của thanh niên Việt Nam.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- CỘT PHẢI: Hình ảnh minh họa (Đứng im) -->
+                   <div class="editorial-image-col">
+    
+   <div class="temporia-quote-showcase">
+        
+    <div class="quote-viewport">
+        <div class="quote-slider-track" id="cleanQuoteTrack">
+            
+            <div class="clean-slide">
+                <div class="quote-card">
+                    <i class="fa-solid fa-quote-left quote-mark"></i>
+                    <p class="quote-text">"Đừng để cho sự tầm thường dễ dãi ám ảnh mình, chỉ có khát vọng và hoài  mong lớn về sự sáng tạo thì mới đi được xa và bềnh vững"</p>
+                    <div class="quote-author">
+                        <strong>Nguyễn Phú Trọng</strong>
+                        <span>Cố Tổng Bí Thư</span>
+                    </div>
+                </div>
+                <img src="test/NPTx.png" alt="Bác Hồ" class="slide-char-png">
+            </div>
+
+            <div class="clean-slide">
+                <div class="quote-card">
+                    <i class="fa-solid fa-quote-left quote-mark"></i>
+                    <p class="quote-text">"Suy nghĩ phải chín, 
+                         Tư tưởng phải thông, Quyết tâm phải cao, Nổ lực phải lớn, Hành động phải quyết liệt"</p>
+                    <div class="quote-author">
+                        <strong>Phạm Minh Chính</strong>
+                        <span>Thủ tướng Chính phủ</span>
+                    </div>
+                </div>
+                <img src="test/PMCx.png" alt="Phạm Minh Chính" class="slide-char-png">
+            </div>
+
+            <div class="clean-slide">
+                <div class="quote-card">
+                    <i class="fa-solid fa-quote-left quote-mark"></i>
+                    <p class="quote-text">"Thực lực là cái chiêng, Ngoại giao là cái tiếng. Chiêng có to thì tiếng mới lớn được"</p>
+                    <div class="quote-author">
+                        <strong>Hồ Chí Minh</strong>
+                        <span>Chủ tịch nước</span>
+                    </div>
+                </div>
+                <img src="test/Hồ Chí Minh.png" alt="Hồ Chí Minh" class="slide-char-png">
+            </div>
+
+            <div class="clean-slide clone-slide">
+                <div class="quote-card">
+                    <i class="fa-solid fa-quote-left quote-mark"></i>
+                    <p class="quote-text">"Dân ta phải biết sử ta, cho tường gốc tích nước nhà Việt Nam."</p>
+                    <div class="quote-author">
+                        <strong>Chủ tịch Hồ Chí Minh</strong>
+                        <span>Anh hùng giải phóng dân tộc</span>
+                    </div>
+                </div>
+                <img src="test/NPTx.png" alt="Bác Hồ" class="slide-char-png">
+            </div>
+
+        </div>
+    </div>
+
+    <div class="quote-bottom-controls">
+        <button class="clean-btn" onclick="manualMoveSlide(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+        
+        <div class="clean-dots">
+            <span class="c-dot active" onclick="manualJumpTo(0)"></span>
+            <span class="c-dot" onclick="manualJumpTo(1)"></span>
+            <span class="c-dot" onclick="manualJumpTo(2)"></span>
+        </div>
+        
+        <button class="clean-btn" onclick="manualMoveSlide(1)"><i class="fa-solid fa-chevron-right"></i></button>
+    </div>
+
+</div>
+
+</div>
+
+                </div>
+        </section>
+        <section class="team-section reveal">
+    <div class="container-full">
+        
+        <div class="section-header text-center">
+            <span class="badge-title">Những Người Kiến Tạo</span>
+            <h2 class="apple-heading section-title ">Đội Ngũ Phát Triển <span class="art-text">Temporia</span></h2>
+        </div>
+        <div class="team-manifesto-box text-center">
+            <p class="manifesto-text">
+                Khởi nguồn từ khát vọng đánh thức tình yêu sử Việt, <strong>Temporia</strong> chính thức ra đời vào 5/2026. Tên gọi của dự án là sự kết tinh đầy tự hào giữa <em>Time (Thời gian)</em>, <em>History (Lịch sử)</em> và <em>Utopia (Vùng đất lý tưởng)</em> — tượng trưng cho một không gian số hoàn mỹ, nơi quá khứ hào hùng không nằm yên trên giấy mà sống động hiện diện trong từng điểm chạm công nghệ. Sứ mệnh lớn nhất của chúng tôi là biến những bài học lịch sử trở nên trực quan, hấp dẫn, giúp thế hệ trẻ dễ học, dễ nhớ, thấu hiểu sâu sắc giá trị của độc lập hòa bình và tự hào tiếp bước cha ông.
+            </p>
+            <div class="manifesto-divider"></div>
+        </div>
+        <div class="team-grid">
+            
+            <div class="bento-item team-card reveal">
+                <div class="team-card-inner">
+                    <div class="team-avt-wrapper">
+                        <img src="test/Thien Sinh.png" alt="Thiên Sinh" class="t-avatar">
+                        <div class="t-role-badge">Founder & Fullstack Dev</div>
+                    </div>
+                    
+                    <div class="t-info">
+                        <h3>Huỳnh Văn Thiên Sinh</h3>
+                        <p class="t-quote">"Mang công nghệ AI chạm vào từng trang sử thiêng liêng của dân tộc."</p>
+                        
+                        <div class="t-details">
+                            <span><i class="fa-regular fa-calendar"></i> 03/04/2007</span>
+                            <span><i class="fa-solid fa-location-dot"></i> Đà Nẵng, Việt Nam</span>
+                            <span><i class="fa-regular fa-envelope"></i> thiensinh3407@gmail.com</span>
+                        </div>
+                    </div>
+
+                    <div class="t-socials">
+                        <a href="#" class="social-btn"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" class="social-btn"><i class="fa-brands fa-github"></i></a>
+                        <a href="#" class="social-btn"><i class="fa-brands fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bento-item team-card reveal">
+                <div class="team-card-inner">
+                    <div class="team-avt-wrapper">
+                        <img src="test/za zan.jpg" alt="Minh Anh" class="t-avatar">
+                        <div class="t-role-badge">UI/UX Designer</div>
+                    </div>
+                    
+                    <div class="t-info">
+                        <h3>Đinh Gia Hân</h3>
+                        <p class="t-quote">"Thiết kế trải nghiệm trượt mượt mà, biến bài học khô khan thành nghệ thuật."</p>
+                        
+                        <div class="t-details">
+                            <span><i class="fa-regular fa-calendar"></i> 30/03/2007</span>
+                            <span><i class="fa-solid fa-location-dot"></i> Đà Nẵng, Việt Nam</span>
+                            <span><i class="fa-regular fa-envelope"></i> giahan@solvia.vn</span>
+                        </div>
+                    </div>
+
+                    <div class="t-socials">
+                        <a href="#" class="social-btn"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" class="social-btn"><i class="fa-brands fa-behance"></i></a>
+                        <a href="#" class="social-btn"><i class="fa-brands fa-dribbble"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bento-item team-card reveal">
+                <div class="team-card-inner">
+                    <div class="team-avt-wrapper">
+                        <img src="test/Sang.jpg" alt="Hoàng Nam" class="t-avatar">
+                        <div class="t-role-badge">Backend Dev</div>
+                    </div>
+                    
+                    <div class="t-info">
+                        <h3>Nguyễn Trần Thu Sang</h3>
+                        <p class="t-quote">"Tối ưu hóa hệ thống cơ sở dữ liệu để chịu tải hàng nghìn người dùng thi đấu."</p>
+                        
+                        <div class="t-details">
+                            <span><i class="fa-regular fa-calendar"></i> 08/09/2007</span>
+                            <span><i class="fa-solid fa-location-dot"></i> Đà Nẵng, Việt Nam</span>
+                            <span><i class="fa-regular fa-envelope"></i> thusang@solvia.vn</span>
+                        </div>
+                    </div>
+
+                    <div class="t-socials">
+                        <a href="#" class="social-btn"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" class="social-btn"><i class="fa-brands fa-github"></i></a>
+                        <a href="#" class="social-btn"><i class="fa-brands fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section class="contact-section reveal">
+    <div class="container-full">
+        <div class="contact-glass-wrapper bento-item">
+            
+            <div class="contact-info-column">
+                <div class="c-header-titles">
+                    <h2>Liên hệ với chúng tôi</h2>
+                    <p>Bạn có câu hỏi, góp ý hoặc muốn hợp tác phát triển dự án? Hãy để lại thông tin, đội ngũ Temporia sẽ phản hồi sớm nhất có thể.</p>
+                </div>
+
+                <div class="c-methods-list">
+                    <div class="c-method-item">
+                        <div class="c-icon"><i class="fa-regular fa-envelope"></i></div>
+                        <div class="c-text-group">
+                            <strong>Email</strong>
+                            <span>contact@solvia.vn</span>
+                        </div>
+                    </div>
+
+                    <div class="c-method-item">
+                        <div class="c-icon"><i class="fa-solid fa-phone-flip"></i></div>
+                        <div class="c-text-group">
+                            <strong>Điện thoại</strong>
+                            <span>+84 (236) 888-9999</span>
+                        </div>
+                    </div>
+
+                    <div class="c-method-item">
+                        <div class="c-icon"><i class="fa-solid fa-location-dot"></i></div>
+                        <div class="c-text-group">
+                            <strong>Địa chỉ</strong>
+                            <span>Ngũ Hành Sơn, Tp. Đà Nẵng</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="c-social-footer">
+                    <strong>Mạng xã hội</strong>
+                    <div class="c-social-links">
+                        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-form-column">
+                <form action="#" method="POST" class="temporia-contact-form">
+                    
+                    <div class="form-row-2">
+                        <div class="input-group">
+                            <label for="cFirstName">Họ</label>
+                            <input type="text" id="cFirstName" placeholder="Nguyễn Văn" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="cLastName">Tên</label>
+                            <input type="text" id="cLastName" placeholder="A" required>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="cEmail">Email</label>
+                        <input type="email" id="cEmail" placeholder="nguyenvana@gmail.com" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="cSubject">Chủ đề</label>
+                        <input type="text" id="cSubject" placeholder="Góp ý nội dung bài học..." required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="cMessage">Nội dung</label>
+                        <textarea id="cMessage" rows="5" placeholder="Viết chi tiết lời nhắn của bạn tại đây..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-contact-btn">Gửi liên hệ</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</section>
+    </main>
+    <div class="temporia-modal-overlay" id="badgeModal" onclick="closeTemporiaModal(event)">
+            <div class="temporia-modal-box">
+                
+                <button class="modal-close-btn" onclick="closeTemporiaModal(event, true)"><i class="fa-solid fa-xmark"></i></button>
+                
+                <div class="modal-header">
+                    <span class="modal-tag">Hệ thống Danh hiệu Temporia</span>
+                    <h3>Bộ Sưu Tập & Cấp Bậc Lịch Sử</h3>
+                    <p>Khám phá toàn bộ dải phần thưởng vinh dự dành cho những nhà thám hiểm thời gian xuất sắc nhất.</p>
+                </div>
+
+                <div class="modal-section-title">
+                    <h4><i class="fa-solid fa-medal"></i> Kho Huy Hiệu Tiêu Biểu</h4>
+                    <span>Kéo ngang để xem thêm</span>
+                </div>
+                <div class="modal-horizontal-scroll">
+                    <div class="m-badge-card"><i class="fa-solid fa-shield-halved"></i><strong>Khai Quốc</strong><span>Hoàn thành kỷ nguyên Văn Lang</span></div>
+                    <div class="m-badge-card"><i class="fa-solid fa-crown"></i><strong>Đế Vương</strong><span>Đạt top 1 tuần thi đấu</span></div>
+                    <div class="m-badge-card"><i class="fa-solid fa-dragon"></i><strong>Long Mạch</strong><span>Sưu tầm đủ bộ bảo vật</span></div>
+                    <div class="m-badge-card"><i class="fa-solid fa-gavel"></i><strong>Công Lý</strong><span>Giải mã 50 vụ án lịch sử</span></div>
+                    <div class="m-badge-card"><i class="fa-solid fa-scroll"></i><strong>Sử Gia</strong><span>Đọc trọn vẹn 100 chuyên khảo</span></div>
+                </div>
+
+                <div class="modal-section-title mt-25">
+                    <h4><i class="fa-solid fa-trophy"></i> Hệ Thống Cấp Bậc (Rank Tiers)</h4>
+                    <span>Kéo ngang để xem thêm</span>
+                </div>
+                <div class="modal-horizontal-scroll">
+                    <div class="m-rank-card rank-t1"><div class="r-icon"><i class="fa-solid fa-seedling"></i></div><strong>Tập Sự</strong><span>0 - 50 Huy hiệu</span></div>
+                    <div class="m-rank-card rank-t2"><div class="r-icon"><i class="fa-solid fa-khanda"></i></div><strong>Hào Kiệt</strong><span>51 - 100 Huy hiệu</span></div>
+                    <div class="m-rank-card rank-t3"><div class="r-icon"><i class="fa-solid fa-bolt"></i></div><strong>Cao Thủ</strong><span>101 - 150 Huy hiệu</span></div>
+                    <div class="m-rank-card rank-t4"><div class="r-icon"><i class="fa-solid fa-star"></i></div><strong>Đại Sư</strong><span>151 - 190 Huy hiệu</span></div>
+                    <div class="m-rank-card rank-t5"><div class="r-icon"><i class="fa-solid fa-trophy"></i></div><strong>Huyền Thoại</strong><span>191+ Huy hiệu (Top 10)</span></div>
+                </div>
+
+            </div>
+        </div>
+        
+
+<div class="temporia-modal-overlay" id="feedbackModal" onclick="closeTemporiaModal(event)">
+    <div class="temporia-modal-box feedback-modal-layout">
+        
+        <button class="modal-close-btn" onclick="closeTemporiaModal(event, true)"><i class="fa-solid fa-xmark"></i></button>
+        
+        <div class="modal-header">
+            <span class="modal-tag">Tiếng nói Cộng đồng</span>
+            <h3>Đánh Giá & Phản Hồi Từ Người Dùng</h3>
+            <p>Khám phá những trải nghiệm chân thực và ý kiến đóng góp từ các nhà thám hiểm lịch sử Temporia.</p>
+        </div>
+
+        <div class="modal-rating-showcase">
+            <div class="score-card">
+                <div class="score-huge">4.9</div>
+                <div class="stars-large">★★★★★</div>
+                <span class="total-count">Hơn 1,800 lượt đánh giá</span>
+            </div>
+            
+            <div class="modal-bars-wrapper">
+                <div class="r-row"><span>5★</span><div class="r-track"><div class="r-fill fill-red" style="width: 92%;"></div></div><span class="r-percent">92%</span></div>
+                <div class="r-row"><span>4★</span><div class="r-track"><div class="r-fill" style="width: 6%;"></div></div><span class="r-percent">6%</span></div>
+                <div class="r-row"><span>3★</span><div class="r-track"><div class="r-fill" style="width: 1.5%;"></div></div><span class="r-percent">1.5%</span></div>
+                <div class="r-row"><span>2★</span><div class="r-track"><div class="r-fill" style="width: 0.3%;"></div></div><span class="r-percent">0.3%</span></div>
+                <div class="r-row"><span>1★</span><div class="r-track"><div class="r-fill" style="width: 0.2%;"></div></div><span class="r-percent">0.2%</span></div>
+            </div>
+        </div>
+
+        <div class="modal-section-title mt-25">
+            <h4><i class="fa-solid fa-comments"></i> Bình Luận Chi Tiết</h4>
+            <span>Mới nhất</span>
+        </div>
+
+       <div class="modal-comments-list">
+            
+            <div class="premium-card comment-shared-card">
+                <img src="test/user5.jpg" alt="Avatar" class="p-avatar">
+                <div class="p-info-grid">
+                    
+                    <div class="p-header">
+                        <div class="user-name-group">
+                            <strong>Thu Huyền</strong>
+                            <i class="fa-solid fa-circle-check verified-badge" title="Đã xác thực"></i>
+                        </div>
+                        <span class="p-dob"><i class="fa-regular fa-calendar"></i> 20/11/2006</span>
+                    </div>
+                    
+                    <div class="p-metrics">
+                        <span class="m-item"><i class="fa-solid fa-medal"></i> 198/200 Huy hiệu</span>
+                        <span class="m-item"><i class="fa-solid fa-fire"></i> Chuỗi 45 ngày</span>
+                    </div>
+                    <div class="p-progress-bar"><div class="fill-rate" style="width: 99%;"></div></div>
+                    <div class="cmt-user-stars">★★★★★</div>
+                    
+                    <p class="cmt-text">"Hệ thống xếp hạng khốc liệt và công bằng. Giao diện UX/UI mang lại cảm giác vuốt cực kỳ trơn tru, đồ họa chi tiết đến từng tấm kính mờ. Quá đỉnh!"</p>
+                    
+                    <span class="cmt-time"><i class="fa-regular fa-clock"></i> 10 phút trước</span>
+
+                </div>
+                <div class="p-tier-badge legendary"><i class="fa-solid fa-trophy"></i> Huyền Thoại</div>
+            </div>
+
+            <div class="premium-card comment-shared-card">
+                <img src="test/user3.jpg" alt="Avatar" class="p-avatar">
+                <div class="p-info-grid">
+                    <div class="p-header">
+                        <div class="user-name-group">
+                            <strong>SV. Minh Anh</strong>
+                            <i class="fa-solid fa-circle-check verified-badge"></i>
+                        </div>
+                        <span class="p-dob"><i class="fa-regular fa-calendar"></i> 15/05/2004</span>
+                    </div>
+                    <div class="p-metrics">
+                        <span class="m-item"><i class="fa-solid fa-medal"></i> 182/200 Huy hiệu</span>
+                        <span class="m-item"><i class="fa-solid fa-fire"></i> Chuỗi 31 ngày</span>
+                    </div>
+                    <div class="p-progress-bar"><div class="fill-rate master-fill" style="width: 91%;"></div></div>
+                    <div class="cmt-user-stars">★★★★★</div>
+                    <p class="cmt-text">"Sưu tầm đủ bộ huy hiệu Trần Triều mang lại cảm giác tự hào cực kỳ. Web phản hồi nhanh, mượt như một ứng dụng Native cao cấp trên iOS."</p>
+                    
+                    <span class="cmt-time"><i class="fa-regular fa-clock"></i> 2 giờ trước</span>
+
+                </div>
+                <div class="p-tier-badge master"><i class="fa-solid fa-star"></i> Đại Sư</div>
+            </div>
+
+            <div class="premium-card comment-shared-card">
+                <img src="test/NPTx.png" alt="Avatar" class="p-avatar">
+                <div class="p-info-grid">
+                    <div class="p-header">
+                        <div class="user-name-group">
+                            <strong>GV. Hoàng Hải</strong>
+                            <i class="fa-solid fa-circle-check verified-badge"></i>
+                        </div>
+                        <span class="p-dob"><i class="fa-regular fa-calendar"></i> 22/09/2005</span>
+                    </div>
+                    <div class="p-metrics">
+                        <span class="m-item"><i class="fa-solid fa-medal"></i> 165/200 Huy hiệu</span>
+                        <span class="m-item"><i class="fa-solid fa-fire"></i> Chuỗi 28 ngày</span>
+                    </div>
+                    <div class="p-progress-bar"><div class="fill-rate elite-fill" style="width: 82%;"></div></div>
+                    <div class="cmt-user-stars">★★★★★</div>
+                    <p class="cmt-text">"Học sử qua tương tác số giúp học sinh của tôi nhớ lâu hơn đọc sách truyền thống gấp 10 lần. Rất mong nền tảng sẽ cập nhật thêm nhiều kỷ nguyên mới!"</p>
+                    
+                    <span class="cmt-time"><i class="fa-regular fa-clock"></i> 1 ngày trước</span>
+
+                </div>
+                <div class="p-tier-badge elite"><i class="fa-solid fa-bolt"></i> Cao Thủ</div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<div class="temporia-modal-overlay" id="leaderboardModal" onclick="closeTemporiaModal(event)">
+    <div class="temporia-modal-box leaderboard-modal-layout">
+        
+        <button class="modal-close-btn" onclick="closeTemporiaModal(event, true)"><i class="fa-solid fa-xmark"></i></button>
+        
+        <div class="modal-header text-center">
+            <span class="modal-tag">Bảng Xếp Hạng Toàn Mạng</span>
+            <h3>Đại Sảnh Vinh Danh Temporia</h3>
+            <p>Nơi vinh danh những bộ óc chiến lược và kiên trì nhất trên hành trình chinh phục dòng chảy lịch sử Việt Nam.</p>
+        </div>
+
+        <div class="podium-showcase">
+            
+            <div class="podium-card rank-two-card">
+                <div class="podium-badge">02</div>
+                <img src="test/user2.jpg" alt="Top 2" class="podium-avt">
+                <strong>Lê Minh Tú</strong>
+                <span class="p-tier master">Đại Sư</span>
+                <div class="podium-score"><i class="fa-solid fa-medal"></i> 182 Huy hiệu</div>
+            </div>
+
+            <div class="podium-card rank-one-card">
+                <div class="crown-icon"><i class="fa-solid fa-crown"></i></div>
+                <div class="podium-badge">01</div>
+                <img src="test/user1.jpg" alt="Top 1" class="podium-avt">
+                <strong>Nguyễn Hoàng Nam</strong>
+                <span class="p-tier legendary">Huyền Thoại</span>
+                <div class="podium-score"><i class="fa-solid fa-medal"></i> 198 Huy hiệu</div>
+            </div>
+
+            <div class="podium-card rank-three-card">
+                <div class="podium-badge">03</div>
+                <img src="test/user3.jpg" alt="Top 3" class="podium-avt">
+                <strong>Trần Bảo Ngọc</strong>
+                <span class="p-tier elite">Cao Thủ</span>
+                <div class="podium-score"><i class="fa-solid fa-medal"></i> 165 Huy hiệu</div>
+            </div>
+
+        </div>
+
+        <div class="modal-section-title mt-25">
+            <h4><i class="fa-solid fa-users-line"></i> Top 10 Bảng Vàng</h4>
+            <span>Cập nhật 5 phút trước</span>
+        </div>
+
+        <div class="modal-leaderboard-list">
+            
+            <div class="premium-card comment-shared-card lb-detail-card">
+                <div class="lb-rank-num">04</div>
+                <img src="test/user11.jpg" alt="Avatar" class="p-avatar">
+                
+                <div class="p-info-grid">
+                    <div class="p-header">
+                        <div class="user-name-group">
+                            <strong>Phạm Văn Long</strong>
+                            <i class="fa-solid fa-circle-check verified-badge"></i>
+                        </div>
+                        <span class="p-dob"><i class="fa-regular fa-calendar"></i> 12/03/2005</span>
+                    </div>
+                    
+                    <div class="p-metrics">
+                        <span class="m-item"><i class="fa-solid fa-medal"></i> 158/200 Huy hiệu</span>
+                        <span class="m-item"><i class="fa-solid fa-fire"></i> Chuỗi 25 ngày</span>
+                    </div>
+
+                    <div class="p-progress-bar"><div class="fill-rate elite-fill" style="width: 79%;"></div></div>
+                </div>
+
+                <div class="p-tier-badge elite"><i class="fa-solid fa-bolt"></i> Cao Thủ</div>
+            </div>
+
+            <div class="premium-card comment-shared-card lb-detail-card">
+                <div class="lb-rank-num">05</div>
+                <img src="test/user8.jpg" alt="Avatar" class="p-avatar">
+                
+                <div class="p-info-grid">
+                    <div class="p-header">
+                        <div class="user-name-group">
+                            <strong>Đỗ Mai Phương</strong>
+                            <i class="fa-solid fa-circle-check verified-badge"></i>
+                        </div>
+                        <span class="p-dob"><i class="fa-regular fa-calendar"></i> 30/08/2006</span>
+                    </div>
+                    
+                    <div class="p-metrics">
+                        <span class="m-item"><i class="fa-solid fa-medal"></i> 145/200 Huy hiệu</span>
+                        <span class="m-item"><i class="fa-solid fa-fire"></i> Chuỗi 18 ngày</span>
+                    </div>
+
+                    <div class="p-progress-bar"><div class="fill-rate elite-fill" style="width: 72.5%;"></div></div>
+                </div>
+
+                <div class="p-tier-badge elite"><i class="fa-solid fa-bolt"></i> Cao Thủ</div>
+            </div>
+
+            <div class="premium-card comment-shared-card lb-detail-card">
+                <div class="lb-rank-num">06</div>
+                <img src="test/user7.jpg" alt="Avatar" class="p-avatar">
+                
+                <div class="p-info-grid">
+                    <div class="p-header">
+                        <div class="user-name-group">
+                            <strong>Bùi Quốc Khánh</strong>
+                        </div>
+                        <span class="p-dob"><i class="fa-regular fa-calendar"></i> 02/12/2004</span>
+                    </div>
+                    
+                    <div class="p-metrics">
+                        <span class="m-item"><i class="fa-solid fa-medal"></i> 130/200 Huy hiệu</span>
+                        <span class="m-item"><i class="fa-solid fa-fire"></i> Chuỗi 12 ngày</span>
+                    </div>
+
+                    <div class="p-progress-bar"><div class="fill-rate" style="width: 65%; background: #94a3b8;"></div></div>
+                </div>
+
+                <div class="p-tier-badge" style="background: #f1f5f9; color: #475569; border: 1px solid #e2e8f0;"><i class="fa-solid fa-khanda"></i> Hào Kiệt</div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<div class="global-user-popover" id="temporiaUserPopover">
+    <div class="popover-glass-card">
+        
+        <div class="popover-header">
+            <img src="test/NPTx.png" alt="Avatar" class="popover-avt" id="popAvt">
+            <div class="popover-main-info">
+                <div class="pop-name-group">
+                    <strong id="popName">DS. Thiên Sinh</strong>
+                    <i class="fa-solid fa-circle-check verified-badge"></i>
+                </div>
+                <span class="pop-email" id="popEmail">thiensinh@solvia.vn</span>
+            </div>
+        </div>
+
+        <div class="popover-body">
+            <div class="pop-info-row">
+                <span class="pop-label"><i class="fa-regular fa-calendar"></i> Ngày sinh:</span>
+                <span class="pop-value" id="popDob">20/11/2006</span>
+            </div>
+            <div class="pop-info-row">
+                <span class="pop-label"><i class="fa-solid fa-location-dot"></i> Quê quán:</span>
+                <span class="pop-value" id="popHometown">Hà Nội, Việt Nam</span>
+            </div>
+        </div>
+
+        <div class="popover-footer">
+            <div class="pop-stat">
+                <i class="fa-solid fa-medal" style="color: #dc2626;"></i>
+                <span id="popBadges">198</span>
+            </div>
+            <div class="pop-stat">
+                <i class="fa-solid fa-fire" style="color: #ea580c;"></i>
+                <span id="popStreak">45</span>
+            </div>
+            <div class="pop-tier-badge legendary" id="popRank">
+                <i class="fa-solid fa-trophy"></i> Huyền Thoại
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="agt-overlay" id="agtOverlay"></div>
+
+<div class="auth-gate-toast" id="authGateToast">
+    <div class="agt-drag-handle"></div> 
+    
+    <button class="agt-close-btn" id="agtCloseBtn"><i class="fa-solid fa-xmark"></i></button>
+    
+    <div class="agt-content">
+        <div class="agt-icon">
+            <i class="fa-solid fa-lock"></i>
+        </div>
+        <div class="agt-text">
+            <strong>Yêu cầu định danh</strong>
+            <span>Đăng nhập để mở khóa giới hạn và đồng bộ hành trình.</span>
+        </div>
+    </div>
+    
+    <div class="agt-actions">
+        <a href="auth.html#login" class="agt-btn-primary">Đăng nhập</a>
+        <a href="auth.html#register" class="agt-btn-secondary">Tạo tài khoản</a>
+    </div>
+</div>
+
+<footer class="temporia-global-footer">
+    
+    <div class="footer-bg-wrapper">
+        <img src="images/footer-bg.jpg" alt="Background" class="footer-bg-img" onerror="this.src='test/NPTx.png'">
+        <div class="footer-glass-overlay"></div>
+    </div>
+
+    <div class="container-full footer-content-container">
+        <div class="footer-main-grid">
+            
+            <div class="footer-col brand-col">
+                <div class="footer-logo">
+                    <span class="logo-text"><a href="index.html" class="logo" >
+            <img src="test/logox.png" alt="Temporia Logo" style="width: 180px;">
+        </a></span>
+                </div>
+                <p class="footer-desc">
+                    Hành trình ngược dòng thời gian, chạm vào những trang sử thiêng liêng và hào hùng của dân tộc Việt Nam qua lăng kính công nghệ tương tác hiện đại.
+                </p>
+                <div class="footer-socials">
+                    <a href="#" class="f-social-btn" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="f-social-btn" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#" class="f-social-btn" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="#" class="f-social-btn" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-col links-col">
+                <div class="f-heading">
+                    <h4>Liên kết nhanh</h4>
+                </div>
+                <ul class="f-links-list">
+                    <li><a href="#">Trang chủ</a></li>
+                    <li><a href="#">Khám phá dòng sử</a></li>
+                    <li><a href="#">Hệ thống Quiz</a></li>
+                    <li><a href="#">Cộng đồng sử học</a></li>
+                    <li><a href="#">Về Đội ngũ phát triển</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col links-col">
+                <div class="f-heading">
+                    <h4>Tính năng</h4>
+                </div>
+                <ul class="f-links-list">
+                    <li><a href="#">Bản đồ thời gian 3D</a></li>
+                    <li><a href="#">Hồ sơ danh nhân</a></li>
+                    <li><a href="#">Bảng vàng leo Rank</a></li>
+                    <li><a href="#">Sưu tầm 200+ Huy hiệu</a></li>
+                    <li><a href="#">Hồ sơ thành tích cá nhân</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col contact-col">
+                <div class="f-heading">
+                    <h4>Liên hệ</h4>
+                </div>
+                <div class="f-contact-info">
+                    <div class="f-c-item">
+                        <div class="f-c-icon"><i class="fa-regular fa-envelope"></i></div>
+                        <div class="f-c-text">
+                            <span>Email</span>
+                            <strong>temporiahistory@gmail.com</strong>
+                        </div>
+                    </div>
+                    <div class="f-c-item">
+                        <div class="f-c-icon"><i class="fa-solid fa-phone-flip"></i></div>
+                        <div class="f-c-text">
+                            <span>Điện thoại</span>
+                            <strong>0962705125</strong>
+                        </div>
+                    </div>
+                    <div class="f-c-item">
+                        <div class="f-c-icon"><i class="fa-solid fa-location-dot"></i></div>
+                        <div class="f-c-text">
+                            <span>Địa chỉ</span>
+                            <strong>Ngũ Hành Sơn, Tp. Đà Nẵng</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-col sponsor-col">
+                <div class="f-heading">
+                    <h4>Đối tác tài trợ</h4>
+                </div>
+                <p class="sponsor-desc">Đồng hành cùng sự nghiệp bảo tồn và số hóa di sản Lịch sử Việt Nam.</p>
+                
+                <div class="sponsors-grid">
+                    <div class="sponsor-badge" title="Tập đoàn Công nghệ Solvia">
+                        <i class="fa-solid fa-microchip"></i> <span>Solvia</span>
+                    </div>
+                    <div class="sponsor-badge" title="25DS Studio - AI Data Analysis">
+                        <i class="fa-solid fa-database"></i> <span>25DS</span>
+                    </div>
+                    <div class="sponsor-badge" title="Quỹ Phát triển Công nghệ & Giáo dục">
+                        <i class="fa-solid fa-graduation-cap"></i> <span>VKU</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom-bar">
+            <div class="f-copyright">
+                <i class="fa-solid fa-seedling" style="color: #22c55e;"></i>
+                <span>© 2026 Temporia. Bản quyền phát triển thuộc về Solvia.</span>
+            </div>
+            
+            <div class="f-bottom-links">
+                <a href="#">Điều khoản sử dụng</a>
+                <a href="#">Chính sách bảo mật</a>
+                <span class="f-credits">Thiết kế bởi <strong>25DS Team</strong></span>
+            </div>
+        </div>
+
+    </div>
+</footer>
+
+   <script src="js/trang-chu.js"></script>
+   <script src="js/main.js"></script>
+
+</body>
+</html>

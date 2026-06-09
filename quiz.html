@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="vi" class="temporia-app-root">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trung tâm Khảo thí - Temporia</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/quiz.css">
+</head>
+<body class="temporia-app-root">
+    <!-- NAVBAR -->
+<div class="page-transition-overlay"></div>
+
+    <nav class="navbar">
+        <a href="index.html" class="logo">
+            <img src="test/logox.png" alt="Temporia Logo">
+        </a>
+        <ul class="nav-menu">
+            <li><a href="trang-chu.html" >Trang chủ</a></li>
+            <li class="dropdown">
+                <a href="#">Khám phá <i class="fas fa-chevron-down dropdown-icon"></i></a>
+                <ul class="dropdown-content">
+                    <li><a href="lo-trinh.html"><i class="fas fa-map-signs fa-fw"></i> Lộ trình học</a></li>
+                    <li><a href="user-mindmap.html" class="locked-feature"><i class="fas fa-project-diagram fa-fw"></i> Sơ đồ tư duy</a></li>
+                    <li><a href="podcast-view.html" class="locked-feature"><i class="fas fa-podcast fa-fw"></i> Podcast</a></li>
+                </ul>
+            </li>
+            <li><a href="quiz.html" class="active">Quiz</a></li>
+            <li><a href="cong-dong.html">Cộng đồng</a></li>
+        </ul>
+        <div class="nav-auth">
+            <div id="guestMenu">
+                <a href="auth.html#login" class="btn-login">Đăng nhập</a>
+                <a href="auth.html#register" class="btn-register">Đăng ký</a>
+            </div>
+            
+            <div id="userMenu" class="user-menu-dropdown hidden">
+                <div class="user-menu-trigger">
+                    <img src="" alt="Avatar" id="navAvatar" class="nav-avatar-img">
+                    <span class="nav-user-name" id="navUserName">...</span>
+                    <i class="fas fa-chevron-down" style="font-size: 12px; color: #86868b; margin-left: 2px;"></i>
+                </div>
+                
+                <ul class="user-dropdown-content">
+                    <li><a href="tai-khoan.html"><i class="fas fa-user fa-fw"></i> Hồ sơ cá nhân</a></li>
+                    <li><a href="tai-khoan.html"><i class="fas fa-cog fa-fw"></i> Cài đặt hệ thống</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a href="javascript:void(0)" id="navBtnLogout" class="text-red"><i class="fas fa-sign-out-alt fa-fw"></i> Đăng xuất</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main class="quiz-dashboard-container">
+        
+        <section class="hero-interactive-banner scroll-reveal" id="heroBanner" onclick="nextAnnouncement()">
+            <div class="hero-glass-content" id="heroContent">
+                <div class="hero-badge" id="heroBadge"><i class="fa-solid fa-fire"></i> SỰ KIỆN MỚI</div>
+                <h1 class="hero-title" id="heroTitle">Cuộc thi: Hào khí Đông A sắp diễn ra</h1>
+                <p class="hero-desc" id="heroDesc">Tham gia ngay để tranh tài kiến thức về 3 lần kháng chiến chống Mông Nguyên. Những cá nhân xuất sắc nhất sẽ được ghi danh vào Bảng Vàng và nhận Huy hiệu Độc quyền từ Temporia.</p>
+            </div>
+            <div class="hero-interaction-hint"><i class="fa-solid fa-hand-pointer"></i> Chạm để xem tin tiếp</div>
+            <div class="hero-progress-dots" id="heroDots"></div>
+        </section>
+
+        <section class="content-interstitial scroll-reveal">
+            <h2 class="section-heading">Thao Trường Kỷ Nguyên Số</h2>
+            <p class="section-subtext">Chào mừng bạn đến với trung tâm khảo thí hiện đại bậc nhất, được thiết kế và tối ưu hóa độc quyền. Đây không chỉ là nơi để kiểm tra trí nhớ thuần túy, mà còn là một đấu trường thực thụ giúp bạn rèn giũa tư duy lịch sử đa chiều. Hãy vận dụng toàn bộ lượng kiến thức khổng lồ mà bạn đã tích lũy từ Lộ trình, Sơ đồ Tư duy và các tập Podcast để vượt qua các thử thách cam go. Mục tiêu cuối cùng là chinh phục những thành tựu danh giá và tự hào khẳng định bản lĩnh cá nhân trước hàng ngàn học giả trên toàn hệ sinh thái.</p>
+        </section>
+
+        <section class="dual-bento-layout scroll-reveal">
+            
+            <div class="bento-card card-contest" id="dynamicContestCard">
+                <div style="text-align: center; padding: 50px 20px; color: #94a3b8;">
+                    <i class="fa-solid fa-spinner fa-spin fa-2x"></i>
+                    <p style="margin-top: 15px; font-weight: 600;">Đang đồng bộ vệ tinh Đấu trường...</p>
+                </div>
+            </div>
+
+            <div class="bento-card card-practice">
+                <i class="fa-solid fa-graduation-cap card-bg-icon"></i>
+                <div class="card-head">
+                    <i class="fa-solid fa-crosshairs"></i> <span>Rèn Luyện Cá Nhân</span>
+                </div>
+                <p class="practice-desc">Hệ thống bài tập trắc nghiệm được phân bổ khoa học, bám sát nội dung từng giai đoạn của Lộ trình học. Bạn cần hoàn thành các bài tập này để mở khóa chương mới và thu thập kinh nghiệm (XP).</p>
+                
+                <div class="weekly-streak-container">
+                    <div class="ws-header">
+                        <span>Chuỗi học tập</span>
+                        <span class="text-orange"><i class="fa-solid fa-fire"></i> 4 ngày</span>
+                    </div>
+                    <div class="ws-days">
+                        <div class="ws-day done"><i class="fa-solid fa-check"></i></div>
+                        <div class="ws-day done"><i class="fa-solid fa-check"></i></div>
+                        <div class="ws-day done"><i class="fa-solid fa-check"></i></div>
+                        <div class="ws-day done"><i class="fa-solid fa-check"></i></div>
+                        <div class="ws-day">T6</div>
+                        <div class="ws-day">T7</div>
+                        <div class="ws-day">CN</div>
+                    </div>
+                </div>
+
+                <div class="recommend-box">
+                    <p class="rc-title">Đề xuất tiếp theo: <b>Bài 5 - Hào khí Đông A</b></p>
+                    <div class="rc-meta">
+                        <span><i class="fa-solid fa-folder-open"></i> 25 Câu</span>
+                        <span><i class="fa-regular fa-clock"></i> 30 Phút</span>
+                        <span class="text-orange"><i class="fa-solid fa-bolt"></i> TB</span>
+                    </div>
+                </div>
+
+                <div class="practice-stats">
+                    <div class="stat-col">
+                        <small>Tổng số bài</small>
+                        <strong>45</strong>
+                    </div>
+                    <div class="stat-col">
+                        <small>Đã hoàn thành</small>
+                        <strong class="text-green">12</strong>
+                    </div>
+                </div>
+
+                <a href="quiz-play.html" class="btn-secondary-gray">Vào Phòng Tập <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            </div>
+
+        </section>
+
+        <section class="split-content-layout scroll-reveal">
+            <div class="text-column">
+                <h2 class="section-heading">Bảng Vàng Danh Nhân</h2>
+                <p class="section-subtext">Nơi lưu danh những học giả xuất sắc nhất. Bảng xếp hạng được hệ thống cập nhật tự động theo thời gian thực, dựa trên tổng số điểm XP (Năng lượng Lịch sử) và Huy hiệu Thành tựu mà bạn đã dày công thu thập được trên toàn bộ hệ sinh thái Temporia.</p>
+                <p class="section-subtext">Sự kiên trì, bền bỉ và tinh thần ham học hỏi mỗi ngày sẽ là chiếc chìa khóa vàng để bạn vươn lên nấc thang danh vọng. Liệu bạn có đủ bản lĩnh để đánh bại các đối thủ nặng ký, ghi tên mình vào ngôi đền Huyền Thoại và trở thành nguồn cảm hứng bất tận cho hàng ngàn người dùng khác? Mọi nỗ lực của bạn đều sẽ được hệ thống ghi nhận một cách công bằng và minh bạch nhất.</p>
+                <button class="btn-outline-red" onclick="openLeaderboardModal()">Xem toàn bộ Bảng Vàng</button>
+            </div>
+
+            <div class="leaderboard-compact-column" onclick="openLeaderboardModal()" title="Bấm để xem chi tiết">
+                <div class="lb-compact-header">
+                    <h3>Bảng Vàng Danh Nhân</h3>
+                    <span class="live-tag">LIVE</span>
+                </div>
+                <p class="lb-compact-sub">Cập nhật thời gian thực</p>
+                <div class="lb-compact-list" id="generalLeaderboardList">
+                    </div>
+            </div>
+        </section>
+
+        <section class="contest-history-section scroll-reveal">
+            
+            <div class="ch-header-row">
+                <div class="ch-title-wrap">
+                    <h2 class="section-heading">Đỉnh Cao Cuộc Thi</h2>
+                    <p class="section-subtext">Mỗi cuộc thi tại hệ sinh thái của chúng tôi không chỉ là một bài sát hạch kiến thức thông thường, mà còn là một chuyến hành trình trí tuệ đầy cam go, đòi hỏi sự am hiểu tường tận và khả năng phản xạ tuyệt vời. Đây là đấu trường hội tụ những bộ óc ưu tú nhất, nơi lịch sử dân tộc được tái hiện qua từng câu hỏi sắc bén và đầy tính tư duy.</p>
+                </div>
+            </div>
+
+            <div class="ch-filter-wrap-large">
+                <h4 style="margin: 0; color: #1e293b; font-size: 1.05rem;">Bảng Kết Quả Các Mùa Giải:</h4>
+                
+                <div class="custom-dropdown-wrapper" id="contestDropdown">
+                    <div class="custom-dropdown-trigger" onclick="toggleContestDropdown(event)">
+                        <span id="contestDropdownText">Giải Vô Địch Quý 2: Chiến thắng Bạch Đằng</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                    <ul class="custom-dropdown-options">
+                        <li onclick="selectContestOption('q2', 'Giải Vô Địch Quý 2: Chiến thắng Bạch Đằng')">Giải Vô Địch Quý 2: Chiến thắng Bạch Đằng</li>
+                        <li onclick="selectContestOption('q1', 'Giải Vô Địch Quý 1: Khởi nghĩa Lam Sơn')">Giải Vô Địch Quý 1: Khởi nghĩa Lam Sơn</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="horizontal-cards-container" id="contestHorizontalList">
+                </div>
+            
+            <div class="ch-footer-text scroll-reveal" style="margin-top: 40px; border-top: 1px solid #f1f5f9; padding-top: 30px;">
+                <p class="section-subtext" style="font-style: italic; color: #475569;">* Chúng tôi xin gửi lời chúc mừng nồng nhiệt và vinh danh những cá nhân đã xuất sắc vượt qua hàng ngàn thí sinh khác để chạm tay đến những ngôi vị cao nhất. Bảng vàng thành tích này là minh chứng rõ nét cho sự nỗ lực không ngừng nghỉ, niềm đam mê sử học cháy bỏng và trí tuệ mẫn tiệp của các bạn. Chúc các sĩ tử sẽ tiếp tục giữ vững ngọn lửa đam mê, lan tỏa tình yêu lịch sử đến cộng đồng và gặt hái thêm nhiều thành tựu vang dội trong những mùa giải tiếp theo!</p>
+            </div>
+
+        </section>
+
+        <div style="height: 80px;"></div>
+    </main>
+
+    <div class="modal-overlay" id="lbModalOverlay" onclick="closeLeaderboardModal()">
+        <div class="modal-content single-col-modal" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <div class="modal-icon-bg"><i class="fa-solid fa-crown" style="color:#f59e0b; font-size: 1.5rem;"></i></div>
+                    <div>
+                        <h2 style="font-size: 1.5rem; margin: 0; color: #1e293b;">Bảng Vàng Toàn Diện</h2>
+                        <p style="margin: 5px 0 0 0; color: #64748b; font-size: 0.85rem;">Top 50 học giả dẫn đầu hệ sinh thái</p>
+                    </div>
+                </div>
+                <button class="btn-close-modal" onclick="closeLeaderboardModal()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="full-lb-list" id="fullLeaderboardList">
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="temporia-global-footer">
+    
+    <div class="footer-bg-wrapper">
+        <img src="images/footer-bg.jpg" alt="Background" class="footer-bg-img" onerror="this.src='test/NPTx.png'">
+        <div class="footer-glass-overlay"></div>
+    </div>
+
+    <div class="container-full footer-content-container">
+        <div class="footer-main-grid">
+            
+            <div class="footer-col brand-col">
+                <div class="footer-logo">
+                    <span class="logo-text"><a href="index.html" class="logo" >
+            <img src="test/logox.png" alt="Temporia Logo" style="width: 180px; height: auto;">
+        </a></span>
+                </div>
+                <p class="footer-desc">
+                    Hành trình ngược dòng thời gian, chạm vào những trang sử thiêng liêng và hào hùng của dân tộc Việt Nam qua lăng kính công nghệ tương tác hiện đại.
+                </p>
+                <div class="footer-socials">
+                    <a href="#" class="f-social-btn" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="f-social-btn" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#" class="f-social-btn" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="#" class="f-social-btn" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-col links-col">
+                <div class="f-heading">
+                    <h4>Liên kết nhanh</h4>
+                </div>
+                <ul class="f-links-list">
+                    <li><a href="#">Trang chủ</a></li>
+                    <li><a href="#">Khám phá dòng sử</a></li>
+                    <li><a href="#">Hệ thống Quiz</a></li>
+                    <li><a href="#">Cộng đồng sử học</a></li>
+                    <li><a href="#">Về Đội ngũ phát triển</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col links-col">
+                <div class="f-heading">
+                    <h4>Tính năng</h4>
+                </div>
+                <ul class="f-links-list">
+                    <li><a href="#">Bản đồ thời gian 3D</a></li>
+                    <li><a href="#">Hồ sơ danh nhân</a></li>
+                    <li><a href="#">Bảng vàng leo Rank</a></li>
+                    <li><a href="#">Sưu tầm 200+ Huy hiệu</a></li>
+                    <li><a href="#">Hồ sơ thành tích cá nhân</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col contact-col">
+                <div class="f-heading">
+                    <h4>Liên hệ</h4>
+                </div>
+                <div class="f-contact-info">
+                    <div class="f-c-item">
+                        <div class="f-c-icon"><i class="fa-regular fa-envelope"></i></div>
+                        <div class="f-c-text">
+                            <span>Email</span>
+                            <strong>temporiahistory@gmail.com</strong>
+                        </div>
+                    </div>
+                    <div class="f-c-item">
+                        <div class="f-c-icon"><i class="fa-solid fa-phone-flip"></i></div>
+                        <div class="f-c-text">
+                            <span>Điện thoại</span>
+                            <strong>0962705125</strong>
+                        </div>
+                    </div>
+                    <div class="f-c-item">
+                        <div class="f-c-icon"><i class="fa-solid fa-location-dot"></i></div>
+                        <div class="f-c-text">
+                            <span>Địa chỉ</span>
+                            <strong>Ngũ Hành Sơn, Tp. Đà Nẵng</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-col sponsor-col">
+                <div class="f-heading">
+                    <h4>Đối tác tài trợ</h4>
+                </div>
+                <p class="sponsor-desc">Đồng hành cùng sự nghiệp bảo tồn và số hóa di sản Lịch sử Việt Nam.</p>
+                
+                <div class="sponsors-grid">
+                    <div class="sponsor-badge" title="Tập đoàn Công nghệ Solvia">
+                        <i class="fa-solid fa-microchip"></i> <span>Solvia</span>
+                    </div>
+                    <div class="sponsor-badge" title="25DS Studio - AI Data Analysis">
+                        <i class="fa-solid fa-database"></i> <span>25DS</span>
+                    </div>
+                    <div class="sponsor-badge" title="Quỹ Phát triển Công nghệ & Giáo dục">
+                        <i class="fa-solid fa-graduation-cap"></i> <span>VKU</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom-bar">
+            <div class="f-copyright">
+                <i class="fa-solid fa-seedling" style="color: #22c55e;"></i>
+                <span>© 2026 Temporia. Bản quyền phát triển thuộc về Solvia.</span>
+            </div>
+            
+            <div class="f-bottom-links">
+                <a href="#">Điều khoản sử dụng</a>
+                <a href="#">Chính sách bảo mật</a>
+                <span class="f-credits">Thiết kế bởi <strong>25DS Team</strong></span>
+            </div>
+        </div>
+
+    </div>
+</footer>
+ <script src="js/main.js"></script>
+    <script src="js/quiz.js"></script>
+</body>
+</html>

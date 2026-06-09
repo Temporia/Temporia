@@ -1,0 +1,224 @@
+/* ========================================================================= */
+/* CSS TRANG AUTH - TỐI ƯU HÓA ANIMATION MƯỢT 60FPS & ĐỒNG BỘ NỀN            */
+/* ========================================================================= */
+
+body.temporia-auth-page {
+    background-color: #F5F5F7 !important;
+    color: #1D1D1F !important;
+    font-family: 'Be Vietnam Pro', sans-serif !important;
+    min-height: 100vh !important; width: 100vw !important;
+    display: flex !important; flex-direction: column !important;
+    margin: 0 !important; padding: 0 !important;
+    overflow-x: hidden !important;
+}
+
+.temporia-auth-page .page-transition-overlay { pointer-events: none !important; opacity: 0 !important; }
+
+/* --- 1. THANH MENU: HIỆU ỨNG TRƯỢT BI SÁNG NẢY APPLE SPRING --- */
+.nav-auth {
+    position: relative !important;
+    display: flex !important; align-items: center !important;
+    background: rgba(0, 0, 0, 0.05) !important;
+    padding: 4px !important;
+    border-radius: 20px !important;
+    z-index: 10 !important;
+}
+
+/* Viên bi trượt ngầm */
+.nav-auth::before {
+    content: "" !important;
+    position: absolute !important;
+    top: 4px !important; left: 4px !important;
+    width: calc(50% - 4px) !important; 
+    height: calc(100% - 8px) !important;
+    background: #ffffff !important; 
+    border-radius: 16px !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+    z-index: 1 !important;
+    
+    /* CHÚ Ý: KHÔNG để transition ở đây nữa */
+}
+.nav-auth.animation-ready::before {
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                background 0.5s ease, 
+                box-shadow 0.5s ease !important;
+}
+.nav-auth.slide-active::before {
+    transform: translateX(100%) !important;
+    background: linear-gradient(90deg, #ef4444, #dc2626) !important;
+    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3) !important;
+}
+
+/* Trạng thái trượt sang phải */
+.nav-auth.slide-active::before {
+    transform: translateX(100%) !important;
+    background: linear-gradient(90deg, #ef4444, #dc2626) !important;
+    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3) !important;
+}
+
+/* Nút bấm Menu gốc */
+.nav-auth a.btn-login, .nav-auth a.btn-register {
+    position: relative !important; z-index: 2 !important;
+    background: transparent !important; box-shadow: none !important;
+    padding: 8px 20px !important; margin: 0 !important;
+    font-size: 14px !important; font-weight: 700 !important;
+    color: #475569 !important; 
+    transition: color 0.3s ease !important; /* Đổi màu chữ êm ái */
+}
+
+.nav-auth:not(.slide-active) a.btn-login { color: #1D1D1F !important; font-weight: 800 !important; }
+.nav-auth.slide-active a.btn-register { color: #ffffff !important; font-weight: 800 !important; }
+
+
+/* --- 2. KHU VỰC FORM TRUNG TÂM --- */
+.auth-main-area {
+    flex-grow: 1 !important; display: flex !important; align-items: center !important; justify-content: center !important;
+    padding: 120px 20px 60px !important; box-sizing: border-box !important; width: 100% !important;
+}
+
+.auth-glass-card {
+    width: 100% !important; max-width: 480px !important; margin: auto !important;
+    background: rgba(255, 255, 255, 0.65) !important;
+    backdrop-filter: blur(25px) !important; -webkit-backdrop-filter: blur(25px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.8) !important;
+    border-radius: 36px !important; padding: 45px 40px !important;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05), inset 0 2px 0 rgba(255, 255, 255, 0.8) !important;
+    box-sizing: border-box !important;
+    animation: glassCardDrop 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+    position: relative !important; 
+    z-index: 2 !important;
+
+}
+
+@keyframes glassCardDrop {
+    0% { opacity: 0; transform: translateY(-40px) scale(0.96); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+/* Tiêu đề */
+.auth-header { margin-bottom: 25px !important; transition: all 0.3s ease !important; }
+.auth-badge { font-family: inherit !important; font-size: 12px !important; font-weight: 800 !important; color: #dc2626 !important; text-transform: uppercase !important; letter-spacing: 1.5px !important; display: block !important; margin-bottom: 6px !important; }
+.auth-title { font-family: inherit !important; font-size: 32px !important; font-weight: 900 !important; color: #1D1D1F !important; margin: 0 0 4px 0 !important; }
+.auth-subtitle { font-family: inherit !important; font-size: 14px !important; color: #86868B !important; margin: 0 !important; }
+
+/* --- 3. BÍ QUYẾT MƯỢT FORM: CƠ CHẾ FADE ANIMATION --- */
+.auth-form-group { 
+    display: flex !important; flex-direction: column !important; gap: 16px !important; margin: 0 !important; 
+    
+    /* Thiết lập sẵn Transition để form trôi nổi êm ái */
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    transition: opacity 0.3s ease, transform 0.3s ease !important;
+}
+
+/* Class hỗ trợ JS làm mờ form trước khi ẩn hẳn */
+.auth-form-group.form-fade {
+    opacity: 0 !important;
+    transform: translateY(15px) !important;
+    pointer-events: none !important;
+}
+
+.auth-form-group.hidden { display: none !important; }
+
+/* Các ô Input và Tiện ích (Giữ nguyên cấu trúc tinh xảo của bạn) */
+.split-inputs { display: flex !important; gap: 12px !important; width: 100% !important; }
+.split-inputs .input-block { flex: 1 !important; min-width: 0 !important; }
+
+.input-block { display: flex !important; flex-direction: column !important; gap: 6px !important; text-align: left !important; }
+.input-block label { font-family: inherit !important; font-size: 13px !important; font-weight: 700 !important; color: #1D1D1F !important; margin: 0 !important; }
+
+.input-wrapper { position: relative !important; display: flex !important; align-items: center !important; width: 100% !important; }
+.field-icon { position: absolute !important; left: 16px !important; color: #86868B !important; font-size: 15px !important; z-index: 2 !important; }
+
+.input-wrapper input {
+    width: 100% !important; padding: 14px 16px 14px 44px !important;
+    background: rgba(255, 255, 255, 0.7) !important; border: 1px solid rgba(0, 0, 0, 0.08) !important; border-radius: 16px !important;
+    font-family: inherit !important; font-size: 14px !important; color: #1D1D1F !important;
+    outline: none !important; transition: 0.3s ease !important; box-sizing: border-box !important; margin: 0 !important;
+}
+.input-wrapper input[type="date"] { padding-left: 16px !important; color: #86868B !important; }
+.input-wrapper input:focus { background: #ffffff !important; border-color: #dc2626 !important; box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.1) !important; }
+
+.auth-options { display: flex !important; justify-content: space-between !important; align-items: center !important; font-size: 13px !important; font-weight: 600 !important; padding: 0 2px !important; }
+.remember-label { display: flex !important; align-items: center !important; gap: 6px !important; color: #86868B !important; cursor: pointer !important; font-family: inherit !important; margin: 0 !important; }
+.remember-label input { accent-color: #dc2626 !important; cursor: pointer !important; }
+.forgot-link { font-family: inherit !important; color: #dc2626 !important; text-decoration: none !important; transition: 0.2s !important; }
+.forgot-link:hover { color: #b91c1c !important; text-decoration: underline !important; }
+
+/* Nút Submit */
+.auth-submit-btn {
+    margin-top: 6px !important; padding: 15px !important; width: 100% !important;
+    background: linear-gradient(90deg, #ef4444, #dc2626) !important; border: none !important; border-radius: 16px !important; color: #ffffff !important;
+    font-family: inherit !important; font-size: 15px !important; font-weight: 800 !important; cursor: pointer !important; transition: 0.3s !important; box-shadow: 0 8px 20px rgba(220, 38, 38, 0.2) !important;
+}
+.auth-submit-btn:hover:not(:disabled) { transform: translateY(-2px) !important; box-shadow: 0 12px 25px rgba(220, 38, 38, 0.3) !important; }
+.auth-submit-btn:disabled { opacity: 0.7 !important; cursor: wait !important; }
+
+.btn-register-style { background: linear-gradient(90deg, #3b82f6, #2563eb) !important; box-shadow: 0 8px 20px rgba(37, 99, 235, 0.2) !important; }
+.btn-register-style:hover:not(:disabled) { box-shadow: 0 12px 25px rgba(37, 99, 235, 0.3) !important; }
+
+.switch-mode-hint { font-family: inherit !important; text-align: center !important; font-size: 13px !important; color: #86868B !important; margin-top: 4px !important; }
+.switch-mode-hint a { font-family: inherit !important; color: #dc2626 !important; text-decoration: none !important; font-weight: 800 !important; margin-left: 4px !important; transition: 0.2s !important; }
+.switch-mode-hint a:hover { color: #b91c1c !important; }
+
+/* Nút quay lại cho các form phụ */
+.auth-back {
+    font-size: 13px !important;
+    color: #86868B !important;
+    cursor: pointer !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    margin-bottom: 12px !important;
+    font-weight: 600 !important;
+    transition: color 0.2s ease !important;
+    width: fit-content !important;
+}
+.auth-back:hover { 
+    color: #dc2626 !important; 
+}
+
+/* ========================================================================= */
+/* HỌA TIẾT BẢN ĐỒ CHÌM GÓC DƯỚI BÊN PHẢI                                    */
+/* ========================================================================= */
+
+.water-map-decoration {
+    position: fixed;
+    bottom: 0vh;
+    right: 1vw;
+    width: 497px;
+    height: 850px;
+    z-index: 0;
+    
+    opacity: 0.30;
+    pointer-events: auto !important; 
+   
+    
+    /* 2. THÊM DÒNG NÀY ĐỂ KHI NỔI SÁNG SẼ CHUYỂN ĐỘNG MƯỢT MÀ, KHÔNG BỊ GIẬT */
+    transition: transform 0.4s ease, opacity 0.4s ease, filter 0.4s ease !important;
+}
+/* HIỆU ỨNG DI CHUỘT VÀO HÌNH VIỆT NAM */
+.water-map-decoration:hover {
+    opacity: 0.70 !important; /* Tăng độ rõ nét từ 0.30 lên 0.70 */
+    
+    /* Tạo hiệu ứng tăng nhẹ độ sáng (brightness) và tỏa hào quang vàng ấm (hợp tone lịch sử) */
+    filter: brightness(1.1) drop-shadow(0 0 30px rgba(212, 163, 89, 0.5)) !important; 
+    
+    /* Hơi nhích nhẹ hình lên một chút tạo cảm giác chuyển động 3D sinh động */
+    transform: translateY(-5px) !important; 
+}
+
+/* Lớp sương mù che phủ để rìa bản đồ tan từ từ vào nền web, không bị sắc cạnh */
+.water-map-decoration::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    /* Phủ sương từ tâm ra ngoài */
+    background: radial-gradient(circle, transparent 60%, #f9fafb 85%); 
+}
+
+.bg-map-art {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: bottom right; /* Ép hình neo chặt về góc dưới phải */
+}

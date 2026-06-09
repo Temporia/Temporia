@@ -1,0 +1,329 @@
+/* ========================================================= */
+/* ARENA STYLING - GIAO DIỆN NỀN TRẮNG HIỆN ĐẠI              */
+/* ========================================================= */
+
+
+:root {
+    --bg-color: #f9f9fb; /* Xám cực nhạt, sang trọng */
+    --card-bg: #ffffff;
+    --text-main: #1d1d1f;
+    --text-dim: #86868b;
+    --solvia-red: #b91c1c;
+    --border-color: #f2f2f7;
+}
+:root {
+    --bg-apple: #F5F5F7; /* Nền xám bạc sang trọng */
+    --glass-bg: rgba(255, 255, 255, 0.65);
+    --glass-border: rgba(255, 255, 255, 0.8);
+    --text-dark: #dc2626 !important;
+    --text-dim: #86868B !important;
+    --accent-yellow: #facc15;
+    --accent-light-yellow: #fef08a;
+}
+
+/* 2. ÉP BUỘC BODY SANG NỀN SÁNG (GHI ĐÈ GLOBAL.CSS) */
+body {
+    background-color: var(--bg-apple) !important;
+    background-image: none !important; /* Xóa mọi background tối màu từ global */
+    color: var(--text-dark) !important;
+    padding: 0; margin: 0;
+}
+
+/* 3. GHI ĐÈ THANH MENU (GIỮ KÍNH TRONG, ĐỔI CHỮ SANG ĐEN NHÁM) */
+/* 3. GHI ĐÈ THANH MENU (KÍNH SIÊU TRONG SUỐT) */
+.navbar {
+    /* Đưa nền trắng về mức gần như tàng hình (chỉ 5%) */
+    background: rgba(255, 255, 255, 0.05) !important; 
+    
+    /* Ép buộc hiệu ứng làm nhòe (blur) hoạt động mạnh để tạo chất kính */
+    backdrop-filter: blur(30px) saturate(150%) !important;
+    -webkit-backdrop-filter: blur(30px) saturate(150%) !important;
+    
+    /* Làm mỏng đổ bóng để thanh menu nhẹ bẫng, lơ lửng */
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.4) !important;
+    
+    /* Viền kính mỏng tang */
+    border-top: 1px solid rgba(255, 255, 255, 0.4) !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.02) !important;
+    border-left: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Chỉnh chữ menu thành đen nhám, bỏ bóng sáng */
+.nav-brand, .nav-menu > li > a { text-shadow: none !important; color: var(--text-dim) !important; }
+.nav-brand { color: var(--text-dark) !important; }
+.nav-menu > li > a:hover, .nav-menu > li > a.active { color: var(--text-dark) !important; font-weight: 600; }
+
+/* Menu con (Dropdown) */
+.dropdown-content {
+    background: rgba(255, 255, 255, 0.85) !important;
+    border: 1px solid rgba(0, 0, 0, 0.05) !important;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1) !important;
+}
+.dropdown-content li a { color: var(--text-dim) !important; }
+.dropdown-content li a:hover { background: rgba(0, 0, 0, 0.04) !important; color: var(--text-dark) !important; }
+
+/* Nút đăng nhập/Đăng ký */
+.btn-login { color: var(--text-dim) !important; text-shadow: none !important; }
+.btn-login:hover { color: var(--text-dark) !important; }
+.btn-register { background-color: #dc2626 !important; color: #FFFFFF !important; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important; text-shadow: none !important;}
+.btn-register:hover { background-color: #000000 !important; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15) !important; }
+
+/* ========================================================================= */
+
+/* 4. BỐ CỤC CHÍNH */
+.dashboard-layout {
+    padding: 120px 50px 50px 50px; /* Cách đỉnh 120px để né thanh menu */
+    max-width: 1400px;
+    margin: 0 auto;
+}
+body.temporia-app-root { background-color: #fbfbfd !important; color: #1e293b; overflow-y: auto; }
+
+.arena-container { max-width: 1000px; margin: 100px auto 60px; padding: 0 30px; }
+
+.arena-header { text-align: center; margin-bottom: 50px; }
+.arena-title { font-size: 2.4rem; font-weight: 800; color: #1e293b; margin: 0 0 10px 0; }
+.arena-subtitle { color: #64748b; font-size: 1.05rem; line-height: 1.6; max-width: 700px; margin: 0 auto; }
+
+/* THIẾT KẾ THẺ CUỘC THI NỔI LÊN TRÊN NỀN TRẮNG */
+.battle-card {
+    background: #fff;
+    border-radius: 28px;
+    padding: 35px 40px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.04);
+    border: 1px solid #f1f5f9;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    transition: 0.3s;
+}
+
+.battle-card:hover { transform: translateY(-3px); box-shadow: 0 15px 50px rgba(0,0,0,0.06); }
+
+/* Đang diễn ra: MÀU ĐỎ NỔI BẬT */
+.battle-card.is-live { 
+    border-color: #fca5a5; 
+    box-shadow: 0 15px 40px rgba(220, 38, 38, 0.08); 
+}
+
+.bc-header { display: flex; justify-content: space-between; align-items: flex-start; }
+.bc-title { font-size: 1.6rem; font-weight: 800; color: #1e293b; margin: 0 0 8px 0; }
+.bc-desc { color: #64748b; margin: 0; font-size: 0.95rem; font-weight: 600; }
+
+/* NHÃN TRẠNG THÁI */
+.bc-status { padding: 8px 18px; border-radius: 100px; font-weight: 800; font-size: 0.85rem; display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.bc-status.live { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; animation: pulseRed 2s infinite; }
+.bc-status.upcoming { background: #f8fafc; color: #64748b; border: 1px solid #e2e8f0; }
+.bc-status.ended { background: #f1f5f9; color: #94a3b8; }
+
+@keyframes pulseRed { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.8; transform: scale(0.98); } }
+
+/* KHUNG CHỨA THÔNG SỐ (Lưới 4 ô) */
+.bc-info-grid { 
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px; 
+    background: #f8fafc; padding: 20px 25px; border-radius: 20px; border: 1px solid #f1f5f9; 
+}
+.bc-info-item small { display: block; color: #94a3b8; font-size: 0.75rem; font-weight: 800; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.5px; }
+.bc-info-item strong { color: #1e293b; font-size: 1.1rem; font-weight: 800; }
+
+/* NÚT THAM CHIẾN */
+.btn-enter-battle { 
+    background: #1e293b; color: #fff; padding: 16px 30px; border-radius: 16px; 
+    font-size: 1.05rem; font-weight: 800; border: none; cursor: pointer; transition: 0.2s; 
+    display: flex; gap: 10px; align-items: center; justify-content: center; 
+}
+.battle-card.is-live .btn-enter-battle { background: #dc2626; } /* Nút đỏ nếu đang thi */
+.battle-card.is-live .btn-enter-battle:hover { background: #b91c1c; transform: scale(1.02); }
+.btn-enter-battle:disabled { background: #cbd5e1; cursor: not-allowed; color: #94a3b8; }
+
+/* Animation mượt mà */
+.anim-fade-up { opacity: 0; animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ========================================================= */
+/* CẤU HÌNH MỞ RỘNG THẺ ARENA & FIX TRIỆT ĐỂ LỖI PHÔNG CHỮ   */
+/* ========================================================= */
+
+/* Ép tăng padding để thẻ cao ráo, thoáng đãng hơn */
+.battle-card {
+    padding: 45px 50px !important;
+    gap: 30px !important;
+}
+
+/* Khung thông tin mở rộng dưới tiêu đề */
+.bc-extended-info {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    border-top: 1px dashed #e2e8f0;
+    padding-top: 25px;
+}
+
+.bc-extended-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+/* Khóa cứng phông chữ Be Vietnam Pro chống lỗi ký tự lạ */
+.bc-ext-label {
+    font-family: 'Be Vietnam Pro', sans-serif !important;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #1e293b;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.bc-ext-label i {
+    color: #dc2626;
+    font-size: 0.9rem;
+    width: 16px;
+    text-align: center;
+}
+
+.bc-ext-val {
+    font-family: 'Be Vietnam Pro', sans-serif !important;
+    font-size: 0.95rem;
+    color: #475569;
+    line-height: 1.6;
+    text-align: justify;
+}
+
+/* Ép font chữ chuẩn cho khu vực ngày giờ để hiển thị chuẩn xác dấu gạch */
+.bc-info-item strong {
+    font-family: 'Be Vietnam Pro', sans-serif !important;
+    font-weight: 700 !important;
+    font-size: 1rem !important;
+}
+/* ========================================================= */
+/* LEADERBOARD MODAL STYLES                                  */
+/* ========================================================= */
+.lb-item { display: flex; align-items: center; gap: 15px; padding: 12px 15px; border-radius: 16px; margin-bottom: 10px; background: #f8fafc; border: 1px solid #f1f5f9; transition: 0.2s; }
+.lb-item:hover { transform: translateX(5px); background: #fff; border-color: #cbd5e1; box-shadow: 0 5px 15px rgba(0,0,0,0.03); }
+
+/* Top 1, 2, 3 mạ vàng/bạc/đồng */
+.lb-item.top-1 { background: #fffbeb; border-color: #fde68a; box-shadow: 0 5px 15px rgba(245, 158, 11, 0.1); }
+.lb-item.top-2 { background: #f1f5f9; border-color: #cbd5e1; }
+.lb-item.top-3 { background: #ffedd5; border-color: #fdba74; }
+
+.lb-rank { width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1rem; flex-shrink: 0; background: #e2e8f0; color: #64748b; }
+.top-1 .lb-rank { background: #f59e0b; color: #fff; }
+.top-2 .lb-rank { background: #94a3b8; color: #fff; }
+.top-3 .lb-rank { background: #d97706; color: #fff; }
+
+.lb-avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 2px solid #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+.lb-info { flex: 1; }
+.lb-name { font-weight: 800; color: #1e293b; font-size: 0.95rem; margin: 0 0 3px 0; }
+.lb-score { color: #dc2626; font-weight: 800; font-size: 1.1rem; }
+
+/* ========================================================= */
+/* FIX LỖI KHÓA CUỘN (XUNG ĐỘT VỚI GIAO DIỆN QUIZ)           */
+/* ========================================================= */
+
+/* Mở khóa cuộn dọc cho toàn bộ trang Đấu trường */
+body.temporia-app-root {
+    overflow-y: auto !important; 
+    overflow-x: hidden !important;
+}
+
+/* Cho phép sảnh chờ thoải mái mở rộng chiều cao */
+#arenaLobby {
+    min-height: 100vh;
+}
+
+/* Đảm bảo phòng thi khi hiện ra cũng cuộn mượt mà cùng trang */
+#arenaBattlefield .qp-main-area {
+    height: auto !important;
+    min-height: calc(100vh - 100px);
+    overflow: visible !important;
+}
+/* ========================================================= */
+/* FIX LỖI GIAO DIỆN PHÒNG THI BỊ ĐẨY LÊN TRÊN ĐÈ VÀO MENU   */
+/* ========================================================= */
+
+#arenaBattlefield {
+    margin-top: 100px !important; /* Đẩy khung làm bài xuống dưới thanh Menu */
+    padding-bottom: 50px !important; /* Thêm khoảng trống ở đáy để cuộn thoải mái */
+}
+
+/* Đảm bảo thanh Menu của Đấu trường luôn nổi lên trên cùng (z-index cao nhất) */
+.qp-navbar {
+    z-index: 9999 !important;
+}
+
+/* ========================================================= */
+/* FIX GIAO DIỆN: THẺ HẾT HẠN (MỜ ĐI) & BẢNG XẾP HẠNG MỚI    */
+/* ========================================================= */
+
+/* 1. Thẻ cuộc thi hết hạn bị làm mờ, đẩy xuống đáy */
+.battle-card.is-expired {
+    opacity: 0.65;
+    filter: grayscale(0.8);
+    background: #f8fafc;
+    border-color: #e2e8f0;
+}
+.battle-card.is-expired:hover {
+    opacity: 0.8;
+    filter: grayscale(0.2);
+}
+
+/* 2. Mở rộng Modal Bảng xếp hạng to ra */
+#leaderboardModal .custom-confirm-box {
+    max-width: 850px !important; /* To rộng ra để chứa đủ thông tin */
+}
+#leaderboardContent {
+    background: #f1f5f9 !important; /* Nền xám nhạt để thẻ trắng nổi lên */
+    padding: 30px !important;
+}
+
+/* 3. Thiết kế Thẻ User trong Bảng Xếp Hạng (Giống ảnh yêu cầu) */
+/* ========================================================= */
+/* THIẾT KẾ LẠI THẺ BẢNG VÀNG: TÁCH ĐIỂM SỐ RA GÓC PHẢI      */
+/* ========================================================= */
+.lb-pro-card {
+    background: #fff;
+    border-radius: 24px;
+    padding: 20px 25px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+    border: 1px solid transparent;
+    transition: 0.3s;
+}
+.lb-pro-card:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+
+/* Số thứ tự & Avatar */
+.lb-pro-rank { font-size: 1.8rem; font-weight: 800; color: #94a3b8; width: 40px; text-align: center; flex-shrink: 0; }
+.top-1 .lb-pro-rank { color: #f59e0b; } 
+.top-2 .lb-pro-rank { color: #94a3b8; } 
+.top-3 .lb-pro-rank { color: #d97706; } 
+.lb-pro-avatar { width: 65px; height: 65px; border-radius: 18px; object-fit: cover; box-shadow: 0 4px 10px rgba(0,0,0,0.08); flex-shrink: 0; }
+
+/* Thông tin cá nhân (Đẩy sang trái) */
+.lb-pro-info { flex: 1; display: flex; flex-direction: column; gap: 8px; }
+.lb-pro-name { font-size: 1.25rem; font-weight: 800; color: #1e293b; margin: 0; display: flex; align-items: center; gap: 8px; }
+.verify-tick { color: #0ea5e9; font-size: 1rem; }
+
+/* Bọc các thẻ trạng thái thành 1 hàng ngang gọn gàng */
+.lb-pro-stats { display: flex; gap: 10px; flex-wrap: wrap; }
+.stat-tag { font-size: 0.8rem; color: #475569; font-weight: 700; background: #f1f5f9; padding: 6px 12px; border-radius: 8px; display: inline-flex; align-items: center; gap: 6px; }
+.stat-tag.badge i { color: #dc2626; }
+.stat-tag.streak i { color: #f59e0b; }
+.stat-tag.rank { background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; }
+
+/* Thanh Tiến độ */
+.lb-pro-bar-bg { width: 100%; height: 6px; background: #e2e8f0; border-radius: 10px; overflow: hidden; margin-top: 5px; }
+.lb-pro-bar-fill { height: 100%; background: #3b82f6; border-radius: 10px; }
+
+/* ĐIỂM SỐ TÁCH BIỆT (GÓC PHẢI) */
+.lb-pro-score-box {
+    display: flex; flex-direction: column; align-items: flex-end; justify-content: center;
+    padding-left: 25px; border-left: 1px dashed #cbd5e1; flex-shrink: 0; min-width: 100px;
+}
+.score-label { font-size: 0.75rem; font-weight: 800; color: #94a3b8; letter-spacing: 1px; margin-bottom: 5px; }
+.score-val { font-size: 2rem; font-weight: 800; color: #dc2626; line-height: 1; }

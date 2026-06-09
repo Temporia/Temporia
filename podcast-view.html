@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="vi" class="temporia-app-root">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Postcard Âm Thanh - Temporia</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="css/global.css"> 
+    <link rel="stylesheet" href="css/lo-trinh.css"> <link rel="stylesheet" href="css/podcast.css"> 
+</head>
+
+<body class="temporia-app-root">
+    <nav class="navbar">
+        <a href="index.html" class="logo">
+            <img src="test/logox.png" alt="Temporia Logo">
+        </a>
+        <ul class="nav-menu">
+            <li><a href="trang-chu.html">Trang chủ</a></li>
+            <li class="dropdown">
+                <a href="#" class="active">Khám phá <i class="fas fa-chevron-down dropdown-icon"></i></a>
+                <ul class="dropdown-content">
+                    <li><a href="lo-trinh.html"><i class="fas fa-map-signs fa-fw"></i> Lộ trình học</a></li>
+                    <li><a href="user-mindmap.html" class="locked-feature"><i class="fas fa-project-diagram fa-fw"></i> Sơ đồ tư duy</a></li>
+                    <li><a href="podcast-view.html" class="locked-feature"><i class="fas fa-podcast fa-fw"></i> Podcast</a></li>
+                </ul>
+            </li>
+            <li><a href="quiz.html">Quiz</a></li>
+            <li><a href="cong-dong.html">Cộng đồng</a></li>
+        </ul>
+        <div class="nav-auth">
+            <div id="guestMenu">
+                <a href="auth.html#login" class="btn-login">Đăng nhập</a>
+                <a href="auth.html#register" class="btn-register">Đăng ký</a>
+            </div>
+            
+            <div id="userMenu" class="user-menu-dropdown hidden">
+                <div class="user-menu-trigger">
+                    <img src="" alt="Avatar" id="navAvatar" class="nav-avatar-img">
+                    <span class="nav-user-name" id="navUserName">...</span>
+                    <i class="fas fa-chevron-down" style="font-size: 12px; color: #86868b; margin-left: 2px;"></i>
+                </div>
+                
+                <ul class="user-dropdown-content">
+                    <li><a href="tai-khoan.html"><i class="fas fa-user fa-fw"></i> Hồ sơ cá nhân</a></li>
+                    <li><a href="tai-khoan.html"><i class="fas fa-cog fa-fw"></i> Cài đặt hệ thống</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a href="javascript:void(0)" id="navBtnLogout" class="text-red"><i class="fas fa-sign-out-alt fa-fw"></i> Đăng xuất</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="roadmap-app-layout">
+        <aside class="roadmap-sidebar" style="background: #fff; border-right: 1px solid #f2f2f7;">
+            <div class="sidebar-content-wrapper">
+                <div class="sidebar-card" style="box-shadow: none; border: none;">
+                    <h3 class="sidebar-title">Danh mục Postcard</h3>
+                    <div class="roadmap-nav-list" id="podcastSidebarList">
+                        <div style="padding: 20px; text-align: center; color: #94a3b8;"><i class="fa-solid fa-spinner fa-spin"></i> Đang tải...</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="roadmap-main-reader" id="podcastMainContent">
+            <div class="reader-container" id="podcastViewContainer">
+                
+                <div id="podcast-intro" class="content-segment active">
+                    <div class="intro-hero-premium">
+                        <div class="audio-wave-visual">
+                            <span></span><span></span><span></span><span></span><span></span>
+                        </div>
+                        <h1 class="playfair-title">Không Gian <br><span>Âm Vang Di Sản</span></h1>
+                        <p class="intro-subtitle">Nơi những trang sử thiêng liêng cất tiếng nói, đưa bạn xuyên qua màng lọc thời gian để chạm vào linh hồn của dân tộc.</p>
+                        
+                        <div class="premium-divider"></div>
+                        
+                        <div class="intro-text-block">
+                            <h3><i class="fa-solid fa-feather-pointed"></i> Sứ mệnh của Postcard Âm thanh</h3>
+                            <p>Lịch sử không nên bị giam cầm trong những con số và sự kiện khô khan trên mặt giấy. Lịch sử là tiếng giáo mác va chạm ở Bạch Đằng, là tiếng thét "Sát Thát" rung chuyển Diên Hồng, là tiếng trống trận vang vọng non sông. Hệ thống Podcast của Temporia ra đời nhằm <b>"thính giác hóa"</b> di sản, sử dụng nghệ thuật kể chuyện (Storytelling) kết hợp với âm thanh điện ảnh để tái hiện lại hào khí ngàn năm của cha ông.</p>
+                        </div>
+
+                        <div class="intro-features-grid" style="margin-top: 40px;">
+                            <div class="ins-item">
+                                <i class="fa-solid fa-brain"></i>
+                                <strong>Ghi nhớ đa giác quan</strong>
+                                <span>Học tập thụ động nhưng hiệu quả cao qua kênh thính giác, giúp não bộ khắc sâu điển tích.</span>
+                            </div>
+                            <div class="ins-item">
+                                <i class="fa-solid fa-medal"></i>
+                                <strong>Thu thập thành tựu</strong>
+                                <span>Chỉ cần thưởng thức trọn vẹn một bản thu, toàn bộ huy hiệu của bài học sẽ thuộc về bạn.</span>
+                            </div>
+                            <div class="ins-item">
+                                <i class="fa-solid fa-closed-captioning"></i>
+                                <strong>Kèm phụ đề chi tiết</strong>
+                                <span>Hỗ trợ văn bản hiển thị song song giúp bạn không bỏ lỡ bất kỳ thông tin quan trọng nào.</span>
+                            </div>
+                        </div>
+
+                        <div class="premium-divider"></div>
+
+                       <div class="intro-guide-section" style="border: none; padding: 0;">
+            <h3 style="text-align: center; margin-bottom: 30px;"><i class="fa-solid fa-compass" style="color: #b91c1c;"></i> Khám Phá Theo Cách Của Bạn</h3>
+            <div class="guide-steps-container colorful-steps">
+                <div class="guide-step step-red">
+                    <div class="step-icon"><i class="fa-solid fa-map-location-dot"></i></div>
+                    <div class="step-number">01</div>
+                    <h4>Chọn Bài Học</h4>
+                    <p>Sử dụng thanh danh mục bên trái được phân loại theo các triều đại để chọn câu chuyện lịch sử bạn muốn lắng nghe.</p>
+                </div>
+                <div class="guide-step step-blue">
+                    <div class="step-icon"><i class="fa-solid fa-sliders"></i></div>
+                    <div class="step-number">02</div>
+                    <h4>Tùy Chỉnh Âm Thanh</h4>
+                    <p>Bộ điều khiển hiện đại cho phép bạn thay đổi tốc độ, lặp lại và hẹn giờ tắt (Sleep Timer) cực kỳ tiện lợi.</p>
+                </div>
+                <div class="guide-step step-orange">
+                    <div class="step-icon"><i class="fa-solid fa-medal"></i></div>
+                    <div class="step-number">03</div>
+                    <h4>Nhận Thành Tựu</h4>
+                    <p>Thả lỏng tâm trí. Chỉ cần nghe trọn vẹn bản thu, hệ thống sẽ tự động cấp phát toàn bộ huy hiệu vinh dự cho bạn.</p>
+                </div>
+            </div>
+        </div>
+                    </div>
+                </div>
+
+                <div id="podcast-player-view" class="content-segment" style="display: none;">
+                    
+                    <div class="hero-title-section">
+                        <div class="lesson-ribbon">
+                            <span class="ribbon-txt">Bài</span>
+                            <span class="ribbon-num" id="lessonNum">0</span>
+                        </div>
+                        <div class="title-meta-block">
+                            <h1 id="lessonTitle">Tên bài học Podcast</h1>
+                            <p class="summary-text" id="lessonEra">Đang cập nhật...</p>
+                        </div>
+                    </div>
+
+                    <div class="stats-pills-row">
+                        <div class="stat-pill pill-red"><i class="fa-solid fa-bookmark"></i> <span id="sectionCount">0 mục học</span></div>
+                        <div class="stat-pill pill-orange" onclick="openLessonMedalsModal()" style="cursor: pointer;" title="Xem huy chương sẽ nhận được">
+                            <i class="fa-solid fa-medal"></i> <span id="medalCount">0 Huy chương</span>
+                        </div>
+                        <div class="stat-pill pill-blue"><i class="fa-solid fa-signal"></i> <span id="difficulty">Độ khó</span></div>
+                    </div>
+
+                    <div class="lesson-recap-zone">
+                        <div class="recap-header">
+                            <span class="recap-badge"><i class="fa-solid fa-scroll"></i> Tóm tắt câu chuyện</span>
+                        </div>
+                        <p class="recap-desc" id="lessonRecap">Nội dung tóm tắt sẽ hiện ở đây...</p>
+                    </div>
+
+                    <div class="podcast-audio-card reveal-item visible">
+                        <div class="audio-cover-wrapper">
+                            <img id="podcastCoverImg" src="https://placehold.co/1200x500/b91c1c/ffffff?text=Temporia+Podcast" alt="Audio Cover">
+                            <div class="cover-overlay"></div>
+                        </div>
+                        
+                        <div class="premium-audio-player">
+                            <audio id="audioElement"></audio>
+                            
+                            <div class="player-controls">
+                                <button class="btn-audio-nav" onclick="skipAudio(-15)" title="Lùi 15s"><i class="fa-solid fa-rotate-left"></i></button>
+                                <button class="btn-audio-play" id="playPauseBtn" onclick="togglePlay()"><i class="fa-solid fa-play"></i></button>
+                                <button class="btn-audio-nav" onclick="skipAudio(15)" title="Tiến 15s"><i class="fa-solid fa-rotate-right"></i></button>
+                            </div>
+
+                            <div class="player-progress-area">
+                                <span class="time-txt" id="currentTime">00:00</span>
+                                <div class="progress-bar-container" id="pContainer" onclick="seekAudio(event)">
+                                    <div class="progress-fill" id="pFill"></div>
+                                </div>
+                                <span class="time-txt" id="duration">00:00</span>
+                            </div>
+
+                            <div class="player-extra-tools">
+                                <button class="tool-btn" id="speedBtn" onclick="toggleSpeed()" title="Tốc độ phát">1.0x</button>
+                                <button class="tool-btn" id="loopBtn" onclick="toggleLoop()" title="Lặp lại bài này"><i class="fa-solid fa-repeat"></i></button>
+                                
+                                <button class="tool-btn" id="sleepTimerBtn" onclick="toggleSleepTimer()" title="Hẹn giờ tắt nhạc"><i class="fa-regular fa-moon"></i></button>
+                                
+                                <div class="volume-control-box">
+                                    <button class="tool-btn" id="muteBtn" onclick="toggleMute()"><i class="fa-solid fa-volume-high"></i></button>
+                                    <input type="range" id="volumeSlider" class="custom-slider" min="0" max="1" step="0.05" value="1" oninput="changeVolume(this.value)">
+                                </div>
+                            </div>
+                            <div id="sleepTimerDisplay" style="display:none; text-align: center; font-size: 0.85rem; color: #b91c1c; font-weight: 800; margin-top: 15px; padding-top: 15px; border-top: 1px dashed #e5e5ea;">
+                                <i class="fa-solid fa-stopwatch fa-spin"></i> Đang hẹn giờ tắt nhạc sau: <span id="sleepTimeLeft" style="font-size: 1rem;">--:--</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="prose-reading-zone reveal-item visible" style="margin-top: 40px;">
+                        <h2 style="font-size: 1.3rem; color: #1d1d1f; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px dashed #e5e5ea;"><i class="fa-solid fa-align-left" style="color: #b91c1c;"></i> Kịch bản phân cảnh</h2>
+                        <div id="transcriptContainer"></div>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+
+        <div class="agt-overlay" id="customAlertOverlay" onclick="closeCustomAlert()"></div>
+    <div class="auth-gate-toast" id="customAlertModal" style="max-width: 350px; text-align: center; z-index: 9999999;">
+        <div class="agt-icon" style="margin: 0 auto 15px; width: 60px; height: 60px; font-size: 1.5rem;">
+            <i class="fa-solid fa-bell"></i>
+        </div>
+        <h3 style="margin: 0 0 10px; color: #1d1d1f; font-size: 1.25rem;" id="customAlertTitle">Thông báo</h3>
+        <p style="font-size: 0.95rem; color: #64748b; margin: 0 0 25px; line-height: 1.5;" id="customAlertMsg">Nội dung thông báo...</p>
+        <button class="btn-timer-start" style="width: 100%;" onclick="closeCustomAlert()">Đã hiểu</button>
+    </div>
+
+    <div class="agt-overlay" id="timerModalOverlay" onclick="closeTimerModal()"></div>
+    <div class="auth-gate-toast" id="timerModal" style="max-width: 420px; padding: 30px; z-index: 9999999;">
+        <h3 style="margin: 0 0 5px; color: #b91c1c; font-size: 1.4rem; text-align: center;"><i class="fa-regular fa-moon"></i> Hẹn Giờ Tự Động</h3>
+        <p style="font-size: 0.9rem; color: #64748b; margin-bottom: 25px; text-align: center;">Thiết lập kịch bản phát nhạc trước khi ngủ.</p>
+        
+        <div class="input-group" style="margin-bottom: 20px; text-align: left;">
+            <label style="font-size: 0.95rem; font-weight: 700; color: #1d1d1f; margin-bottom: 8px; display: block;">Nhập số phút tự động tắt:</label>
+            <input type="number" id="timerMinsInput" class="timer-input" placeholder="VD: 15, 30, 60..." value="15" oninput="calculateEstimatedTracks()">
+            <div id="estimatedTracksText" style="font-size: 0.85rem; color: #3b82f6; margin-top: 10px; font-weight: 600;">
+                <i class="fa-solid fa-calculator"></i> Hệ thống ước tính bạn sẽ nghe được khoảng 3 bài học.
+            </div>
+        </div>
+
+        <div class="input-group" style="margin-bottom: 25px; text-align: left;">
+            <label style="font-size: 0.95rem; font-weight: 700; color: #1d1d1f; margin-bottom: 12px; display: block;">Hành động khi phát hết 1 bài:</label>
+            <div style="display: flex; gap: 12px;">
+                <label class="radio-card" style="flex:1;">
+                    <input type="radio" name="timerMode" value="loop" checked>
+                    <div class="rc-content">
+                        <i class="fa-solid fa-repeat"></i>
+                        <span>Lặp lại bài này</span>
+                    </div>
+                </label>
+                <label class="radio-card" style="flex:1;">
+                    <input type="radio" name="timerMode" value="next">
+                    <div class="rc-content">
+                        <i class="fa-solid fa-forward-step"></i>
+                        <span>Tự động qua bài</span>
+                    </div>
+                </label>
+            </div>
+        </div>
+
+        <div style="display: flex; gap: 12px;">
+            <button class="btn-timer-cancel" onclick="closeTimerModal()">Hủy</button>
+            <button class="btn-timer-start" onclick="startCustomSleepTimer()">Khởi động</button>
+        </div>
+        <button class="btn-timer-stop" id="btnCancelTimer" style="display: none;" onclick="cancelSleepTimer()">Tắt hẹn giờ đang chạy</button>
+    </div>
+    <script src="js/main.js"></script>
+    <script src="js/podcast.js"></script>
+</body>
+</html>

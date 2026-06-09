@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temporia - Dòng Chảy Lịch Sử</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Thư viện CSS của Leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/home.css">
+    <style>
+        .temporia-global-footer {
+              position: relative !important;
+              width: 100% !important;
+              margin-top: 0 !important;
+               overflow: hidden !important;
+              background: #000000 !important;
+              color: #e2e8f0 !important;
+             border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+    </style>
+</head>
+<body>
+
+     <nav class="navbar">
+        <a href="index.html" class="logo">
+            <img src="test/logox.png" alt="Temporia Logo">
+        </a>
+        <ul class="nav-menu">
+            <li><a href="trang-chu.html">Trang chủ</a></li>
+            <li class="dropdown">
+                <a href="#">Khám phá <i class="fas fa-chevron-down dropdown-icon"></i></a>
+                <ul class="dropdown-content">
+                    <li><a href="lo-trinh.html"><i class="fas fa-map-signs fa-fw"></i> Lộ trình học</a></li>
+                    <li><a href="user-mindmap.html" class="locked-feature"><i class="fas fa-project-diagram fa-fw"></i> Sơ đồ tư duy</a></li>
+                    <li><a href="podcast-view.html" class="locked-feature"><i class="fas fa-podcast fa-fw"></i> Podcast</a></li>
+                </ul>
+            </li>
+            <li><a href="quiz.html">Quiz</a></li>
+            <li><a href="cong-dong.html">Cộng đồng</a></li>
+        </ul>
+        <div class="nav-auth">
+            <div id="guestMenu">
+                <a href="auth.html#login" class="btn-login">Đăng nhập</a>
+                <a href="auth.html#register" class="btn-register">Đăng ký</a>
+            </div>
+            
+            <div id="userMenu" class="user-menu-dropdown hidden">
+                <div class="user-menu-trigger">
+                    <img src="" alt="Avatar" id="navAvatar" class="nav-avatar-img">
+                    <span class="nav-user-name" id="navUserName">...</span>
+                    <i class="fas fa-chevron-down" style="font-size: 12px; color: #86868b; margin-left: 2px;"></i>
+                </div>
+                
+                <ul class="user-dropdown-content">
+                    <li><a href="tai-khoan.html"><i class="fas fa-user fa-fw"></i> Hồ sơ cá nhân</a></li>
+                    <li><a href="tai-khoan.html"><i class="fas fa-cog fa-fw"></i> Cài đặt hệ thống</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a href="javascript:void(0)" id="navBtnLogout" class="text-red"><i class="fas fa-sign-out-alt fa-fw"></i> Đăng xuất</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- PHẦN 1: HERO SECTION -->
+    <!-- ================= PHẦN 1: KHỞI NGUỒN ================= -->
+<section id="section1" class="hero-section">
+    
+    <!-- KHU VỰC CHỨA NỘI DUNG CHÍNH (Swap Container) -->
+    <div class="hero-swap-area">
+        
+        <div class="morph-visual-box">
+            <img src="test/3.png" alt="Temporia" class="visual-image">
+            
+            <div class="visual-feature-frame modern-transparent hub-layout">
+                <div class="hub-aura"></div>
+                <svg class="connectors-svg" viewBox="0 0 1000 600" preserveAspectRatio="none">
+                    <defs>
+                        <filter id="neonGlow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#facc15" flood-opacity="0.8"/></filter>
+                        <marker id="arrowhead" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M 1 1 L 8 5 L 1 9 Z" fill="#facc15" /></marker>
+                    </defs>
+                    <path class="spoke-curve" d="M 420,200 C 350,200 320,130 260,130" fill="none" stroke="#facc15" stroke-width="2" filter="url(#neonGlow)" marker-end="url(#arrowhead)"/>
+                    <path class="spoke-curve" d="M 580,260 C 650,260 680,200 740,200" fill="none" stroke="#facc15" stroke-width="2" filter="url(#neonGlow)" marker-end="url(#arrowhead)"/>
+                    <path class="spoke-curve" d="M 420,340 C 350,340 320,400 260,400" fill="none" stroke="#facc15" stroke-width="2" filter="url(#neonGlow)" marker-end="url(#arrowhead)"/>
+                    <path class="spoke-curve" d="M 580,400 C 650,400 680,470 740,470" fill="none" stroke="#facc15" stroke-width="2" filter="url(#neonGlow)" marker-end="url(#arrowhead)"/>
+                </svg>
+                <img src="test/dtx.png" alt="App Temporia" class="center-phone">
+                
+                <div class="m-feature-card card-tl"><span class="m-icon">🎴</span><div class="m-text"><h3>Postcard</h3><p>Lưu giữ khoảnh khắc.</p></div></div>
+                <div class="m-feature-card card-tr"><span class="m-icon">🗺️</span><div class="m-text"><h3>Bản Đồ</h3><p>Dòng thời gian trực quan.</p></div></div>
+                <div class="m-feature-card card-bl"><span class="m-icon">👥</span><div class="m-text"><h3>Cộng Đồng</h3><p>Kết nối người đam mê.</p></div></div>
+                <div class="m-feature-card card-br"><span class="m-icon">🧠</span><div class="m-text"><h3>Quiz Sơ Đồ</h3><p>Thử thách bản thân.</p></div></div>
+            </div>
+
+            <img src="test/peologo.png" alt="Nhân vật lịch sử" class="slide3-man-img" >
+        </div>
+
+        <div class="morph-text-box">
+            <div class="text-state-1">
+                <img src="test/logox.png" alt="Temporia Logo" class="logo-in-text" width="600"   height="140px" style="margin-bottom: 20px; margin-right: 20px;">
+                <p>Hành trình trở về cội nguồn đang chờ đợi bạn. Cùng nhau sống lại những khoảnh khắc hào hùng nhất qua lăng kính công nghệ hiện đại.</p>
+            </div>
+            
+            <div class="text-state-2">
+                <div class="subtitle-badge">Trải nghiệm Đa chiều</div>
+                <h2>Chạm quá khứ, <span class="text-gold">Mở khóa tương lai</span></h2>
+                <p>Ứng dụng công nghệ tương tác hiện đại để tái hiện sống động những trang sử hào hùng, mang đến hành trình khám phá hoàn toàn khác biệt.</p>
+            </div>
+
+            <div class="text-state-3">
+                <div class="subtitle-badge">Hệ thống thành tựu</div>
+                
+                <h2>
+                    Sưu tầm <span class="text-gold">huy hiệu</span> để <br>
+                    khám phá các <span class="text-gold">nhân vật</span>
+                </h2>
+                
+                <p>Vượt qua những thử thách lịch sử để mở khóa các phù hiệu danh giá. Sở hữu trọn bộ sưu tập để khám phá những bí mật ẩn giấu và chiến công hiển hách của các vị anh hùng hào kiệt.</p>
+                
+                <div class="badges-grid">
+                    <div class="badge-item"><div class="badge-circle"></div><span class="badge-name">Quân Vương</span></div>
+                    <div class="badge-item"><div class="badge-circle"></div><span class="badge-name">Tướng Quân</span></div>
+                    <div class="badge-item"><div class="badge-circle"></div><span class="badge-name">Văn Thần</span></div>
+                    <div class="badge-item"><div class="badge-circle"></div><span class="badge-name">Sử Gia</span></div>
+                    <div class="badge-item"><div class="badge-circle"></div><span class="badge-name">Chiến Binh</span></div>
+                    <div class="badge-item"><div class="badge-circle"></div><span class="badge-name">Hiền Triết</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="hero-bottom-controls">
+        <div class="hero-pagination">
+            <span class="dash active" data-index="1"></span>
+            <span class="dash" data-index="2"></span>
+            <span class="dash" data-index="3"></span> </div>
+        <div class="hero-nav-btns">
+            <button class="hero-btn prev-btn"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+            <button class="hero-btn next-btn"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+        </div>
+    </div>
+</section>
+
+    <div class="intro-section" id="section2">
+        <div class="intro-container">
+            <div class="intro-left animate-on-scroll slide-in-left">
+                <div class="intro-content">
+                    <h2 class="intro-line1">Bạn có biết</h2>
+                    <div class="intro-line2">
+                        <span class="long-dash"></span>
+                        <span class="text-history">Lịch sử Việt Nam</span>
+                    </div>
+                    <h2 class="intro-line3">vô cùng <span class="tilt-box">vĩ đại</span> ?</h2>
+                </div>
+            </div>
+            
+            
+            <!-- HÌNH ẢNH (Bên Phải) -->
+            <div class="intro-right animate-on-scroll fade-in-up">
+                <!-- Đã xóa khung div cũ và thay bằng ảnh thật -->
+                <img src="test/x4.png" alt="Biểu tượng Lịch sử" class="intro-image">
+            </div>
+        </div>
+        <!-- ================= KHU VỰC CÂU HỎI "BẠN CÓ BIẾT" (TỐI GIẢN) ================= -->
+    <div class="minimal-questions-grid">
+        
+        <!-- Câu hỏi 1 -->
+        <div class="mq-card">
+            <div class="mq-number">01</div>
+            <h3 class="mq-question">Trận Bạch Đằng năm 938 kết thúc trong bao lâu?</h3>
+            <div class="mq-answer">
+                <p>Trận đánh định mệnh được quyết định chỉ trong vỏn vẹn <strong>một buổi sáng</strong>. Khi thủy triều rút làm lộ bãi cọc, toàn bộ chiến thuyền Nam Hán bị đâm thủng và đắm chìm.</p>
+            </div>
+        </div>
+
+        <!-- Câu hỏi 2 -->
+        <div class="mq-card">
+            <div class="mq-number">02</div>
+            <h3 class="mq-question">Ai thực sự viết bài thơ "Nam Quốc Sơn Hà"?</h3>
+            <div class="mq-answer">
+                <p>Dù thường được gắn với Lý Thường Kiệt, lịch sử không ghi nhận chính xác tác giả. Nó được vang lên trong đền thờ để tạo niềm tin rằng đây là <strong>lời sấm truyền của thần linh</strong> nhằm úy lạo quân sĩ.</p>
+            </div>
+        </div>
+
+        <!-- Câu hỏi 3 -->
+        <div class="mq-card">
+            <div class="mq-number">03</div>
+            <h3 class="mq-question">Quân Tây Sơn hành quân thần tốc bằng cách nào?</h3>
+            <div class="mq-answer">
+                <p>Nguyễn Huệ đã sáng tạo ra chiến thuật <strong>"võng cáng"</strong>. Hai người khiêng một người ngủ, cứ thế luân phiên nhau chạy suốt ngày đêm, tạo nên tốc độ hành quân kinh ngạc.</p>
+            </div>
+        </div>
+
+    </div>
+
+        
+        <!-- ================= NỀN HỌA TIẾT CHÌM HIỆN ĐẠI ================= -->
+    <div class="temporia-bg-canvas">
+        <!-- Lớp 1: Lưới dữ liệu mờ -->
+        <div class="bg-tech-grid"></div>
+        
+        <!-- Lớp 2: Vầng sáng lịch sử hắt từ góc -->
+        <div class="bg-glow-orb"></div>
+        
+       
+        
+        <!-- Lớp 4: Tia sáng dữ liệu quét ngang không gian -->
+  
+    </div>
+        
+    </div>
+        
+
+    <div class="history-section" id="section3">
+        <div class="history-container">
+            <div class="history-header animate-on-scroll slide-in-left">
+                <h2>Hơn <span class="highlight-box">1000</span> năm bị đô hộ</h2>
+                <p>Một thiên niên kỷ oằn mình dưới ách đô hộ phương Bắc, nhưng cũng là ngàn năm trui rèn nên tinh thần quật cường bất diệt của dân tộc. Hãy vuốt ngang để xem dòng chảy lịch sử.</p>
+            </div>
+            
+            <div class="timeline-wrapper animate-on-scroll fade-in-up">
+                <div class="timeline-track">
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <span class="year">Năm 40</span>
+                            <h3>Khởi nghĩa Hai Bà Trưng</h3>
+                            <p>Phất cờ khởi nghĩa, rúng động chính quyền phương Bắc.</p>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <span class="year">Năm 248</span>
+                            <h3>Khởi nghĩa Bà Triệu</h3>
+                            <p>"Tôi muốn cưỡi cơn gió mạnh, đạp luồng sóng dữ..."</p>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <span class="year">Năm 542</span>
+                            <h3>Nước Vạn Xuân</h3>
+                            <p>Lý Bí xưng đế, khẳng định ý chí độc lập ngàn đời.</p>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <span class="year">Năm 938</span>
+                            <h3>Chiến thắng Bạch Đằng</h3>
+                            <p>Ngô Quyền kết thúc vĩnh viễn hơn 1000 năm Bắc thuộc.</p>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <span class="year">Năm 1010</span>
+                            <h3>Chiếu Dời Đô</h3>
+                            <p>Lý Thái Tổ dời đô về Thăng Long, mở ra thời kỳ thịnh vượng.</p>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <span class="year">Năm 1288</span>
+                            <h3>Đại thắng Nguyên Mông</h3>
+                            <p>Hào khí Đông A ba lần đánh tan đạo quân mạnh nhất thế giới.</p>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <span class="year">Năm 1427</span>
+                            <h3>Khởi nghĩa Lam Sơn</h3>
+                            <p>Lê Lợi đại thắng, áng thiên cổ hùng văn Bình Ngô Đại Cáo ra đời.</p>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <span class="year">Năm 1945</span>
+                            <h3>Tuyên ngôn Độc lập</h3>
+                            <p>Khai sinh ra nước Việt Nam Dân chủ Cộng hòa.</p>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <span class="year">Năm 1975</span>
+                            <h3>Thống nhất Đất nước</h3>
+                            <p>Non sông thu về một mối, kết thúc chặng đường trường chinh.</p>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <span class="year">Nay</span>
+                            <h3>Kỷ nguyên vươn mình</h3>
+                            <p>Việt Nam vững bước trên trường quốc tế với vị thế mới.</p>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= PHẦN 4: DANH TƯỚNG KIỆT XUẤT ================= -->
+    <!-- ================= PHẦN 4: DANH TƯỚNG KIỆT XUẤT ================= -->
+    <div class="generals-section" id="section4">
+        <div class="generals-header animate-on-scroll fade-in-up">
+            <h2>Những danh tướng <br><span>Kiệt Xuất</span></h2>
+            <p>Họ là những vĩ nhân đã dùng xương máu để viết nên những trang sử hào hùng nhất. Hãy chọn một thẻ bài để lật mở truyền kỳ về họ.</p>
+        </div>
+
+        <!-- Bộ bài xếp chồng bên phải -->
+        <div class="cards-stack animate-on-scroll" id="heroStack">
+            <div class="gen-card" data-name="Lý Thường Kiệt" data-quote="Nam quốc sơn hà Nam đế cư. Tiệt nhiên định phận tại thiên thư."><img src="hinh nhân vật/Chuvanan.jpg" alt="Tướng 1"></div>
+            <div class="gen-card" data-name="Trần Hưng Đạo" data-quote="Ta thường tới bữa quên ăn, nửa đêm vỗ gối; ruột đau như cắt, nước mắt đầm đìa..."><img src="hinh nhân vật/Lelai.jpg" alt="Tướng 2"></div>
+            <div class="gen-card" data-name="Quang Trung" data-quote="Đánh cho để dài tóc. Đánh cho để đen răng. Đánh cho nó chích luân bất phản..."><img src="hinh nhân vật/Lequydon.jpg" alt="Tướng 3"></div>
+            <div class="gen-card" data-name="Lê Lợi" data-quote="Ngẫm thù lớn há đội trời chung. Căm giặc nước thề không cùng sống."><img src="hinh nhân vật/Lethanhtong.jpg" alt="Tướng 4"></div>
+            <div class="gen-card" data-name="Ngô Quyền" data-quote="Hoằng Tháo là đứa trẻ dại, đem quân mỏi mệt từ xa đến, bọn ta lấy sức nhàn đợi kẻ mệt mỏi..."><img src="hinh nhân vật/Lybi.jpg" alt="Tướng 5"></div>
+            <div class="gen-card" data-name="Hai Bà Trưng" data-quote="Một xin rửa sạch nước thù. Hai xin đem lại nghiệp xưa họ Hùng."><img src="hinh nhân vật/Lythuongkiet.jpg" alt="Tướng 6"></div>
+        </div>
+
+        <!-- THANH ĐIỀU HƯỚNG BẰNG KÍNH (Nằm dưới bộ bài) -->
+       <div class="card-navigation">
+            <button id="prevBtn" class="glass-btn">&#10094;</button>
+            <button id="nextBtn" class="glass-btn">&#10095;</button>
+        </div>
+        <!-- MỚI: KHUNG THÔNG TIN BÊN PHẢI (Nằm dưới cùng của Phần 4) -->
+        <div class="hero-details" id="heroDetails">
+            <div class="glass-panel">
+                <!-- THÊM div.panel-content NÀY ĐỂ BỌC CHỮ -->
+                <div class="panel-content">
+                    <h3 id="heroName">Tên Tướng</h3>
+                    <p id="heroQuote">"Câu nói nổi tiếng..."</p>
+                    <button class="explore-btn">Khám phá</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ================= MODAL KHÁM PHÁ CHI TIẾT NHÂN VẬT ================= -->
+    <div class="hero-modal" id="heroModal">
+        <!-- Nút đóng (Dấu X) -->
+        <button class="close-modal-btn" id="closeModalBtn">&times;</button>
+
+        <div class="modal-content-wrapper">
+            <!-- Khu vực 1: Hình ảnh (Sẽ diễn hoạt trôi từ giữa sang trái) -->
+            <div class="modal-image-container">
+                <img src="" alt="Hero Image" id="modalImage">
+            </div>
+
+            <!-- Khu vực 2: Thông tin chi tiết (Hiện lên bên phải) -->
+            <div class="modal-info-container">
+                <h2>LÝ THƯỜNG KIỆT</h2>
+                
+                <div class="modal-meta">
+                    <p><strong>Năm sinh - Năm mất:</strong> 1019 - 1105</p>
+                    <p><strong>Quê quán:</strong> Phường Thái Hòa, Thăng Long (Hà Nội)</p>
+                    <p><strong>Tước hiệu:</strong> Việt Quốc công</p>
+                </div>
+                
+                <div class="modal-bio">
+                    <p>Ông là một nhà quân sự, nhà chính trị lỗi lạc thời nhà Lý. Lịch sử ghi nhận ông là một trong những vị anh hùng dân tộc vĩ đại nhất với chiến công đánh Tống bình Chiêm, giữ vững bờ cõi Đại Việt.</p>
+                    <p>Tư tưởng quân sự xuất chúng của ông được thể hiện qua chiến lược "Tiên phát chế nhân" – Ngồi yên đợi giặc không bằng đem quân đánh trước để chặn thế mạnh của giặc. Ông đã chủ động đem quân vượt biên giới, đánh phá các căn cứ hậu cần của quân Tống tại Ung Châu, Khâm Châu, Liêm Châu, làm phá sản hoàn toàn kế hoạch xâm lược của chúng.</p>
+                    <p>Đặc biệt, bài thơ <em>"Nam quốc sơn hà"</em> vang lên tại phòng tuyến sông Như Nguyệt năm 1077 không chỉ là đòn tâm lý chiến xuất thần đập tan ý chí quân thù, mà còn được hậu thế tôn vinh là bản Tuyên ngôn Độc lập đầu tiên của nước Việt Nam.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= PHẦN 5: BẢN ĐỒ HUYỀN THOẠI (SCROLLYTELLING) ================= -->
+<div id="section5-wrapper" style="height: 500vh; position: relative; background: #050505;">
+    <section id="section5">
+        <!-- Cột mốc thời gian bên trái (Bạn nhớ giữ class time-node nhé) -->
+        <div class="timeline-container">
+            <div class="time-node active">938</div>
+            <div class="time-node">1077</div>
+            <div class="time-node">1427</div>
+            <div class="time-node">1789</div>
+        </div>
+
+        <!-- ĐÂY LÀ CÁI KHUNG QUAN TRỌNG NHẤT ĐỂ JS VẼ BẢN ĐỒ LÊN -->
+        <div id="vnMap"></div>
+    </section>
+</div>
+
+    <!-- ================================================================= -->
+    <!-- 1. KHO DỮ LIỆU BẢN ĐỒ (Ẩn đi, chỉ dùng để chứa nội dung cho JS đọc) -->
+    <!-- ================================================================= -->
+    <div id="map-data-source" style="display: none;">
+        
+        <!-- Trận 1 -->
+        <div class="map-data-item" 
+             data-lat="20.8449" data-lng="106.6833" 
+             data-vid="https://www.youtube.com/embed/tfWgCrPdlKQ?autoplay=1&mute=1&loop=1&playlist=tfWgCrPdlKQ&controls=0&rel=0&modestbranding=1&playsinline=1&disablekb=1" 
+             data-detail-img="https://medianews.thieunien.vn/uploads/2024/11/05/1-1730778110.jpeg">
+            <h3 class="data-title">Trận Bạch Đằng</h3>
+            <p class="data-desc">Năm 938, Ngô Quyền dùng trận địa cọc gỗ ngầm đánh tan quân Nam Hán.</p>
+            <div class="data-detail-text">
+                <p>Trận Bạch Đằng năm 938 là một trận đánh quan trọng. Ngô Quyền đã chỉ huy quân dân ta cắm cọc nhọn bọc sắt dưới lòng sông...</p>
+            </div>
+        </div>
+
+        <!-- Trận 2 -->
+        <div class="map-data-item" 
+             data-lat="21.2205" data-lng="106.0538" 
+               data-vid="https://www.youtube.com/embed/ITfwyb4AbMg?autoplay=1&mute=1&loop=1&playlist=ITfwyb4AbMg&controls=0&rel=0&modestbranding=1&playsinline=1&disablekb=1"
+
+             data-detail-img="https://file3.qdnd.vn/data/images/5/2022/03/04/thuthuytv/anh.jpg?dpi=150&quality=100&w=870">
+
+            <h3 class="data-title">Phòng tuyến Như Nguyệt</h3>
+            <p class="data-desc">Năm 1077, Lý Thường Kiệt đọc Nam Quốc Sơn Hà, chặn đứng quân Tống.</p>
+            <div class="data-detail-text">
+                <p>Phòng tuyến sông Như Nguyệt được xây dựng để chặn đứng 10 vạn quân Tống. Tại đây, bài thơ Thần 'Nam Quốc Sơn Hà' đã vang lên...</p>
+            </div>
+        </div>
+
+        <!-- Trận 3 -->
+        <div class="map-data-item" 
+             data-lat="21.5544" data-lng="106.6345" 
+             data-vid="https://www.youtube.com/embed/_cYr2fcJvvU?autoplay=1&mute=1&loop=1&playlist=_cYr2fcJvvU&controls=0&rel=0&modestbranding=1&playsinline=1&disablekb=1" 
+             data-detail-img="https://live.staticflickr.com/2940/14567902636_0299998db1_b.jpg">
+            <h3 class="data-title">Trận Chi Lăng</h3>
+            <p class="data-desc">Năm 1427, Lê Lợi - Nguyễn Trãi chém chết Liễu Thăng, bình định giặc Minh.</p>
+            <div class="data-detail-text">
+                <p>Tại Ải Chi Lăng hiểm trở, nghĩa quân Lam Sơn đã bày thiên la địa võng phục kích, chém chết chủ tướng Liễu Thăng...</p>
+            </div>
+        </div>
+
+        <!-- Trận 4 -->
+        <div class="map-data-item" 
+             data-lat="10.3533" data-lng="106.3311" 
+             data-vid="https://www.youtube.com/embed/Xw9LKdcZ4SI?autoplay=1&mute=1&loop=1&playlist=Xw9LKdcZ4SI&controls=0&rel=0&modestbranding=1&playsinline=1&disablekb=1" 
+             data-detail-img="https://lichsuvietnam.org/wp-content/uploads/2025/06/rach-gam-xoai-mut-dau-an-vang-son-trong-lich-su-chong-ngoai-xam.jpg">
+            <h3 class="data-title">Rạch Gầm - Xoài Mút</h3>
+            <p class="data-desc">Năm 1789, Quang Trung Nguyễn Huệ đánh tan 5 vạn quân Xiêm La.</p>
+            <div class="data-detail-text">
+                <p>Bằng nghệ thuật hành quân thần tốc, anh hùng áo vải Nguyễn Huệ đã dìm 5 vạn quân Xiêm xuống đáy sông Tiền...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- PHẦN 6: KẾT THÚC HÀNH TRÌNH (CTA SANG TRỌNG)                      -->
+    <!-- ================================================================= -->
+    <section id="section6" class="lux-cta-section">
+        <div class="lux-cta-container">
+            <h2 class="lux-heading reveal-up">Tất cả sẽ được khám phá qua</h2>
+            <!-- Trả lại chữ Temporia màu đỏ sang trọng của bạn -->
+            <h1 class="lux-brand reveal-up delay-1">Temporia</h1> 
+            <p class="lux-subtitle reveal-up delay-2">
+                Hành trình trở về cội nguồn đang chờ đợi bạn.<br>
+                Hãy cùng chúng tôi đánh thức lịch sử!
+            </p>
+            <div class="reveal-up delay-3">
+                <a href="#" class="lux-btn">Bắt Đầu Ngay &nbsp; &#10230;</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- FOOTER: THÔNG TIN ĐA CHIỀU CAO CẤP                                -->
+    <!-- ================================================================= -->
+    <footer class="temporia-global-footer">
+    
+    <div class="footer-bg-wrapper">
+        <img src="images/footer-bg.jpg" alt="Background" class="footer-bg-img" onerror="this.src='test/NPTx.png'">
+        <div class="footer-glass-overlay"></div>
+    </div>
+
+    <div class="container-full footer-content-container">
+        <div class="footer-main-grid">
+            
+            <div class="footer-col brand-col">
+                <div class="footer-logo">
+                    <span class="logo-text"><a href="index.html" class="logo" >
+            <img src="test/logox.png" alt="Temporia Logo" style="width: 180px; height: auto;">
+        </a></span>
+                </div>
+                <p class="footer-desc">
+                    Hành trình ngược dòng thời gian, chạm vào những trang sử thiêng liêng và hào hùng của dân tộc Việt Nam qua lăng kính công nghệ tương tác hiện đại.
+                </p>
+                <div class="footer-socials">
+                    <a href="#" class="f-social-btn" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="f-social-btn" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#" class="f-social-btn" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="#" class="f-social-btn" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-col links-col">
+                <div class="f-heading">
+                    <h4>Liên kết nhanh</h4>
+                </div>
+                <ul class="f-links-list">
+                    <li><a href="#">Trang chủ</a></li>
+                    <li><a href="#">Khám phá dòng sử</a></li>
+                    <li><a href="#">Hệ thống Quiz</a></li>
+                    <li><a href="#">Cộng đồng sử học</a></li>
+                    <li><a href="#">Về Đội ngũ phát triển</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col links-col">
+                <div class="f-heading">
+                    <h4>Tính năng</h4>
+                </div>
+                <ul class="f-links-list">
+                    <li><a href="#">Bản đồ thời gian 3D</a></li>
+                    <li><a href="#">Hồ sơ danh nhân</a></li>
+                    <li><a href="#">Bảng vàng leo Rank</a></li>
+                    <li><a href="#">Sưu tầm 200+ Huy hiệu</a></li>
+                    <li><a href="#">Hồ sơ thành tích cá nhân</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col contact-col">
+                <div class="f-heading">
+                    <h4>Liên hệ</h4>
+                </div>
+                <div class="f-contact-info">
+                    <div class="f-c-item">
+                        <div class="f-c-icon"><i class="fa-regular fa-envelope"></i></div>
+                        <div class="f-c-text">
+                            <span>Email</span>
+                            <strong>temporiahistory@gmail.com</strong>
+                        </div>
+                    </div>
+                    <div class="f-c-item">
+                        <div class="f-c-icon"><i class="fa-solid fa-phone-flip"></i></div>
+                        <div class="f-c-text">
+                            <span>Điện thoại</span>
+                            <strong>0962705125</strong>
+                        </div>
+                    </div>
+                    <div class="f-c-item">
+                        <div class="f-c-icon"><i class="fa-solid fa-location-dot"></i></div>
+                        <div class="f-c-text">
+                            <span>Địa chỉ</span>
+                            <strong>Ngũ Hành Sơn, Tp. Đà Nẵng</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-col sponsor-col">
+                <div class="f-heading">
+                    <h4>Đối tác tài trợ</h4>
+                </div>
+                <p class="sponsor-desc">Đồng hành cùng sự nghiệp bảo tồn và số hóa di sản Lịch sử Việt Nam.</p>
+                
+                <div class="sponsors-grid">
+                    <div class="sponsor-badge" title="Tập đoàn Công nghệ Solvia">
+                        <i class="fa-solid fa-microchip"></i> <span>Solvia</span>
+                    </div>
+                    <div class="sponsor-badge" title="25DS Studio - AI Data Analysis">
+                        <i class="fa-solid fa-database"></i> <span>25DS</span>
+                    </div>
+                    <div class="sponsor-badge" title="Quỹ Phát triển Công nghệ & Giáo dục">
+                        <i class="fa-solid fa-graduation-cap"></i> <span>VKU</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom-bar">
+            <div class="f-copyright">
+                <i class="fa-solid fa-seedling" style="color: #22c55e;"></i>
+                <span>© 2026 Temporia. Bản quyền phát triển thuộc về Solvia.</span>
+            </div>
+            
+            <div class="f-bottom-links">
+                <a href="#">Điều khoản sử dụng</a>
+                <a href="#">Chính sách bảo mật</a>
+                <span class="f-credits">Thiết kế bởi <strong>25DS Team</strong></span>
+            </div>
+        </div>
+
+    </div>
+</footer>
+
+
+    <script src="js/main.js"></script>
+    <!-- Thư viện JS của Leaflet -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <!-- KỊCH BẢN HIỆN GIAO DIỆN PHẦN 6 VÀ FOOTER -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const revealElements = document.querySelectorAll('.reveal-up');
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { 
+                threshold: 0.1,
+                rootMargin: "0px 0px -50px 0px"
+            });
+
+            revealElements.forEach(el => revealObserver.observe(el));
+        });
+    </script>
+
+    <!-- KỊCH BẢN CHUYỂN TRANG MƯỢT MÀ -->
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        // Tìm tất cả các nút có link tới trang chủ
+        const homeLinks = document.querySelectorAll('a[href="trang-chu.html"]');
+        
+        homeLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault(); // Chặn việc nhảy trang ngay lập tức
+                const targetUrl = this.href;
+                
+                // Tạo một lớp "sương mù" màu Xám bạc giống hệt nền trang chủ
+                const overlay = document.createElement('div');
+                overlay.style.position = 'fixed';
+                overlay.style.top = '0';
+                overlay.style.left = '0';
+                overlay.style.width = '100%';
+                overlay.style.height = '100%';
+                overlay.style.backgroundColor = '#F5F5F7'; /* Màu nền Apple */
+                overlay.style.zIndex = '999999';
+                overlay.style.opacity = '0';
+                overlay.style.transition = 'opacity 0.6s ease-in-out';
+                document.body.appendChild(overlay);
+
+                // Kích hoạt mờ dần thành Xám bạc
+                setTimeout(() => { overlay.style.opacity = '1'; }, 10);
+
+                // Đợi sương mù phủ kín (0.6s) rồi mới âm thầm sang trang
+                setTimeout(() => { window.location.href = targetUrl; }, 600);
+            });
+        });
+    });
+</script>
+    <div class="agt-overlay" id="agtOverlay"></div>
+
+<div class="auth-gate-toast" id="authGateToast">
+    <div class="agt-drag-handle"></div> 
+    <button class="agt-close-btn" id="agtCloseBtn"><i class="fa-solid fa-xmark"></i></button>
+    
+    <div class="agt-content">
+        <div class="agt-icon"><i class="fa-solid fa-lock"></i></div>
+        <div class="agt-text">
+            <strong>Yêu cầu định danh</strong>
+            <span>Vui lòng đăng nhập để lưu trữ tiến trình và mở khóa toàn bộ lộ trình.</span>
+        </div>
+    </div>
+    
+    <div class="agt-actions">
+        <a href="auth.html#login" class="agt-btn-primary">Đăng nhập</a>
+        <a href="auth.html#register" class="agt-btn-secondary">Tạo tài khoản</a>
+    </div>
+</div>
+</body>
+</html>

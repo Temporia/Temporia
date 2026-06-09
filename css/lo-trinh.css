@@ -1,0 +1,986 @@
+/* ========================================================================= */
+/* TEMPORIA LỘ TRÌNH CSS - APPLE/SOLVIA STYLE                                */
+/* ========================================================================= */
+
+.temporia-app-root, .temporia-app-root * {
+    font-family: 'Be Vietnam Pro', sans-serif !important;
+    box-sizing: border-box;
+}
+
+body.temporia-app-root {
+    background-color: #fbfbfd !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    color: #1D1D1F;
+    overflow: hidden !important; 
+}
+
+/* ========================================================================= */
+/* LAYOUT CHÍNH QUẢN LÝ SIDEBAR, BẢN ĐỒ VÀ KHUNG ĐỌC                          */
+/* ========================================================================= */
+.roadmap-app-layout {
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    height: calc(100vh - 70px); 
+    margin-top: 70px; 
+    overflow: hidden;
+}
+
+/* ========================================================================= */
+/* 1. SIDEBAR (CỘT TRÁI - MENU)                                              */
+/* ========================================================================= */
+
+.roadmap-sidebar {
+    width: 320px;
+    flex-shrink: 0;
+    transition: width 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    background: transparent; 
+    border-right: none;
+    position: relative;
+    z-index: 20;
+    overflow: hidden;
+}
+
+/* Khung bọc Sidebar để xử lý padding mà không tràn */
+.sidebar-content-wrapper { 
+    width: 320px; 
+    padding: 20px; 
+    box-sizing: border-box;
+    transition: opacity 0.3s ease; 
+}
+
+/* Thẻ Card trắng bo góc chứa toàn bộ menu */
+.sidebar-card {
+    width: 100%;
+    margin: 0;
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    padding-bottom: 10px;
+    border: 1px solid #f2f2f7;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.sidebar-title {
+    color: #b91c1c;
+    font-size: 1.2rem;
+    font-weight: 700;
+    padding: 24px 20px 15px 20px;
+    margin: 0;
+}
+
+/* Khối từng nhóm bài học (Ví dụ: Khởi đầu, Nguyên sử) */
+.nav-group {
+    border: 1px solid #f2f2f7;
+    border-radius: 12px;
+    margin: 0 15px 15px 15px;
+    background: #ffffff;
+    overflow: hidden;
+    box-sizing: border-box; 
+    transition: all 0.3s ease;
+}
+
+.nav-group-title {
+    background: #f5f5f7;
+    padding: 14px 15px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #1d1d1f;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+.nav-group-title:hover { background: #e5e5ea; }
+
+.nav-group-items {
+    padding: 8px;
+    background: #ffffff;
+    box-sizing: border-box;
+    max-height: 500px;
+    transition: all 0.4s ease;
+}
+
+/* Mục con (Ví dụ: Giới thiệu lộ trình) */
+.nav-item {
+    padding: 12px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #515154;
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin-bottom: 2px;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+
+.nav-item:hover { background: #f5f5f7; color: #1d1d1f;}
+
+/* Trạng thái mục con Đang chọn */
+.nav-item.active { background: #b91c1c !important; color: #ffffff !important; font-weight: 600;}
+.nav-item.active i.fa-circle { color: rgba(255, 255, 255, 0.7) !important; }
+
+/* Trạng thái mục con Đã hoàn thành (Tick Đỏ) */
+.nav-item.is-completed i.fa-circle-check { color: #ffffff !important; opacity: 1 !important; }
+.nav-item.is-completed:not(.active) i.fa-circle-check { color: #b91c1c !important; }
+
+.sidebar-mindmap-footer { padding: 15px; text-align: center; }
+.btn-mindmap { width: 100%; padding: 10px; background: #ffffff; border: 1px solid #e5e5ea; border-radius: 8px; font-weight: 600; color: #1d1d1f; cursor: pointer; transition: 0.3s; }
+.btn-mindmap:hover { border-color: #b91c1c; color: #b91c1c; }
+.brand-powered { font-size: 0.75rem; color: #86868b; margin-top: 10px; }
+
+/* Nút Hamburger (Chế độ đọc) */
+.sidebar-hamburger {
+    position: absolute;
+    top: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 24px;
+    color: #1d1d1f;
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+    z-index: 100;
+}
+.sidebar-hamburger:hover { color: #b91c1c; }
+
+
+/* ========================================================================= */
+/* 2. KHUNG BẢN ĐỒ SA BÀN SỐ                                                 */
+/* ========================================================================= */
+
+.temporia-active-map-pane {
+    width: 0;
+    opacity: 0;
+    margin: 20px 0; /* Tạo khoảng trống trên dưới */
+    border-radius: 24px; /* Bo góc tròn chuẩn Apple */
+    overflow: hidden; /* Cắt rìa bản đồ cho khớp góc bo */
+    box-shadow: 0 20px 50px rgba(0,0,0,0.15); /* Đổ bóng sâu */
+    border: 1px solid rgba(0,0,0,0.05);
+    background: #e5e5ea;
+    position: relative;
+    z-index: 100;
+    
+    /* Hiệu ứng thu nhỏ ban đầu để chuẩn bị Zoom */
+    transform: scale(0.85) translateX(-50px); 
+    transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.roadmap-app-layout.is-reading-mode .roadmap-sidebar {
+    transform: translateX(-100%) !important; /* Đẩy văng ra ngoài mép trái */
+    width: 0 !important; 
+    min-width: 0 !important;
+    opacity: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    pointer-events: none !important;
+}
+.roadmap-app-layout.is-reading-mode .temporia-active-map-pane {
+    width: 380px !important; /* Thu nhỏ bản đồ lại, không để bành trướng nữa */
+    opacity: 1 !important;
+    margin-left: 30px !important; /* Cách lề trái 30px */
+    transform: scale(1) translateX(0); /* Zoom từ 0.85 lên 1.0 cực mượt */
+}
+.roadmap-app-layout.is-reading-mode .sidebar-hamburger {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    position: fixed;
+    top: 90px;
+    left: 20px;
+    z-index: 1000;
+    background: rgba(255,255,255,0.8);
+    backdrop-filter: blur(10px);
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    display: flex; justify-content: center; align-items: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+.roadmap-app-layout.is-reading-mode .roadmap-main-reader {
+    padding-left: 5% !important;
+    transition: padding 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ========================================================================= */
+/* 3. KHUNG ĐỌC NỘI DUNG (READER)                                            */
+/* ========================================================================= */
+
+.roadmap-main-reader {
+    flex: 1;
+    height: 100%;
+    min-width: 0;
+    overflow-y: auto !important;
+    scroll-behavior: auto !important; 
+    background: #fbfbfd;
+}
+
+.reader-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px 150px;
+}
+
+/* Thanh cuộn Apple Style */
+.roadmap-main-reader::-webkit-scrollbar { width: 6px; }
+.roadmap-main-reader::-webkit-scrollbar-track { background: transparent; }
+.roadmap-main-reader::-webkit-scrollbar-thumb { background-color: #d2d2d7; border-radius: 10px; }
+.roadmap-main-reader::-webkit-scrollbar-thumb:hover { background-color: #86868b; }
+
+/* Hiệu ứng trượt lên khi lướt */
+.reveal-item { opacity: 0; transform: translateY(30px); transition: 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+.reveal-item.visible { opacity: 1; transform: translateY(0); }
+
+
+/* ========================================================================= */
+/* TRẠNG THÁI READING MODE (BẢN ĐỒ HIỆN RA KHI CUỘN)                         */
+/* ========================================================================= */
+
+.is-reading-mode .roadmap-sidebar { width: 80px; }
+.is-reading-mode .sidebar-content-wrapper { opacity: 0; pointer-events: none; }
+.is-reading-mode .sidebar-hamburger { opacity: 1; pointer-events: auto; }
+.is-reading-mode .temporia-active-map-pane { width: 45vw; opacity: 1; }
+
+
+/* ========================================================================= */
+/* PHẦN ĐỌC BÀI: TYPOGRAPHY, HIGHLIGHTS VÀ BỐ CỤC CHUNG                      */
+/* ========================================================================= */
+
+.hero-title-section { display: flex; gap: 30px; align-items: flex-start; margin-bottom: 30px; padding-left: 5px; }
+.lesson-ribbon { background: linear-gradient(180deg, #b91c1c 0%, #991b1b 100%); color: #FFFFFF; width: 55px; height: 85px; min-width: 55px; display: flex; flex-direction: column; align-items: center; padding-top: 12px; position: relative; box-shadow: 2px 4px 12px rgba(153, 27, 27, 0.25); border-radius: 2px 2px 0 0; margin-top: -5px; }
+.lesson-ribbon::after { content: ""; position: absolute; bottom: 0; left: 0; border-left: 27.5px solid transparent; border-right: 27.5px solid transparent; border-bottom: 14px solid #FAFAFB; }
+.ribbon-txt { font-size: 0.85rem; font-weight: 600; line-height: 1; }
+.ribbon-num { font-size: 1.4rem; font-weight: 800; font-family: 'Playfair Display', serif; }
+
+.title-meta-block h1 { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 800; color: #b91c1c; margin: 0 0 12px 0; }
+.summary-text { font-size: 0.95rem; line-height: 1.65; color: #6B7280; margin: 0; }
+
+.stats-pills-row { display: flex; gap: 15px; margin-bottom: 40px; padding-left: 85px; }
+.stat-pill { display: flex; align-items: center; gap: 8px; padding: 8px 22px; border-radius: 100px; font-size: 0.85rem; font-weight: 600; cursor: pointer; }
+.stat-pill.pill-red { background-color: #FCA5A5; color: #7F1D1D; }
+.stat-pill.pill-orange { background-color: #FECACA; color: #B45309; transition: 0.2s; }
+.stat-pill.pill-orange:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(180,83,9,0.15); }
+.stat-pill.pill-blue { background-color: #FCA5A5; color: #1E3A8A; }
+
+
+/* Phần Tóm Tắt (Lesson Recap Zone) */
+.lesson-recap-zone { background: rgba(254, 242, 242, 0.6); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border: 1px solid rgba(220, 38, 38, 0.15); border-left: 5px solid #b91c1c; border-radius: 20px; padding: 25px 30px; margin-bottom: 30px; }
+.recap-badge { display: inline-block; font-size: 0.8rem; font-weight: 700; color: #b91c1c; text-transform: uppercase; margin-bottom: 8px; }
+.recap-title { margin: 0 0 8px 0; font-size: 1.15rem; font-weight: 700; color: #1D1D1F; }
+.recap-desc { margin: 0; font-size: 0.95rem; line-height: 1.65; color: #48484A; text-align: justify; }
+
+/* Vạch chia Cẩm nang hành trình */
+.zone-divider { display: flex; align-items: center; text-align: center; margin-bottom: 35px; }
+.zone-divider::before, .zone-divider::after { content: ''; flex: 1; border-bottom: 1px dashed rgba(220, 38, 38, 0.25); }
+.zone-divider span { padding: 0 15px; font-size: 0.8rem; font-weight: 700; color: #B91C1C; text-transform: uppercase; background-color: rgba(254, 242, 242, 0.4); border-radius: 100px; }
+
+
+/* Giao diện Đọc Bài Chuẩn (Reading Mode) */
+/* ========================================================================= */
+/* ÉP KHU VỰC ĐỌC BÀI PHẢI TUÂN THỦ 100% GIAO DIỆN SOLVIA (TẨY RÁC COPY)     */
+/* ========================================================================= */
+
+/* 1. Nới rộng không gian đọc (Giảm lề 2 bên để chữ dàn trải ra) */
+.prose-reading-zone { 
+    background: #ffffff; 
+    border-radius: 24px; 
+    padding: 40px 30px; /* Đã giảm lề từ 60px xuống 30px cho rộng rãi */ 
+    box-shadow: 0 4px 24px rgba(0,0,0,0.03); 
+    margin-top: 30px; 
+    border: 1px solid #f2f2f7; 
+}
+
+.reading-heading { 
+    font-size: 1.6rem !important; 
+    color: #1d1d1f !important; 
+    margin: 40px 0 20px 0 !important; 
+    font-weight: 700 !important; 
+    letter-spacing: -0.5px !important; 
+    border-left: 4px solid #b91c1c !important; 
+    padding-left: 15px !important; 
+    font-family: 'Be Vietnam Pro', sans-serif !important;
+    background: transparent !important;
+}
+
+/* 2. TẨY TRẮNG RÁC COPY: Bắt buộc mọi đoạn văn dùng 1 phông chữ và xóa nền */
+.prose-reading-zone p, 
+.prose-reading-zone span:not(.geo-keyword):not(.char-keyword):not(.drop-cap-letter):not(.char-sub) {
+    font-family: 'Be Vietnam Pro', sans-serif !important;
+    background-color: transparent !important; /* Quét sạch cái nền vàng khè do copy paste */
+    font-size: 1.15rem !important;
+    line-height: 2 !important; /* Khoảng cách dòng thoáng đãng */
+    color: #333336 !important;
+}
+
+.prose-reading-zone p {
+    margin-top: 0 !important;
+    margin-bottom: 24px !important;
+    text-align: justify !important; /* Căn đều 2 bên mép cho phẳng phiu như sách in */
+}
+
+.drop-cap-letter { 
+    float: left; font-size: 3.5rem; line-height: 0.8; padding-top: 8px; padding-right: 8px; 
+    color: #b91c1c; font-weight: 700; background: transparent !important;
+}
+
+/* 3. TINH CHỈNH TỪ KHÓA: Dùng inline để nằm lọt thỏm mượt mà giữa các dòng */
+.geo-keyword {
+    color: #d97706 !important; 
+    font-weight: 700 !important;
+    background-color: #fef3c7 !important; 
+    padding: 2px 6px !important; 
+    border-radius: 6px !important; 
+    cursor: pointer !important;
+    border: 1px solid transparent !important;
+    transition: all 0.2s ease !important;
+    white-space: nowrap !important; 
+    display: inline !important; /* Khóa cứng ở chế độ inline */
+}
+.geo-keyword:hover, .geo-keyword.active-keyword { 
+    border-color: #d97706 !important; background-color: #fde68a !important; 
+}
+
+.char-keyword {
+    color: #b91c1c !important;
+    font-weight: 700 !important;
+    background-color: #fef2f2 !important;
+    padding: 2px 6px !important;
+    border-radius: 6px !important;
+    cursor: pointer !important;
+    border: 1px solid transparent !important;
+    transition: all 0.2s ease !important;
+    white-space: nowrap !important;
+    display: inline !important; /* Khóa cứng ở chế độ inline */
+}
+.char-keyword:hover { 
+    border-color: #b91c1c !important; background-color: #fee2e2 !important; 
+}
+
+/* Text Highlights Nhân vật phụ */
+.char-sub { 
+    color: #0066cc !important; font-weight: 600 !important; cursor: pointer; background: transparent !important;
+    text-decoration: underline; text-decoration-style: dotted; text-decoration-color: #0066cc; text-underline-offset: 4px; 
+}
+.char-sub:hover { text-decoration-style: solid; }
+/* Text Highlights Nhân vật */
+.char-main { color: #b91c1c; font-weight: 700; background: #fef2f2; padding: 2px 6px; border-radius: 6px; cursor: pointer; transition: all 0.2s ease; border: 1px solid transparent; }
+.char-main:hover { background: #b91c1c; color: #ffffff; box-shadow: 0 4px 10px rgba(185, 28, 28, 0.3); }
+.char-sub { color: #0066cc; font-weight: 600; cursor: pointer; text-decoration: underline; text-decoration-style: dotted; text-decoration-color: #0066cc; text-underline-offset: 4px; transition: color 0.2s ease; }
+.char-sub:hover { color: #004080; text-decoration-style: solid; }
+
+/* Placeholder Hình ảnh minh họa */
+.card-image-placeholder { width: 100%; min-height: 200px; background: #f5f5f7; border-radius: 16px; margin-top: 24px; display: flex; align-items: center; justify-content: center; border: 1px dashed #d2d2d7; position: relative; overflow: hidden; transition: all 0.3s ease; }
+.card-image-placeholder img { width: 100%; height: 100%; object-fit: cover; border: none; }
+.img-hint { color: #86868b; font-size: 1rem; font-weight: 500; display: flex; align-items: center; gap: 8px; }
+.my-4 { margin-top: 40px; margin-bottom: 40px; }
+
+/* Maker Tick điểm hoàn thành bài đọc */
+.completion-marker { height: 1px; width: 100%; margin-top: 80px; background: transparent; }
+
+
+/* ========================================================================= */
+/* CẨM NANG HÀNH TRÌNH: APPLE STYLE TIMELINE & CARDS                        */
+/* ========================================================================= */
+
+.apple-timeline-wrapper { margin-top: 50px; display: flex; flex-direction: column; }
+.apple-timeline-item { display: flex; gap: 40px; position: relative; padding-bottom: 50px; }
+.apple-timeline-item:last-child { padding-bottom: 0; }
+
+.timeline-indicator { display: flex; flex-direction: column; align-items: center; width: 48px; flex-shrink: 0; }
+.timeline-indicator .dot { width: 48px; height: 48px; background: #ffffff; border: 3px solid #b91c1c; color: #b91c1c; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; font-weight: 700; z-index: 2; box-shadow: 0 8px 16px rgba(185, 28, 28, 0.12); }
+.timeline-indicator .line { width: 2px; background: #e5e5ea; flex-grow: 1; margin-top: 10px; margin-bottom: 10px; border-radius: 2px; }
+
+.apple-card { background: #ffffff; border-radius: 28px; padding: 40px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04); border: 1px solid #f2f2f7; flex: 1; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease; }
+.apple-card:hover { transform: translateY(-4px); box-shadow: 0 16px 50px rgba(0, 0, 0, 0.08); }
+.apple-card .card-badge { display: inline-block; background: #fef2f2; color: #b91c1c; padding: 6px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: 700; margin-bottom: 16px; text-transform: uppercase; }
+.apple-card .card-title { font-size: 1.75rem; color: #1d1d1f; margin: 0 0 16px 0; font-weight: 700; letter-spacing: -0.5px; }
+.apple-card .card-text { font-size: 1.1rem; color: #515154; line-height: 1.7; margin: 0; }
+
+/* Mockup Lộ trình */
+.mockup-roadmap { background: #fff; padding: 20px; border-radius: 20px; width: 80%; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+.mockup-item { display: flex; align-items: center; gap: 15px; padding: 12px 0; border-bottom: 1px solid #f2f2f7; }
+.mockup-item:last-child { border: none; }
+.m-icon { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+.m-icon.done { background: #b91c1c; color: white; }
+.m-icon.pending { background: #e5e5ea; color: #8e8e93; }
+.m-title { font-weight: 600; font-size: 14px; color: #1d1d1f; }
+.m-sub { font-size: 12px; color: #86868b; margin-top: 4px; }
+#autoTickItem.is-ticked .m-icon { background: #b91c1c; color: white; transform: scale(1.1); }
+#autoTickItem.is-ticked .m-sub { color: #b91c1c; font-weight: 500; }
+
+/* Mockup Thành tích */
+.mockup-achievements { display: flex; gap: 20px; width: 90%; align-items: center; }
+.m-badge-box { background: #fff; padding: 20px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; }
+.badge-glow-wrapper { position: relative; width: 60px; height: 60px; margin: 0 auto 10px; border-radius: 50%; overflow: hidden; background: linear-gradient(135deg, #ffd700, #ff8c00); display: flex; align-items: center; justify-content: center; font-size: 24px; color: white; box-shadow: 0 4px 15px rgba(255, 140, 0, 0.3); }
+.m-char-img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; position: relative; z-index: 1; }
+.shine-effect { position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0) 100%); transform: skewX(-25deg); z-index: 2;}
+.mockup-achievements.is-active .shine-effect { animation: shineSweep 2s ease-in-out infinite; }
+@keyframes shineSweep { 0% { left: -100%; } 100% { left: 200%; } }
+.m-badge-name { font-size: 12px; font-weight: 700; }
+.m-stats-box { flex: 1; background: #fff; padding: 20px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+.m-streak { font-weight: 600; font-size: 14px; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
+.m-streak b { color: #ff9500; font-size: 18px; transition: all 0.2s; }
+.rank-info { display: flex; justify-content: space-between; font-size: 12px; font-weight: 600; margin-bottom: 8px; }
+.rank-bar-bg { height: 8px; background: #e5e5ea; border-radius: 4px; overflow: hidden; }
+.rank-bar-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #b91c1c, #ff3b30); border-radius: 4px; transition: width 2s ease-out; }
+
+/* Mockup Sa bàn, Sơ đồ, Podcast */
+.mockup-tools { width: 95%; height: 92%; display: flex; flex-direction: column; gap: 15px; }
+.m-map-section { flex: 1.8; border-radius: 16px; position: relative; overflow: hidden; border: 1px solid #d2d2d7; background: #e5e5ea; }
+#miniMockupMap .leaflet-control-zoom, #miniMockupMap .leaflet-control-attribution { display: none !important; }
+.m-bottom-tools { display: flex; gap: 15px; flex: 1; min-height: 100px; }
+.m-mindmap, .m-podcast { background: #fff; border-radius: 16px; flex: 1; box-shadow: 0 5px 20px rgba(0,0,0,0.05); display: flex; padding: 15px; }
+.m-mindmap { justify-content: center; align-items: center; }
+.mm-tree { display: flex; flex-direction: column; align-items: center; margin-top: -10px; }
+.mm-node { background: #f2f2f7; padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 600; border: 1px solid #d2d2d7; position: relative; z-index: 2; transition: all 0.2s ease;}
+.mm-node.root { background: #1d1d1f; color: white; border-color: #1d1d1f; }
+.mm-node.hoverable:hover { background: #b91c1c; color: white; border-color: #b91c1c; transform: translateY(-2px); box-shadow: 0 4px 10px rgba(185,28,28,0.2);}
+.mm-level-1 { position: relative; padding-bottom: 15px; }
+.mm-level-1::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 2px; height: 15px; background: #c7c7cc; }
+.mm-level-2 { display: flex; gap: 20px; position: relative; padding-top: 15px; }
+.mm-level-2::before { content: ''; position: absolute; top: 0; left: 25%; right: 25%; height: 2px; background: #c7c7cc; }
+.mm-branch { position: relative; display: flex; justify-content: center; width: 100%; }
+.mm-branch::before { content: ''; position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 2px; height: 15px; background: #c7c7cc; }
+.m-podcast { flex-direction: column; justify-content: center; gap: 15px; }
+.pod-info { font-size: 13px; font-weight: 600; display: flex; gap: 8px; align-items: center; }
+.pod-controls { display: flex; align-items: center; gap: 12px; }
+.pod-play-btn { width: 36px; height: 36px; border-radius: 50%; background: #f2f2f7; border: none; color: #1d1d1f; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+.pod-play-btn:hover { background: #e5e5ea; }
+.pod-wave { height: 4px; background: #e5e5ea; border-radius: 2px; flex: 1; position: relative; overflow: hidden;}
+.pod-wave::after { content: ''; position: absolute; top: 0; left: 0; height: 100%; width: 30%; background: #b91c1c; transition: width 0.3s;}
+.m-podcast.is-playing .pod-wave::after { animation: wavePlay 1.5s infinite alternate ease-in-out; }
+@keyframes wavePlay { 0% {width: 10%;} 100% {width: 90%;} }
+
+/* ========================================================================= */
+/* 1. VÁ LỖI HIỂN THỊ ICON FONT-AWESOME                                      */
+/* ========================================================================= */
+i, i::before, i::after, .fa, .fas, .fa-solid, .fa-regular, .fa-brands {
+    font-family: "Font Awesome 6 Free" !important;
+    font-weight: 900 !important;
+}
+.fa-regular { font-weight: 400 !important; }
+
+/* ========================================================================= */
+/* 2. APPLE STYLE SIDEBAR: NỔI LÊN NỀN, CÁCH LỀ VÀ KÍNH MỜ                   */
+/* ========================================================================= */
+
+/* Ép Sidebar cách lề và làm nền trong suốt */
+.roadmap-sidebar {
+    width: 340px !important; /* Rộng ra chút cho đẹp */
+    padding: 20px 0 20px 20px !important; /* Cách lề trên, dưới, trái 20px */
+    background: transparent !important;
+    border: none !important;
+}
+
+.sidebar-content-wrapper {
+    width: 100% !important;
+    height: 100% !important;
+    padding: 0 !important;
+}
+
+/* Thẻ Card trắng nổi bật với hiệu ứng kính mờ (Frosted Glass) */
+.sidebar-card {
+    height: 100% !important;
+    background: rgba(255, 255, 255, 0.8) !important; /* Trắng trong suốt 80% */
+    backdrop-filter: blur(25px) saturate(150%);
+    -webkit-backdrop-filter: blur(25px) saturate(150%);
+    border-radius: 28px !important; /* Bo góc cực mạnh chuẩn Apple */
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 1) !important; /* Đổ bóng nổi */
+    border: 1px solid rgba(255, 255, 255, 0.5) !important;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Tinh chỉnh tiêu đề Sidebar */
+.sidebar-title {
+    padding: 30px 25px 20px 25px !important;
+    font-size: 1.3rem !important;
+    letter-spacing: -0.5px;
+}
+
+/* ========================================================================= */
+/* 3. MENU ITEMS: HIỆU ỨNG MỜ ẢO & ANIMATION TƯƠNG TÁC MƯỢT MÀ               */
+/* ========================================================================= */
+
+.roadmap-nav-list {
+    padding: 0 15px !important;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.roadmap-nav-list::-webkit-scrollbar { display: none; } /* Giấu thanh cuộn trong list cho sạch */
+
+.nav-group {
+    background: rgba(255, 255, 255, 0.5) !important; /* Nền nhóm hơi mờ */
+    border: 1px solid rgba(0, 0, 0, 0.04) !important;
+    border-radius: 18px !important;
+    margin-bottom: 15px !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.02) !important;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.nav-group:hover {
+    background: rgba(255, 255, 255, 0.9) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.05) !important;
+}
+
+.nav-group-title {
+    background: transparent !important;
+    padding: 16px 18px !important;
+    font-size: 1rem !important;
+}
+
+.nav-group-items {
+    padding: 0 8px 12px 8px !important;
+    background: transparent !important;
+}
+
+/* Nút bấm từng bài học */
+.nav-item {
+    border-radius: 12px !important;
+    padding: 12px 16px !important;
+    margin-bottom: 4px !important;
+    background: transparent !important;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Hiệu ứng rê chuột: Trượt nhẹ sang phải */
+.nav-item:hover {
+    background: rgba(0, 0, 0, 0.03) !important;
+    transform: translateX(4px); 
+}
+
+/* NÚT ĐANG CHỌN (ACTIVE) - Kính mờ màu Đỏ Solvia */
+.nav-item.active {
+    background: rgba(185, 28, 28, 0.12) !important; /* Nền đỏ trong suốt */
+    backdrop-filter: blur(10px); /* Kính mờ nhẹ */
+    border: 1px solid rgba(185, 28, 28, 0.15) !important;
+    color: #b91c1c !important; /* Chữ đỏ */
+    box-shadow: 0 4px 15px rgba(185, 28, 28, 0.08) !important;
+    transform: scale(1.02); /* Phóng to nhẹ */
+}
+
+/* Icon của nút đang chọn */
+.nav-item.active i.fa-circle,
+.nav-item.active i.fa-circle-info {
+    color: #b91c1c !important;
+}
+
+/* Thiết kế lại Footer Sơ đồ tư duy cho ăn nhập */
+.sidebar-mindmap-footer {
+    padding: 20px 25px 25px 25px !important;
+    border-top: 1px solid rgba(0,0,0,0.05);
+}
+
+.btn-mindmap {
+    border-radius: 14px !important;
+    padding: 14px !important;
+    background: rgba(255, 255, 255, 0.5) !important;
+    border: 1px solid rgba(0, 0, 0, 0.05) !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.02) !important;
+    backdrop-filter: blur(10px);
+}
+.btn-mindmap:hover {
+    background: #ffffff !important;
+    border-color: #b91c1c !important;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(185, 28, 28, 0.1) !important;
+}
+
+/* ========================================================================= */
+/* THIẾT KẾ LẠI TRẠNG THÁI NÚT BẤM (APPLE STYLE)                             */
+/* ========================================================================= */
+
+/* 1. Trạng thái Đang chọn (Active) -> Nền xám mờ, chữ đậm, KHÔNG ĐỎ */
+.nav-item.active {
+    background: rgba(0, 0, 0, 0.05) !important; /* Xám kính mờ nhạt */
+    color: #1d1d1f !important; /* Chữ xám đen đậm */
+    font-weight: 600 !important;
+    border: none !important;
+    box-shadow: none !important;
+    transform: translateX(4px) !important; /* Thụt nhẹ vào mượt mà */
+}
+
+/* 2. Icon vòng tròn mặc định (Chưa học) -> Màu xám nhạt */
+.nav-item i.fa-circle {
+    color: #c7c7cc !important; 
+    transition: color 0.3s ease;
+}
+
+/* Đang học thì icon vòng tròn đậm hơn chút xíu */
+.nav-item.active i.fa-circle {
+    color: #86868b !important;
+}
+
+/* 3. Trạng thái Đã xong (Completed) -> Hiện rõ Tick Đỏ Solvia */
+.nav-item.is-completed i.fa-circle-check {
+    color: #b91c1c !important; 
+    opacity: 1 !important;
+    transform: scale(1.1); /* Phóng to nhẹ cái tick để ăn mừng */
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* ========================================================================= */
+/* PHỤC HỒI HIỆU ỨNG THU/MỞ CHƯƠNG (ACCORDION ANIMATION)                     */
+/* ========================================================================= */
+
+/* Khung chứa danh sách bài học */
+.nav-group-items {
+    max-height: 500px;
+    opacity: 1;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+/* Khi nhóm bị đóng (Collapsed) */
+.nav-group.collapsed .nav-group-items {
+    max-height: 0 !important;
+    opacity: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    margin: 0 !important;
+}
+
+/* Hiệu ứng xoay mũi tên (Icon v) cực mượt */
+.nav-group-title i.fa-chevron-up {
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+.nav-group.collapsed .nav-group-title i.fa-chevron-up {
+    transform: rotate(180deg) !important; /* Mũi tên xoay cắm xuống */
+}
+/* ========================================================================= */
+/* FIX NÚT HAMBURGER NỔI BỒNG BỀNH TRÊN SA BÀN (APPLE GLASSMORPHISM)         */
+/* ========================================================================= */
+
+/* 1. Thay vì đẩy văng cả Sidebar, ta chỉ thu chiều rộng về 0 và giữ nó lại */
+.roadmap-app-layout.is-reading-mode .roadmap-sidebar {
+    transform: none !important; /* Không đẩy văng nữa để giữ nút 3 gạch ở lại */
+    width: 0 !important; 
+    min-width: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    opacity: 1 !important; /* Giữ mạng sống cho Sidebar */
+    z-index: 1000 !important; /* Nâng tầng cao hơn Bản đồ */
+}
+
+/* 2. Rút ruột toàn bộ nội dung (Card trắng) cho bay ra ngoài */
+.roadmap-app-layout.is-reading-mode .sidebar-content-wrapper {
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transform: translateX(-100%); /* Hiệu ứng ruột bay đi mượt mà */
+}
+
+/* 3. LỘT XÁC NÚT 3 GẠCH (HAMBURGER) NỔI TRÊN BẢN ĐỒ */
+.roadmap-app-layout.is-reading-mode .sidebar-hamburger {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    position: fixed !important;
+    
+    /* Tọa độ vàng: Nằm gọn gàng góc trên bên trái bên trong Bản đồ */
+    top: 105px !important; 
+    left: 45px !important; 
+    
+    /* Thiết kế Kính mờ chuẩn Apple */
+    background: rgba(255, 255, 255, 0.85) !important;
+    backdrop-filter: blur(15px) !important;
+    -webkit-backdrop-filter: blur(15px) !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.05) !important;
+    
+    width: 42px !important; 
+    height: 42px !important;
+    border-radius: 50% !important;
+    display: flex !important; 
+    justify-content: center !important; 
+    align-items: center !important;
+    
+    color: #1d1d1f !important;
+    font-size: 1.1rem !important;
+    transform: scale(1) !important;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+/* Hiệu ứng khi rê chuột vào nút 3 gạch */
+.roadmap-app-layout.is-reading-mode .sidebar-hamburger:hover {
+    background: #ffffff !important;
+    color: #b91c1c !important; /* Đổi màu Đỏ Solvia */
+    transform: scale(1.08) !important; /* Nút phình to nhẹ đầy mời gọi */
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15), 0 0 0 1px rgba(0,0,0,0.05) !important;
+}
+/* ========================================================================= */
+/* HIỆU ỨNG ĐÓNG/MỞ THANH LIST TRÊN NỀN BẢN ĐỒ (MANUAL SHOW)                 */
+/* ========================================================================= */
+
+/* 1. Gọi thẻ Card trắng trượt ngược vào màn hình */
+.roadmap-app-layout.is-reading-mode.manual-show-sidebar .roadmap-sidebar {
+    width: 340px !important;
+    z-index: 1005 !important; /* Đảm bảo nổi bần bật trên Bản đồ */
+}
+.roadmap-app-layout.is-reading-mode.manual-show-sidebar .sidebar-content-wrapper {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transform: translateX(0) !important; /* Trượt êm ái từ trái sang */
+}
+
+/* 2. Lột xác nút 3 gạch thành nút Đóng (Dấu X Đỏ) */
+.roadmap-app-layout.is-reading-mode.manual-show-sidebar .sidebar-hamburger {
+    left: 310px !important; /* Trượt ngang theo lề phải của thẻ Card trắng */
+    background: #b91c1c !important; /* Đổi sang Đỏ Solvia quyền lực */
+    color: #ffffff !important;
+    border: 1px solid #991b1b !important;
+    transform: rotate(90deg) !important; /* Xoay 90 độ mượt mà */
+}
+
+/* Hiệu ứng khi rê chuột vào dấu X */
+.roadmap-app-layout.is-reading-mode.manual-show-sidebar .sidebar-hamburger:hover {
+    background: #991b1b !important;
+    transform: rotate(90deg) scale(1.1) !important; /* Vừa xoay vừa phình to */
+    box-shadow: 0 8px 25px rgba(185, 28, 28, 0.3) !important;
+}
+/* Hiệu ứng sóng lan tỏa cho Marker Ngũ Lĩnh */
+.ripple-marker {
+    width: 14px;
+    height: 14px;
+    background: #b91c1c;
+    border-radius: 50%;
+    position: relative;
+    box-shadow: 0 0 15px rgba(185, 28, 28, 0.8);
+}
+
+.ripple-marker::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 2px solid #b91c1c;
+    animation: ripple-spread 2s infinite ease-out;
+}
+
+@keyframes ripple-spread {
+    0% { width: 14px; height: 14px; opacity: 1; }
+    100% { width: 60px; height: 60px; opacity: 0; }
+}
+
+/* ========================================================================= */
+/* APPLE GLASSMORPHISM CHO BẢNG NOTE BẢN ĐỒ (POPUP)                          */
+/* ========================================================================= */
+
+/* Bo góc và làm trong suốt phần nền của bảng Note */
+.territory-popup .leaflet-popup-content-wrapper {
+    background: rgba(255, 255, 255, 0.85) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border-radius: 16px !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15) !important;
+    border: 1px solid rgba(255, 255, 255, 0.5) !important;
+}
+
+/* Làm mờ luôn cả cái mũi tên tam giác chỉ xuống */
+.territory-popup .leaflet-popup-tip {
+    background: rgba(255, 255, 255, 0.85) !important;
+    backdrop-filter: blur(12px) !important;
+}
+
+/* Canh chỉnh lại chữ cho gọn gàng, bớt cồng kềnh */
+.territory-popup .leaflet-popup-content {
+    margin: 12px 18px !important;
+    text-align: center !important;
+    line-height: 1.4 !important;
+    font-size: 0.95rem !important;
+    color: #48484a !important;
+}
+
+.territory-popup .leaflet-popup-content b {
+    font-size: 1.15rem !important;
+    letter-spacing: -0.5px;
+}
+/* ========================================================================= */
+/* TINH CHỈNH KÍCH THƯỚC BẢNG NOTE VÀ NÚT ĐÓNG (DẤU X)                       */
+/* ========================================================================= */
+
+/* Ép font chữ và khoảng cách nhỏ lại cho thanh lịch */
+.territory-popup .leaflet-popup-content {
+    margin: 10px 28px 10px 14px !important; /* Chừa lề phải 28px để lấy chỗ đặt dấu X */
+    font-size: 0.85rem !important; 
+    line-height: 1.3 !important;
+}
+
+.territory-popup .leaflet-popup-content b {
+    font-size: 1rem !important; /* Tiêu đề cũng nhỏ lại tương ứng */
+}
+
+/* Lột xác nút Đóng (Dấu X) của Leaflet */
+.territory-popup .leaflet-popup-close-button {
+    color: #86868b !important; /* Màu xám Apple */
+    font-size: 16px !important;
+    padding: 6px !important;
+    right: 4px !important;
+    top: 4px !important;
+    font-weight: bold !important;
+    transition: all 0.2s ease !important;
+    text-decoration: none !important;
+}
+
+/* Hiệu ứng khi rê chuột vào dấu X */
+.territory-popup .leaflet-popup-close-button:hover {
+    color: #b91c1c !important; /* Sáng màu đỏ Solvia lên */
+    background: rgba(0,0,0,0.05) !important;
+    border-radius: 50% !important;
+}
+/* ========================================================================= */
+/* THÔNG BÁO NHẬN HUY CHƯƠNG (APPLE TOAST NOTIFICATION)                      */
+/* ========================================================================= */
+
+.temporia-toast-notification {
+    position: fixed;
+    top: 90px; /* Cân đối với Navbar */
+    right: -400px; /* Ẩn hoàn toàn ra mép phải */
+    width: 320px;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(185, 28, 28, 0.15); /* Bóng đổ ánh đỏ nhẹ */
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    z-index: 9999999; /* Đảm bảo nổi lên trên tất cả */
+    opacity: 0;
+    
+    /* Hiệu ứng trượt vào nảy nảy (bounce) cực êm */
+    transition: right 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+                opacity 0.6s ease;
+}
+
+.temporia-toast-notification.show {
+    right: 30px; /* Trượt vào và dừng lại cách lề 30px */
+    opacity: 1;
+}
+
+.temporia-toast-notification .toast-icon {
+    width: 48px;
+    height: 48px;
+    background: #fef2f2; /* Nền đỏ cực nhạt */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 15px;
+    flex-shrink: 0;
+    border: 2px solid #fee2e2;
+}
+
+.temporia-toast-notification .toast-icon img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+}
+
+.temporia-toast-notification .toast-content {
+    flex-grow: 1;
+}
+
+.temporia-toast-notification .toast-content h4 {
+    margin: 0 0 4px 0;
+    font-size: 0.8rem;
+    color: #86868b;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.temporia-toast-notification .toast-content p {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #b91c1c;
+    font-weight: 800;
+}
+
+.temporia-toast-notification .toast-close {
+    background: transparent;
+    border: none;
+    color: #c7c7cc;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 5px;
+    transition: 0.2s;
+}
+
+.temporia-toast-notification .toast-close:hover {
+    color: #b91c1c;
+    transform: scale(1.1);
+}
+/* ========================================================================= */
+/* AUTH GATE TOAST: TRƯỢT TỪ TRÊN XUỐNG (KÈM LỚP PHỦ MỜ NHẸ)                 */
+/* ========================================================================= */
+.agt-overlay {
+    position: fixed !important; top: 0 !important; left: 0 !important;
+    width: 100vw !important; height: 100vh !important;
+    background: rgba(15, 23, 42, 0.25) !important; 
+    backdrop-filter: blur(5px) !important; -webkit-backdrop-filter: blur(5px) !important;
+    z-index: 9999998 !important; opacity: 0 !important; pointer-events: none !important; transition: opacity 0.4s ease !important;
+}
+.agt-overlay.show { opacity: 1 !important; pointer-events: auto !important; }
+
+.auth-gate-toast {
+    position: fixed !important; top: 25px !important; left: 50% !important;
+    transform: translateX(-50%) translateY(-150px) scale(0.9) !important;
+    z-index: 9999999 !important; width: 90% !important; max-width: 380px !important; 
+    background: rgba(255, 255, 255, 0.85) !important;
+    backdrop-filter: blur(35px) saturate(200%) !important; -webkit-backdrop-filter: blur(35px) saturate(200%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.9) !important; border-radius: 32px !important;
+    padding: 16px 20px 20px 20px !important; box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15) !important; 
+    display: flex !important; flex-direction: column !important; gap: 16px !important;
+    opacity: 0 !important; pointer-events: none !important;
+    transition: transform 0.6s cubic-bezier(0.25, 1.2, 0.3, 1), opacity 0.4s ease !important; cursor: grab !important;
+}
+.auth-gate-toast.show { transform: translateX(-50%) translateY(0) scale(1) !important; opacity: 1 !important; pointer-events: auto !important; }
+.auth-gate-toast.dragging { transition: none !important; cursor: grabbing !important; }
+
+.agt-drag-handle { width: 36px !important; height: 5px !important; background: rgba(0, 0, 0, 0.12) !important; border-radius: 10px !important; margin: 0 auto !important; }
+.agt-close-btn { position: absolute !important; top: 15px !important; right: 18px !important; width: 28px !important; height: 28px !important; border-radius: 50% !important; background: rgba(0, 0, 0, 0.04) !important; border: none !important; color: #64748b !important; font-size: 13px !important; display: flex !important; align-items: center !important; justify-content: center !important; cursor: pointer !important; transition: all 0.2s ease !important; }
+.agt-close-btn:hover { background: rgba(220, 38, 38, 0.1) !important; color: #dc2626 !important; transform: scale(1.1) !important; }
+
+.agt-content { display: flex !important; align-items: center !important; gap: 16px !important; padding-right: 20px !important; }
+.agt-icon { width: 48px !important; height: 48px !important; border-radius: 14px !important; background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%) !important; color: #dc2626 !important; display: flex !important; align-items: center !important; justify-content: center !important; font-size: 20px !important; flex-shrink: 0 !important; border: 1px solid rgba(220, 38, 38, 0.1) !important; }
+.agt-text { display: flex !important; flex-direction: column !important; gap: 4px !important; }
+.agt-text strong { font-size: 16px !important; font-weight: 800 !important; color: #1d1d1f !important; }
+.agt-text span { font-size: 13px !important; color: #64748b !important; line-height: 1.4 !important; }
+
+.agt-actions { display: flex !important; gap: 10px !important; width: 100% !important; }
+.agt-btn-primary, .agt-btn-secondary { flex: 1 !important; padding: 12px !important; border-radius: 16px !important; font-size: 14px !important; font-weight: 800 !important; text-align: center !important; text-decoration: none !important; transition: 0.3s ease !important; }
+.agt-btn-primary { background: #dc2626 !important; color: #fff !important; }
+.agt-btn-primary:hover { background: #b91c1c !important; transform: translateY(-2px) !important; box-shadow: 0 6px 15px rgba(220, 38, 38, 0.2) !important; }
+.agt-btn-secondary { background: rgba(0, 0, 0, 0.05) !important; color: #1d1d1f !important; }
+.agt-btn-secondary:hover { background: rgba(0, 0, 0, 0.08) !important; }
+
+/* ========================================================================= */
+/* LỘT XÁC MÀU BẢN ĐỒ OSM THÀNH STYLE APPLE/TEMPORIA (BẢO VỆ CHỦ QUYỀN)      */
+/* ========================================================================= */
+
+.leaflet-tile-pane {
+    /* 1. Khử màu sặc sỡ (grayscale)
+      2. Ám chút màu vàng cổ điển (sepia)
+      3. Tăng sáng và tăng độ tương phản để chữ sắc nét
+    */
+    filter: grayscale(0.85) sepia(0.05) brightness(1.05) contrast(1.1);
+    transition: filter 0.5s ease;
+}
+
+/* Khi người dùng tương tác (zoom, kéo), giữ màu ổn định */
+.temporia-active-map-pane:hover .leaflet-tile-pane {
+    filter: grayscale(0.7) sepia(0.05) brightness(1.02) contrast(1.15);
+}

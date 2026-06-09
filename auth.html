@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xác thực Tài khoản - Temporia</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="css/trang-chu.css"> 
+    <link rel="stylesheet" href="css/auth.css">
+    <link rel="stylesheet" href="css/global.css">
+
+</head>
+<body class="temporia-auth-page">
+
+    <div class="page-transition-overlay"></div>
+
+    <nav class="navbar">
+      <a href="index.html" class="logo">
+            <img src="test/logox.png" alt="Temporia Logo">
+        </a>
+        <ul class="nav-menu">
+            <li><a href="trang-chu.html" class="active">Trang chủ</a></li>
+            <li class="dropdown">
+                <a href="#">Khám phá <i class="fas fa-chevron-down dropdown-icon"></i></a>
+                <ul class="dropdown-content">
+                    <li><a href="lo-trinh.html"><i class="fas fa-map-signs fa-fw"></i> Lộ trình học</a></li>
+                    <li><a href="user-mindmap.html"><i class="fas fa-project-diagram fa-fw"></i> Sơ đồ tư duy</a></li>
+                    <li><a href="podcast-view.html"><i class="fas fa-podcast fa-fw"></i> Podcast</a></li>
+                </ul>
+            </li>
+            <li><a href="quiz.html">Quiz</a></li>
+            <li><a href="cong-dong.html">Cộng đồng</a></li>
+        </ul>
+        
+        <div class="nav-auth">
+            <a href="auth.html#login" class="btn-login" onclick="switchAuthTab('login')">Đăng nhập</a>
+            <a href="auth.html#register" class="btn-register" onclick="switchAuthTab('register')">Đăng ký</a>
+        </div>
+    </nav>
+
+    <main class="auth-main-area">
+        
+        <div class="auth-glass-card">
+            
+            <div class="auth-header text-center">
+                <span class="auth-badge" id="authBadge">Cổng kết nối</span>
+                <h2 class="auth-title" id="authTitle">Đăng Nhập</h2>
+                <p class="auth-subtitle" id="authSubtitle">Truy cập dữ liệu cá nhân và tiếp tục hành trình</p>
+            </div>
+
+            <form id="formLogin" class="auth-form-group">
+                <div class="input-block">
+                    <label>Email</label>
+                    <div class="input-wrapper">
+                        <i class="fa-regular fa-envelope field-icon"></i>
+                        <input type="email" id="loginEmail" placeholder="thiensinh@solvia.vn" required>
+                    </div>
+                </div>
+
+                <div class="input-block">
+                    <label>Mật khẩu</label>
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-lock field-icon"></i>
+                        <input type="password" id="loginPassword" placeholder="••••••••" required>
+                    </div>
+                </div>
+
+                <div class="auth-options">
+                    <label class="remember-label">
+                        <input type="checkbox"> <span>Ghi nhớ</span>
+                    </label>
+                    <a href="javascript:void(0)" class="forgot-link" onclick="switchAuthTab('forgot')">Quên mật khẩu?</a>
+                </div>
+
+                <button type="submit" class="auth-submit-btn">Đăng Nhập</button>
+                
+                <div class="switch-mode-hint">
+                    <span>Chưa có tài khoản?</span>
+                    <a href="javascript:void(0)" onclick="switchAuthTab('register')">Đăng ký ngay</a>
+                </div>
+            </form>
+
+            <form id="formRegister" class="auth-form-group hidden">
+                <div class="input-block">
+                    <label>Họ và Tên</label>
+                    <div class="input-wrapper">
+                        <i class="fa-regular fa-user field-icon"></i>
+                        <input type="text" id="regFullname" placeholder="DS. Thiên Sinh" required>
+                    </div>
+                </div>
+
+                <div class="split-inputs">
+                    <div class="input-block">
+                        <label>Ngày sinh</label>
+                        <div class="input-wrapper">
+                            <input type="date" id="regDob" required>
+                        </div>
+                    </div>
+
+                    <div class="input-block">
+                        <label>Quê quán</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-location-dot field-icon"></i>
+                            <input type="text" id="regHometown" placeholder="Đà Nẵng" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-block">
+                    <label>Email</label>
+                    <div class="input-wrapper">
+                        <i class="fa-regular fa-envelope field-icon"></i>
+                        <input type="email" id="regEmail" placeholder="contact@solvia.vn" required>
+                    </div>
+                </div>
+
+                <div class="input-block">
+                    <label>Mật khẩu</label>
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-shield-halved field-icon"></i>
+                        <input type="password" id="regPassword" placeholder="Tối thiểu 8 ký tự" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="auth-submit-btn btn-register-style">Khởi Tạo Tài Khoản</button>
+                
+                <div class="switch-mode-hint">
+                    <span>Đã có tài khoản?</span>
+                    <a href="javascript:void(0)" onclick="switchAuthTab('login')">Đăng nhập</a>
+                </div>
+            </form>
+            <form id="formVerifyReg" class="auth-form-group hidden">
+                <div class="auth-back" onclick="switchAuthTab('register')">
+                    <i class="fas fa-arrow-left"></i> Đổi tài khoản khác
+                </div>
+                <p style="font-size: 14px; color: #86868B; margin-bottom: 10px; text-align: center;">Mã xác thực 6 số đã được gửi đến Email của bạn.</p>
+                <div class="input-block">
+                    <label>Mã xác thực (OTP)</label>
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-check-circle field-icon"></i>
+                        <input type="text" id="regOtpInput" placeholder="Nhập 6 số..." required maxlength="6">
+                    </div>
+                </div>
+                <button type="submit" class="auth-submit-btn btn-register-style">Kích Hoạt Tài Khoản</button>
+            </form>
+            <form id="formForgot" class="auth-form-group hidden">
+                <div class="auth-back" onclick="switchAuthTab('login')">
+                    <i class="fas fa-arrow-left"></i> Quay lại đăng nhập
+                </div>
+                <div class="input-block">
+                    <label>Email tài khoản</label>
+                    <div class="input-wrapper">
+                        <i class="fa-regular fa-envelope field-icon"></i>
+                        <input type="email" id="forgotEmail" placeholder="contact@solvia.vn" required>
+                    </div>
+                </div>
+                <button type="submit" class="auth-submit-btn">Gửi mã xác thực</button>
+            </form>
+
+            <form id="formReset" class="auth-form-group hidden">
+                <div class="auth-back" onclick="switchAuthTab('login')">
+                    <i class="fas fa-arrow-left"></i> Hủy và quay lại
+                </div>
+                <div class="input-block">
+                    <label>Mã xác thực (OTP)</label>
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-key field-icon"></i>
+                        <input type="text" id="resetOtp" placeholder="Nhập 6 số từ email" required maxlength="6">
+                    </div>
+                </div>
+                <div class="input-block">
+                    <label>Mật khẩu mới</label>
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-lock field-icon"></i>
+                        <input type="password" id="resetPassword" placeholder="Tối thiểu 8 ký tự" required>
+                    </div>
+                </div>
+                <button type="submit" class="auth-submit-btn btn-register-style">Cập Nhật Mật Khẩu</button>
+            </form>
+
+        </div>
+
+    </main>
+    <div class="water-map-decoration">
+        <img src="hinh nhân vật/cotco.png" alt="Bản đồ Việt Nam" class="bg-map-art ">
+    </div>
+<footer class="temporia-global-footer">
+    
+    <div class="footer-bg-wrapper">
+        <img src="images/footer-bg.jpg" alt="Background" class="footer-bg-img" onerror="this.src='test/NPTx.png'">
+        <div class="footer-glass-overlay"></div>
+    </div>
+
+    <div class="container-full footer-content-container">
+        <div class="footer-main-grid">
+            
+            <div class="footer-col brand-col">
+                <div class="footer-logo">
+                    <span class="logo-text"><a href="index.html" class="logo" >
+            <img src="test/logox.png" alt="Temporia Logo" style="width: 180px; height: auto;">
+        </a></span>
+                </div>
+                <p class="footer-desc">
+                    Hành trình ngược dòng thời gian, chạm vào những trang sử thiêng liêng và hào hùng của dân tộc Việt Nam qua lăng kính công nghệ tương tác hiện đại.
+                </p>
+                <div class="footer-socials">
+                    <a href="#" class="f-social-btn" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="f-social-btn" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#" class="f-social-btn" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="#" class="f-social-btn" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-col links-col">
+                <div class="f-heading">
+                    <h4>Liên kết nhanh</h4>
+                </div>
+                <ul class="f-links-list">
+                    <li><a href="#">Trang chủ</a></li>
+                    <li><a href="#">Khám phá dòng sử</a></li>
+                    <li><a href="#">Hệ thống Quiz</a></li>
+                    <li><a href="#">Cộng đồng sử học</a></li>
+                    <li><a href="#">Về Đội ngũ phát triển</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col links-col">
+                <div class="f-heading">
+                    <h4>Tính năng</h4>
+                </div>
+                <ul class="f-links-list">
+                    <li><a href="#">Bản đồ thời gian 3D</a></li>
+                    <li><a href="#">Hồ sơ danh nhân</a></li>
+                    <li><a href="#">Bảng vàng leo Rank</a></li>
+                    <li><a href="#">Sưu tầm 200+ Huy hiệu</a></li>
+                    <li><a href="#">Hồ sơ thành tích cá nhân</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col contact-col">
+                <div class="f-heading">
+                    <h4>Liên hệ</h4>
+                </div>
+                <div class="f-contact-info">
+                    <div class="f-c-item">
+                        <div class="f-c-icon"><i class="fa-regular fa-envelope"></i></div>
+                        <div class="f-c-text">
+                            <span>Email</span>
+                            <strong>temporiahistory@gmail.com</strong>
+                        </div>
+                    </div>
+                    <div class="f-c-item">
+                        <div class="f-c-icon"><i class="fa-solid fa-phone-flip"></i></div>
+                        <div class="f-c-text">
+                            <span>Điện thoại</span>
+                            <strong>0962705125</strong>
+                        </div>
+                    </div>
+                    <div class="f-c-item">
+                        <div class="f-c-icon"><i class="fa-solid fa-location-dot"></i></div>
+                        <div class="f-c-text">
+                            <span>Địa chỉ</span>
+                            <strong>Ngũ Hành Sơn, Tp. Đà Nẵng</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-col sponsor-col">
+                <div class="f-heading">
+                    <h4>Đối tác tài trợ</h4>
+                </div>
+                <p class="sponsor-desc">Đồng hành cùng sự nghiệp bảo tồn và số hóa di sản Lịch sử Việt Nam.</p>
+                
+                <div class="sponsors-grid">
+                    <div class="sponsor-badge" title="Tập đoàn Công nghệ Solvia">
+                        <i class="fa-solid fa-microchip"></i> <span>Solvia</span>
+                    </div>
+                    <div class="sponsor-badge" title="25DS Studio - AI Data Analysis">
+                        <i class="fa-solid fa-database"></i> <span>25DS</span>
+                    </div>
+                    <div class="sponsor-badge" title="Quỹ Phát triển Công nghệ & Giáo dục">
+                        <i class="fa-solid fa-graduation-cap"></i> <span>VKU</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom-bar">
+            <div class="f-copyright">
+                <i class="fa-solid fa-seedling" style="color: #22c55e;"></i>
+                <span>© 2026 Temporia. Bản quyền phát triển thuộc về Solvia.</span>
+            </div>
+            
+            <div class="f-bottom-links">
+                <a href="#">Điều khoản sử dụng</a>
+                <a href="#">Chính sách bảo mật</a>
+                <span class="f-credits">Thiết kế bởi <strong>25DS Team</strong></span>
+            </div>
+        </div>
+
+    </div>
+</footer>
+    <script src="js/auth.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

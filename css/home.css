@@ -1,0 +1,2630 @@
+/* ================= PHẦN 1: KHỞI NGUỒN ================= */
+.hero-section {
+    position: relative;
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+    /* Gradient ngang của Phần 1 */
+    background: linear-gradient(to right, #470000 0%, #690b0b 45%, #cc1111 100%);
+    padding-top: 80px; 
+    
+    /* Nới rộng khoảng trống ở đáy lên 250px. 
+       Làm như vậy nội dung sẽ bị đẩy lên trên một chút, nhường trọn không gian cho sương mù */
+    padding-bottom: 250px; 
+}
+
+/* Lớp sương mù chuyển màu */
+.hero-section::after {
+    content: '';
+    position: absolute;
+    /* Neo chặt vào đúng mép đáy, không đẩy xuống dưới nữa để không bị Phần 2 đè lên */
+    bottom: -1px; 
+    left: 0;
+    width: 100%;
+    
+    /* Độ dày lớp chuyển đổi (có thể tăng giảm tùy thích) */
+    height: 400px; 
+    
+    /* Chuyển từ trong suốt (0%) sang Xám đậm (100%) khớp hoàn toàn với Phần 2 */
+    background: linear-gradient(to bottom, transparent 0%, #111111 100%);
+    
+    pointer-events: none; 
+    z-index: 5;
+}
+.hero-left { 
+    flex: 1; display: flex; align-items: center; justify-content: center; padding: 40px; position: relative; z-index: 10; 
+    /* Chạy animation từ trái sang */
+    animation: heroSlideInLeft 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.logo {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    text-decoration: none;
+}
+
+/* IMAGE */
+
+.logo img {
+
+    width: 120px;
+
+    height: 120px;
+
+    object-fit: contain;
+}
+
+/* TEXT */
+
+.logo span {
+
+    font-size: 2rem;
+
+    font-weight: 700;
+
+    color: white;
+
+    font-family: 'Playfair Display', serif;
+}
+
+.hero-right { 
+    flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 40px 60px; position: relative; z-index: 10; 
+    /* Ẩn ban đầu, sau đó chạy animation từ phải sang (trễ 0.2s) */
+    opacity: 0; 
+    animation: heroSlideInRight 1.2s cubic-bezier(0.25, 1, 0.5, 1) 0.2s forwards;
+}
+@keyframes heroSlideInLeft {
+    0% { opacity: 0; transform: translateX(-150px); }
+    100% { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes heroSlideInRight {
+    0% { opacity: 0; transform: translateX(150px); }
+    100% { opacity: 1; transform: translateX(0); }
+}
+.hero-image {
+    width: 100%;
+    height: auto; /* Tự động điều chỉnh chiều cao theo đúng tỷ lệ gốc của bức ảnh */
+    max-height: 75vh; /* Giới hạn chiều cao để ảnh không bị tràn màn hình nếu ảnh gốc quá dọc */
+    object-fit: contain; /* Đảm bảo bức ảnh luôn hiển thị trọn vẹn 100% */
+    border-radius: 20px; 
+    transition: transform 0.5s ease;
+    margin-left: 40px;
+}
+
+/* (Tùy chọn) Thêm hiệu ứng nổi nhẹ khi rê chuột vào ảnh */
+.hero-image:hover {
+    transform: translateY(-10px);
+}.hero-right h1 { font-family: var(--font-brand); font-size: 5rem; line-height: 1.1; margin-bottom: 20px; text-shadow: 0 10px 20px rgba(0,0,0,0.3); }
+.hero-right p { font-size: 1.2rem; line-height: 1.6; color: rgba(255,255,255,0.9); max-width: 500px; }
+
+/* ========================================================================= */
+/* CSS BỔ SUNG: HIỆU ỨNG BAY LƯỢN PHẦN 1 (ĐÃ KHÓA BỐ CỤC CHỐNG VỠ)            */
+/* ========================================================================= */
+
+/* Bắt buộc 2 cột phải là khung neo (relative) để nhốt Slide 2 lại, không cho chạy lung tung */
+.hero-left, .hero-right {
+    position: relative !important;
+}
+
+/* ================= TRẠNG THÁI MẶC ĐỊNH (SLIDE 1) ================= */
+#slide1-img {
+    transition: all 0.8s ease;
+    position: relative;
+    z-index: 2;
+    /* Phòng hờ nếu ảnh chưa load, cột trái vẫn giữ độ rộng tối thiểu */
+    min-width: 300px; 
+}
+
+.slide1-desc {
+    transition: all 0.8s ease;
+    position: relative;
+    z-index: 2;
+}
+
+/* Chữ Temporia mặc định */
+.hero-title-anim {
+    transition: transform 1s cubic-bezier(0.25, 1, 0.5, 1), color 0.8s ease !important;
+    transform-origin: left top;
+    white-space: nowrap;
+    position: relative;
+    z-index: 50;
+}
+
+/* Nội dung Slide 2: BẮT BUỘC TÀNG HÌNH VÀ KHÓA CHUỘT Ở MẶC ĐỊNH */
+#slide2-text, #slide2-carousel {
+    position: absolute !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    width: 90% !important;
+    opacity: 0;
+    visibility: hidden; /* Cực kỳ quan trọng: Giấu đi để không đè vào nhau */
+    transition: all 0.6s ease;
+    z-index: 10;
+}
+
+#slide2-text { left: 5% !important; }
+#slide2-carousel { left: 0 !important; width: 100% !important; }
+
+/* Trang trí chữ cho Slide 2 */
+#slide2-text h2 { font-family: var(--font-brand, serif); font-size: 3rem; color: #fff; margin-bottom: 20px; line-height: 1.2; }
+#slide2-text p { font-size: 1.1rem; color: rgba(255,255,255,0.8); line-height: 1.6; }
+
+
+/* ================= KHI BẤM NÚT QUA TRÁI/PHẢI (KÍCH HOẠT SLIDE 2) ================= */
+
+/* 1. Ảnh và mô tả cũ mờ đi, lướt sang phải và TÀNG HÌNH */
+.hero-section.show-slide-2 #slide1-img,
+.hero-section.show-slide-2 .slide1-desc {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transform: translateX(50px) !important;
+}
+
+/* 2. Chữ Temporia bay vút lên góc trên cùng bên trái */
+.hero-section.show-slide-2 .hero-title-anim {
+    /* Bay qua trái và lên trên, thu nhỏ lại, đổi sang màu vàng đồng */
+    transform: translate(-35vw, -30vh) scale(0.45) !important;
+    color: #facc15 !important; 
+}
+
+/* 3. Hiện các nội dung của Slide 2 lên */
+.hero-section.show-slide-2 #slide2-text,
+.hero-section.show-slide-2 #slide2-carousel {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transition-delay: 0.3s; /* Chờ chữ Temporia bay xong mới hiện ra */
+}
+
+/* --- HIỆU ỨNG LƯỚT CAROUSEL (GIỮ NGUYÊN) --- */
+.features-track {
+    display: flex;
+    gap: 20px;
+    width: max-content;
+    animation: scrollFeatures 15s linear infinite;
+    animation-play-state: paused;
+}
+.hero-section.show-slide-2 .features-track {
+    animation-play-state: running;
+}
+@keyframes scrollFeatures {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(-270px * 4)); }
+}
+
+.feature-box {
+    width: 250px;
+    background: rgba(0, 0, 0, 0.5); /* Nền kính đen mờ sang trọng */
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 30px 20px;
+    text-align: center;
+    transition: transform 0.3s;
+}
+.feature-box:hover { border-color: #d97706; transform: translateY(-8px); }
+.feature-box h3 { color: #d97706; font-size: 1.2rem; margin-bottom: 10px; }
+.feature-box p { color: #ccc; font-size: 0.95rem; line-height: 1.5; }
+.fb-icon { font-size: 2.5rem; margin-bottom: 15px; }
+
+/* --- BỘ ĐIỀU KHIỂN NÚT --- */
+.hero-bottom-controls {
+    position: absolute; bottom: 35px; left: 0; width: 100%;
+    display: flex; justify-content: center; align-items: center;
+    padding: 0 5%; z-index: 20;
+}
+.hero-pagination { display: flex; gap: 15px; }
+.dash { width: 40px; height: 3px; background: rgba(255, 255, 255, 0.2); cursor: pointer; transition: all 0.4s; }
+.dash.active { background: #d97706; width: 60px; }
+.hero-nav-btns { position: absolute; right: 5%; display: flex; gap: 10px; }
+.hero-btn { width: 55px; height: 55px; border-radius: 50%; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.2); color: #fff; cursor: pointer; display: flex; justify-content: center; align-items: center; transition: all 0.3s; }
+.hero-btn:hover { background: #d97706; border-color: #d97706; transform: scale(1.1); }
+
+/* ========================================================================= */
+/* CSS: HOÁN ĐỔI VÀ BIẾN HÌNH (LAYOUT SWAP & MORPHING) - BẢO LƯU NỀN GỐC     */
+/* ========================================================================= */
+
+.hero-swap-area {
+    position: absolute;
+    top: 100px; left: 0; width: 100%; height: calc(100vh - 350px);
+    display: flex; align-items: center;
+    z-index: 10;
+}
+
+/* ========================================================================= */
+/* CSS: HOÁN ĐỔI VÀ BIẾN HÌNH (ĐÃ SỬA LỖI CANH GIỮA HOÀN HẢO)                 */
+/* ========================================================================= */
+
+.hero-swap-area {
+    position: absolute;
+    top: 0; left: 0; 
+    width: 100%; 
+    height: 100%; /* Trải dài bằng toàn bộ Phần 1 */
+    z-index: 10;
+}
+
+/* ================= 1. THIẾT LẬP 2 KHỐI DI ĐỘNG ================= */
+.morph-visual-box, .morph-text-box {
+    position: absolute;
+    top: 48%; /* Đẩy xuống giữa màn hình */
+    transform: translateY(-50%); /* Bí quyết canh giữa chính xác theo chiều dọc */
+    width: 45%; 
+    height: auto;
+    transition: all 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Mặc định: Hình bên Trái, Chữ bên Phải */
+.morph-visual-box { left: 5%; }
+.morph-text-box { right: 5%; display: flex; flex-direction: column; justify-content: center; }
+
+/* KHI CHUYỂN SLIDE: Đảo ngược vị trí (Bắt buộc giữ translateY(-50%) để không bị giật lên) */
+.hero-section.show-slide-2 .morph-visual-box { 
+    left: 50%; 
+    transform: translate(0, -50%); 
+}
+.hero-section.show-slide-2 .morph-text-box { 
+    right: 50%; 
+    transform: translateY(-50%);
+}
+
+/* ================= 2. QUÁ TRÌNH BIẾN HÌNH KHỐI HÌNH ẢNH ================= */
+.visual-image {
+    width: 100%; border-radius: 20px;
+    transition: all 0.8s ease;
+    opacity: 1; transform: scale(1);
+    display: block; /* Đảm bảo hình ảnh cung cấp chiều cao cho khung */
+}
+
+.visual-feature-frame {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; min-height: 400px;
+    background: rgba(20, 0, 0, 0.6); backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 24px;
+    opacity: 0; transform: scale(0.9); visibility: hidden;
+    transition: all 0.8s ease;
+    display: flex; align-items: center; justify-content: center;
+}
+
+/* Slide 2: Ảnh mờ đi, Khung tính năng bung ra */
+.hero-section.show-slide-2 .visual-image { opacity: 0; transform: scale(0.9); visibility: hidden; }
+.hero-section.show-slide-2 .visual-feature-frame { opacity: 1; transform: scale(1); visibility: visible; }
+
+/* ================= 3. QUÁ TRÌNH BIẾN HÌNH KHỐI CHỮ ================= */
+/* QUAN TRỌNG: Sửa text-state-1 thành relative để nó đẩy khung chữ cao lên */
+.text-state-1 {
+    position: relative; 
+    width: 100%;
+    transition: all 0.8s ease;
+}
+.subtitle-badge {
+    display: inline-block;
+    font-family: sans-serif;
+    font-size: 0.85rem;
+    color: #facc15;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+    position: relative;
+    padding-left: 45px;
+    font-weight: bold;
+}
+.subtitle-badge::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 50%;
+    transform: translateY(-50%);
+    width: 30px; height: 2px;
+    background: #facc15;
+}
+.text-state-2 { 
+    position: absolute; 
+    top: -90; left: 0;
+    width: 100%;
+    transition: all 0.8s ease;
+    opacity: 0; visibility: hidden; transform: translateY(30px); 
+}
+
+/* Chữ Temporia mặc định */
+.text-state-1 h1 { font-family: var(--font-brand, serif); font-size: 5.5rem; color: #fff; margin-bottom: 20px; text-shadow: 0 10px 20px rgba(0,0,0,0.5); }
+.text-state-1 p, .text-state-2 p { font-size: 1.2rem; color: rgba(255,255,255,0.8); line-height: 1.6; }
+.text-state-2 h2 { 
+    font-family: var(--font-brand, serif); 
+    font-size: 3.8rem; 
+    color: #fff; 
+    margin-bottom: 25px; 
+    line-height: 1.15; 
+}
+.text-state-2 h2 .text-gold {
+    color: #facc15;
+    font-style: italic; /* Chữ nghiêng nhẹ tạo nét nghệ thuật */
+    text-shadow: 0 0 20px rgba(217, 119, 6, 1);
+}
+
+/* Đoạn mô tả: Canh lề gọn gàng, tăng khoảng cách dòng */
+.text-state-2 p { 
+    font-size: 1.15rem; 
+    color: #c4c4c4; 
+    line-height: 1.7; 
+    max-width: 90%; 
+}
+
+/* Slide 2: Đổi chữ Temporia thành Chủ đề mới */
+.hero-section.show-slide-2 .text-state-1 { opacity: 0; visibility: hidden; transform: translateY(-30px); }
+.hero-section.show-slide-2 .text-state-2 { opacity: 1; visibility: visible; transform: translateY(0); }
+
+/* ================= 4. LƯỚI TÍNH NĂNG 2x2 HIỆN ĐẠI (THAY THẾ KHUNG TO) ================= */
+
+/* Xóa nền của khung to cũ để nhường chỗ cho 4 thẻ nhỏ */
+.visual-feature-frame.modern-transparent {
+    background: transparent !important;
+    border: none !important;
+    backdrop-filter: none !important;
+}
+
+/* Bố cục Grid 2 cột x 2 hàng */
+.modern-features-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    width: 100%;
+}
+
+/* ================= THIẾT KẾ KÍNH MỜ SƯƠNG (ĐÃ FIX LỖI & THÊM HIỆU ỨNG LẮC ICON) ================= */
+
+.modern-features-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    width: 100%;
+}
+
+/* 1. THẺ KÍNH MỜ TRẮNG BÌNH THƯỜNG */
+.m-feature-card {
+    position: relative;
+    background: rgba(255, 255, 255, 0.04) !important; 
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 20px;
+    padding: 30px 24px;
+    text-align: left;
+    
+    opacity: 0;
+    transform: translateY(30px);
+    
+    /* CHỈNH LẠI: Tăng tốc độ chuyển động xuống 0.3s cho mượt và nhạy hơn */
+    transition: transform 0.3s ease-out, background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+/* Hiệu ứng trồi lên so le nhau */
+.hero-section.show-slide-2 .m-feature-card { opacity: 1; transform: translateY(0); }
+.hero-section.show-slide-2 .delay-1 { transition-delay: 0.4s; }
+.hero-section.show-slide-2 .delay-2 { transition-delay: 0.5s; }
+.hero-section.show-slide-2 .delay-3 { transition-delay: 0.6s; }
+.hero-section.show-slide-2 .delay-4 { transition-delay: 0.7s; }
+
+
+/* 2. ICON VÀ CHỮ BÊN TRONG */
+.m-icon-wrapper {
+    margin-bottom: 15px;
+    background: transparent !important; 
+    border: none !important;
+    display: inline-block;
+}
+.m-icon {
+    display: inline-block;
+    font-size: 2.2rem;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2));
+    /* CHỈNH LẠI: Ép tốc độ chuyển động của icon đúng bằng 0.3s như của khung thẻ */
+    transition: transform 0.3s ease-out, filter 0.3s ease !important;
+}
+
+.m-feature-card h3 {
+    color: #fff; 
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    font-family: var(--font-brand, sans-serif);
+    font-weight: 500;
+    /* CHỈNH LẠI: Chữ cũng đổi màu với tốc độ 0.3s */
+    transition: color 0.3s ease !important;
+}
+
+.m-feature-card p {
+    color: rgba(255, 255, 255, 0.75); 
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* Ẩn các class rác từ thiết kế cũ (nếu có) */
+.card-shine { display: none !important; }
+
+
+/* ================= 3. HIỆU ỨNG HOVER CHUẨN XÁC ================= */
+.m-feature-card:hover {
+    transform: translateY(-8px); 
+    background: rgba(255, 255, 255, 0.1) !important; /* Sáng lên nhẹ nhàng, không bị đen */
+    border-color: rgba(250, 204, 21, 0.5) !important; 
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15) !important; 
+}
+/* ICON LẮC & NẢY LÊN (Hiệu ứng bạn muốn) */
+.m-feature-card:hover .m-icon {
+    transform: scale(1.15) rotate(5deg); /* Giảm độ phóng to và nghiêng một chút để đỡ gắt */
+    filter: drop-shadow(0 0 12px rgba(250, 204, 21, 0.6)); 
+}
+
+.m-feature-card:hover h3 { 
+    color: #facc15 !important; 
+}
+
+/* 3. TIA SÁNG LƯỚT KIM LOẠI (Sweep Shine) */
+.card-shine {
+    position: absolute;
+    top: 0; left: -100%;
+    width: 50%; height: 100%;
+    background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0) 100%);
+    transform: skewX(-25deg);
+    transition: all 0.7s ease;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* ================= HIỆU ỨNG HOVER QUYỀN LỰC ================= */
+.m-feature-card:hover {
+    transform: translateY(-8px) scale(1.03);
+    border-color: rgba(250, 204, 21, 0.4);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(250, 204, 21, 0.1);
+}
+
+/* Vệt sáng lướt qua thẻ */
+.m-feature-card:hover .card-shine {
+    left: 200%;
+}
+
+/* Đổi màu chữ và icon bừng sáng */
+.m-feature-card:hover h3 { color: #facc15; }
+.m-feature-card:hover p { color: #cfcfcf; }
+
+/* Icon Wrapper nảy lên và phát sáng */
+.m-feature-card:hover .m-icon-wrapper {
+    transform: translateY(-5px);
+    border-color: rgba(250, 204, 21, 0.5);
+    background: linear-gradient(135deg, rgba(250, 204, 21, 0.25), rgba(250, 204, 21, 0.05));
+}
+.m-feature-card:hover .m-icon {
+    transform: scale(1.15);
+}
+/* Hiệu ứng trồi lên so le nhau khi sang Slide 2 */
+.hero-section.show-slide-2 .m-feature-card {
+    opacity: 1;
+    transform: translateY(0);
+}
+.hero-section.show-slide-2 .delay-1 { transition-delay: 0.4s; }
+.hero-section.show-slide-2 .delay-2 { transition-delay: 0.5s; }
+.hero-section.show-slide-2 .delay-3 { transition-delay: 0.6s; }
+.hero-section.show-slide-2 .delay-4 { transition-delay: 0.7s; }
+
+/* Hiệu ứng Hover nổi bật (Nổi bọt, viền sáng) */
+.m-feature-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    background: rgba(30, 30, 30, 0.85);
+    border-color: #facc15;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(250, 204, 21, 0.15);
+    z-index: 5;
+}
+
+/* Typography bên trong thẻ */
+.m-icon {
+    font-size: 2.2rem;
+    margin-bottom: 12px;
+    filter: drop-shadow(0 0 8px rgba(250, 204, 21, 0.4));
+    transition: transform 0.3s;
+}
+.m-feature-card:hover .m-icon {
+    transform: scale(1.1) rotate(5deg);
+}
+.m-feature-card h3 {
+    color: #facc15;
+    font-size: 1.15rem;
+    margin-bottom: 8px;
+    font-family: sans-serif;
+    letter-spacing: 0.5px;
+}
+.m-feature-card p {
+    color: #b3b3b3;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+/* ================= BỘ ĐIỀU KHIỂN CHÍNH Ở ĐÁY ================= */
+.hero-bottom-controls { position: absolute; bottom: 35px; left: 0; width: 100%; display: flex; justify-content: center; align-items: center; padding: 0 5%; z-index: 20; }
+.hero-pagination { display: flex; gap: 15px; }
+.dash { width: 40px; height: 3px; background: rgba(255, 255, 255, 0.2); cursor: pointer; transition: 0.4s; }
+.dash.active { background: #facc15; width: 60px; }
+.hero-nav-btns { position: absolute; right: 5%; display: flex; gap: 10px; }
+.hero-btn { width: 50px; height: 50px; border-radius: 50%; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.2); color: #fff; cursor: pointer; display: flex; justify-content: center; align-items: center; transition: 0.3s; }
+.hero-btn:hover { background: #facc15; border-color: #facc15; color: #000; }
+
+
+
+/* ========================================================================= */
+/* CSS TỔNG HỢP: HOÁN ĐỔI BỐ CỤC & SƠ ĐỒ ĐIỆN THOẠI (FIX TẤT CẢ LỖI ĐÈ GIAO DIỆN) */
+/* ========================================================================= */
+
+/* ========================================================================= */
+/* CSS: BỐ CỤC LUXURY LANDING PAGE (BẢN CHỐNG LỖI HIỂN THỊ)                  */
+/* ========================================================================= */
+
+.hero-swap-area {
+    position: absolute !important; top: 100px !important; left: 0 !important; 
+    width: 100% !important; height: calc(100vh - 100px) !important; z-index: 10 !important;
+}
+
+/* ================= TRẠNG THÁI MẶC ĐỊNH ================= */
+.morph-visual-box, .morph-text-box {
+    position: absolute !important; top: 45% !important; transform: translateY(-50%) !important;
+    width: 45% !important; transition: all 1.2s cubic-bezier(0.25, 1, 0.5, 1) !important;
+}
+.morph-visual-box { left: 5% !important; }
+.morph-text-box { right: 5% !important; display: flex !important; flex-direction: column !important; justify-content: center !important; }
+
+.visual-image {
+    width: 100% !important; border-radius: 20px !important; display: block !important;
+    transition: all 0.8s ease !important; opacity: 1 !important; visibility: visible !important; transform: scale(1) !important;
+}
+
+.visual-feature-frame {
+    position: absolute !important; top: 50% !important; left: 50% !important; transform: translate(-50%, -50%) scale(0.8) !important;
+    width: 100% !important; height: 100% !important; min-height: 500px !important;
+    opacity: 0 !important; visibility: hidden !important; transition: all 0.8s ease !important;
+    display: flex !important; justify-content: center !important; align-items: center !important;
+}
+
+.text-state-1 {
+    position: relative !important; width: 100% !important; transition: all 0.8s ease !important;
+    opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important;
+}
+.text-state-2 { 
+    position: absolute !important; top: 0 !important; left: 0 !important; width: 100% !important; transition: all 0.8s ease !important;
+    opacity: 0 !important; visibility: hidden !important; transform: translateY(30px) !important;
+}
+
+/* ================= CHUYỂN SANG SLIDE 2 ================= */
+.hero-section.show-slide-2 .text-state-1 { opacity: 0 !important; visibility: hidden !important; transform: translateY(-30px) !important; }
+.hero-section.show-slide-2 .visual-image { opacity: 0 !important; visibility: hidden !important; transform: scale(0.8) !important; }
+
+.hero-section.show-slide-2 .morph-text-box { 
+    left: 50% !important; right: auto !important;
+    top: -34px !important; /* Đẩy sát hẳn lên nóc */
+    transform: translateX(-50%) !important;
+    width: 90% !important; z-index: 30 !important; 
+}
+.hero-section.show-slide-2 .text-state-2 { 
+    opacity: 1 !important; visibility: visible !important; transform: translateY(0);
+    display: flex; flex-direction: column; align-items: center; text-align: center;
+}
+
+.text-state-2 h2 { 
+    font-size: 2.7rem !important; /* Thu nhỏ chữ tiêu đề một chút */
+    margin-bottom: 8px !important; 
+}
+
+.text-state-2 p { margin: 0 auto; max-width: 800px; font-size: 0.95rem !important; } /* Thu nhỏ chữ mô tả */
+
+.hero-section.show-slide-2 .morph-visual-box { 
+    left: 50% !important; 
+    top: 60% !important; /* Đẩy khung xuống vị trí 60% màn hình để tránh chữ */
+    transform: translate(-50%, -50%) !important; 
+    width: 100% !important; max-width: 1100px !important;
+    height: 55vh !important; 
+}
+.hero-section.show-slide-2 .visual-feature-frame { 
+    opacity: 1 !important; visibility: visible !important; transform: translate(-50%, -50%) scale(1) !important; 
+}
+.hub-layout { display: flex; justify-content: center; align-items: center; position: relative; width: 100%; height: 100%; }
+
+/* ========================================================================= */
+/* CSS: SƠ ĐỒ ĐƯỜNG CONG SVG HIỆN ĐẠI & THẺ TÍNH NĂNG (ĐÃ BỔ SUNG NỘI DUNG)    */
+/* ========================================================================= */
+
+.hub-layout {
+    position: relative; width: 100%; height: 100%;
+    display: flex; justify-content: center; align-items: center;
+}
+
+/* --- 1. HÀO QUANG TRUNG TÂM (Tách riêng cho dễ quản lý) --- */
+.hub-aura {
+    position: absolute;
+    top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 350px; height: 350px;
+    background: radial-gradient(circle, rgba(250, 204, 21, 0.2) 0%, transparent 60%);
+    border-radius: 50%;
+    filter: blur(40px);
+    opacity: 0; z-index: 5;
+    transition: opacity 1s ease 1s;
+    animation: pulseAura 4s infinite alternate; /* Hiệu ứng thở nhẹ nhàng */
+}
+.hero-section.show-slide-2 .hub-aura { opacity: 1; }
+@keyframes pulseAura {
+    0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.8; }
+    100% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+}
+
+
+/* --- 2. ĐƯỜNG CONG SVG HIỆN ĐẠI (SWEEPING CURVES) --- */
+.connectors-svg {
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 5 !important; /* Đẩy xuống sau lưng 4 thẻ (z-index: 10) và điện thoại (z-index: 20) */
+    pointer-events: none; 
+}
+
+.spoke-curve {
+    stroke-dasharray: 800; /* Làm ngắn lại đường vẽ */
+    stroke-dashoffset: 800; 
+    opacity: 0.8;
+    transition: stroke-dashoffset 1.2s cubic-bezier(0.25, 1, 0.5, 1) 0.8s; 
+}
+.hero-section.show-slide-2 .spoke-curve { stroke-dashoffset: 0; }
+
+/* marker: Đặt góc xoay chính xác cho mũi tên của mỗi đường cong */
+.spoke-tl-curve { marker-end: url(#arrowhead); }
+.spoke-tr-curve { marker-end: url(#arrowhead); }
+.spoke-bl-curve { marker-end: url(#arrowhead); }
+.spoke-br-curve { marker-end: url(#arrowhead); }
+
+/* Điều chỉnh lại marker-end trong SVG: orient auto không phải lúc nào cũng chính xác tuyệt đối, 
+   có thể cần phải fix bằng transform trong defs nếu cần. */
+
+
+/* --- 3. 4 THẺ TÍNH NĂNG: Nhỏ gọn, tinh tế, kính mờ sương --- */
+.m-feature-card {
+    position: absolute !important; 
+    width: 250px; /* Thu hẹp lại một chút */
+    background: rgba(255, 255, 255, 0.02) !important; 
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 16px; 
+    padding: 15px 20px; 
+    
+    /* Chuyển icon và chữ nằm ngang nhau cho cực kỳ gọn gàng */
+    display: flex; align-items: center; gap: 15px; 
+    
+    opacity: 0; transform: scale(0.8); z-index: 10;
+    transition: transform 0.3s ease-out, background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+/* Đặt vị trí 4 góc (Dạt hẳn ra biên) */
+.card-tl { top: 12% !important; left: 5% !important; }
+.card-tr { top: 25% !important; right: 5% !important; } /* Thụt xuống so với thẻ TL */
+
+.card-bl { bottom: 25% !important; left: 5% !important; } /* Đẩy lên so với thẻ BR */
+.card-br { bottom: 12% !important; right: 5% !important; }
+
+/* Hiệu ứng nở ra so le: Chờ đường cong xong */
+.hero-section.show-slide-2 .card-tl { opacity: 1 !important; transform: scale(1) !important; transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1.2s !important; }
+.hero-section.show-slide-2 .card-tr { opacity: 1 !important; transform: scale(1) !important; transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1.3s !important; }
+.hero-section.show-slide-2 .card-bl { opacity: 1 !important; transform: scale(1) !important; transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1.4s !important; }
+.hero-section.show-slide-2 .card-br { opacity: 1 !important; transform: scale(1) !important; transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1.5s !important; }
+
+
+/* --- CHI TIẾT TRONG THẺ WIDGET --- */
+.m-icon {
+    font-size: 2rem;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2));
+    transition: transform 0.3s ease !important;
+}
+.m-text { flex: 1; }
+.m-feature-card h3 {
+    color: #fff;
+    font-size: 1.05rem;
+    margin-bottom: 4px;
+    font-family: sans-serif;
+    font-weight: 600;
+}
+.m-feature-card p {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.85rem;
+    line-height: 1.4;
+    margin: 0;
+}
+
+
+/* --- HIỆU ỨNG HOVER ĐỒNG BỘ SIÊU MƯỢT --- */
+.m-feature-card:hover {
+    transform: translateY(-5px) scale(1.05) !important; 
+    background: rgba(255, 255, 255, 0.08) !important; 
+    border-color: rgba(250, 204, 21, 0.4) !important; 
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2) !important; 
+    transition-delay: 0s !important; /* Phản hồi ngay lập tức */
+}
+
+/* Icon chỉ nhô lên nhẹ nhàng */
+.m-feature-card:hover .m-icon {
+    transform: scale(1.15) rotate(5deg) !important;
+    filter: drop-shadow(0 0 10px rgba(250, 204, 21, 0.6));
+}
+
+/* Chữ chỉ đổi màu mượt mà */
+.m-feature-card:hover h3 { 
+    color: #facc15 !important; 
+}
+
+
+/* --- 3. ĐIỆN THOẠI TRUNG TÂM (Thu nhỏ lại để không đụng nóc) --- */
+.center-phone {
+    position: absolute !important; 
+    height: 45vh !important; /* Giảm chiều cao điện thoại */
+    max-height: 400px !important; /* Khóa giới hạn tối đa */
+    width: auto !important; z-index: 20 !important;
+    opacity: 0 !important; transform: translateY(150px) !important;
+    transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.3s !important; 
+    filter: drop-shadow(0 20px 40px rgba(0,0,0,0.6));
+}
+.hero-section.show-slide-2 .center-phone { opacity: 1 !important; transform: translateY(0) !important; }
+
+
+/* --- 4. TIA SÁNG KẾT NỐI (HIỆU ỨNG LASER) --- */
+.spoke-line {
+    position: absolute !important;
+    top: 50% !important; left: 50% !important;
+    height: 1.5px !important; /* Đường kẻ siêu mỏng tinh tế */
+    background: linear-gradient(90deg, rgba(250, 204, 21, 0.9), rgba(250, 204, 21, 0)) !important;
+    transform-origin: 0 50% !important;
+    width: 0 !important; opacity: 0 !important; z-index: 5 !important;
+    transition: width 0.6s ease-out 0.8s, opacity 0.3s ease 0.8s !important; 
+}
+
+/* Hạt sáng (đầu mũi tên) ở cuối tia */
+.spoke-line::after {
+    content: '' !important; position: absolute !important;
+    right: 0 !important; top: -2.5px !important;
+    width: 6px !important; height: 6px !important;
+    background: #facc15 !important; border-radius: 50% !important;
+    box-shadow: 0 0 10px #facc15, 0 0 20px #facc15 !important;
+}
+
+/* Góc xoay của 4 tia */
+.spoke-tl { transform: rotate(-160deg) !important; }
+.spoke-tr { transform: rotate(-20deg) !important; }
+.spoke-bl { transform: rotate(160deg) !important; }
+.spoke-br { transform: rotate(20deg) !important; }
+
+/* Kéo dài tia khi hiện ra */
+.hero-section.show-slide-2 .spoke-line { width: 320px !important; opacity: 1 !important; }
+
+
+/* --- 5. HÀO QUANG TRUNG TÂM --- */
+.hub-aura {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 350px; height: 350px;
+    background: radial-gradient(circle, rgba(250, 204, 21, 0.2) 0%, transparent 60%);
+    border-radius: 50%; filter: blur(40px);
+    opacity: 0; z-index: 5;
+    transition: opacity 1s ease 1s; animation: pulseAura 4s infinite alternate; 
+}
+.hero-section.show-slide-2 .hub-aura { opacity: 1; }
+
+
+/* --- 6. 4 THẺ WIDGET KÍNH MỜ (Đẩy dạt ra biên) --- */
+.m-feature-card {
+    position: absolute !important; width: 250px !important; 
+    background: rgba(255, 255, 255, 0.02) !important; backdrop-filter: blur(20px) !important; -webkit-backdrop-filter: blur(20px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important; border-radius: 16px !important; padding: 15px 20px !important; margin: 0 !important;
+    display: flex !important; align-items: center !important; gap: 15px !important; text-align: left !important;
+    opacity: 0 !important; transform: scale(0.8) !important; z-index: 10 !important;
+    transition: transform 0.3s ease-out, background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+/* Kéo giãn 4 thẻ ra ngoài để không dính vào điện thoại */
+.card-tl { top: 5% !important; left: 0 !important; }
+.card-tr { top: 5% !important; right: 0 !important; }
+.card-bl { bottom: 5% !important; left: 0 !important; }
+.card-br { bottom: 5% !important; right: 0 !important; }
+
+.hero-section.show-slide-2 .card-tl { opacity: 1 !important; transform: scale(1) !important; transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1.0s !important; }
+.hero-section.show-slide-2 .card-tr { opacity: 1 !important; transform: scale(1) !important; transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1.1s !important; }
+.hero-section.show-slide-2 .card-bl { opacity: 1 !important; transform: scale(1) !important; transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1.2s !important; }
+.hero-section.show-slide-2 .card-br { opacity: 1 !important; transform: scale(1) !important; transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1.3s !important; }
+
+/* --- CHI TIẾT TRONG THẺ & HOVER --- */
+.m-icon { font-size: 2rem; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2)); transition: transform 0.3s ease !important; }
+.m-text { flex: 1; }
+.m-feature-card h3 { color: #fff; font-size: 1.05rem; margin-bottom: 4px; font-weight: 600; transition: color 0.3s ease !important;}
+.m-feature-card p { color: rgba(255, 255, 255, 0.6); font-size: 0.85rem; line-height: 1.4; margin: 0; }
+
+.m-feature-card:hover {
+    transform: translateY(-5px) scale(1.05) !important; 
+    background: rgba(255, 255, 255, 0.08) !important; border-color: rgba(250, 204, 21, 0.4) !important; box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2) !important; 
+    transition-delay: 0s !important; 
+}
+.m-feature-card:hover .m-icon { transform: scale(1.15) rotate(5deg) !important; filter: drop-shadow(0 0 10px rgba(250, 204, 21, 0.6)); }
+.m-feature-card:hover h3 { color: #facc15 !important; }
+
+.hero-section.show-slide-2 .morph-visual-box { 
+    left: 50% !important; top: 55% !important; transform: translate(-50%, -50%) !important; 
+    width: 100% !important; max-width: 1100px !important; height: 60vh !important; 
+}
+.hero-section.show-slide-2 .visual-feature-frame { 
+    opacity: 1 !important; visibility: visible !important; transform: translate(-50%, -50%) scale(1) !important; 
+}
+
+
+/* ================= TRUNG TÂM ĐIỆN THOẠI ================= */
+.center-phone {
+    position: absolute !important; height: 55vh !important; max-height: 500px !important; width: auto !important; z-index: 20 !important;
+    opacity: 0 !important; transform: translateY(150px) !important;
+    transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.3s !important; 
+    filter: drop-shadow(0 20px 40px rgba(0,0,0,0.6)) !important;
+}
+.hero-section.show-slide-2 .center-phone { opacity: 1 !important; transform: translateY(0) !important; }
+
+.hub-aura {
+    position: absolute !important; top: 50% !important; left: 50% !important; transform: translate(-50%, -50%) !important;
+    width: 350px !important; height: 350px !important;
+    background: radial-gradient(circle, rgba(250, 204, 21, 0.2) 0%, transparent 60%) !important;
+    border-radius: 50% !important; filter: blur(40px) !important;
+    opacity: 0 !important; z-index: 5 !important;
+    transition: opacity 1s ease 1s !important; animation: pulseAura 4s infinite alternate !important; 
+}
+.hero-section.show-slide-2 .hub-aura { opacity: 1 !important; }
+@keyframes pulseAura {
+    0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.8; }
+    100% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+}
+
+/* ================= 4 WIDGET KÍNH MỜ ================= */
+.m-feature-card {
+    position: absolute !important; width: 250px !important; margin: 0 !important;
+    background: rgba(255, 255, 255, 0.02) !important; backdrop-filter: blur(20px) !important; -webkit-backdrop-filter: blur(20px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important; border-radius: 16px !important; padding: 15px 20px !important; 
+    display: flex !important; align-items: center !important; gap: 15px !important; text-align: left !important;
+    opacity: 0 !important; visibility: hidden !important; transform: scale(0.5) !important; z-index: 10 !important;
+    transition: transform 0.3s ease-out, background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+.card-tl { top: 15% !important; left: 2% !important; }
+.card-tr { top: 15% !important; right: 2% !important; }
+.card-bl { bottom: 15% !important; left: 2% !important; }
+.card-br { bottom: 15% !important; right: 2% !important; }
+
+/* Ép thẻ hiện lên khi sang Slide 2 */
+.hero-section.show-slide-2 .card-tl { opacity: 1 !important; visibility: visible !important; transform: scale(1) !important; transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1.0s !important; }
+.hero-section.show-slide-2 .card-tr { opacity: 1 !important; visibility: visible !important; transform: scale(1) !important; transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1.1s !important; }
+.hero-section.show-slide-2 .card-bl { opacity: 1 !important; visibility: visible !important; transform: scale(1) !important; transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1.2s !important; }
+.hero-section.show-slide-2 .card-br { opacity: 1 !important; visibility: visible !important; transform: scale(1) !important; transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1.3s !important; }
+
+/* Chi tiết trong thẻ và Hover */
+.m-icon { font-size: 2rem; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2)); transition: transform 0.3s ease !important; }
+.m-text { flex: 1; }
+.m-feature-card h3 { color: #fff; font-size: 1.05rem; margin-bottom: 4px; font-weight: 600; transition: color 0.3s ease !important;}
+.m-feature-card p { color: rgba(255, 255, 255, 0.6); font-size: 0.85rem; line-height: 1.4; margin: 0; }
+
+.m-feature-card:hover {
+    transform: translateY(-5px) scale(1.05) !important; 
+    background: rgba(255, 255, 255, 0.08) !important; border-color: rgba(250, 204, 21, 0.4) !important; box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2) !important; 
+    transition-delay: 0s !important; 
+}
+.m-feature-card:hover .m-icon { transform: scale(1.15) rotate(5deg) !important; filter: drop-shadow(0 0 10px rgba(250, 204, 21, 0.6)); }
+.m-feature-card:hover h3 { color: #facc15 !important; }
+
+/* ================= TYPOGRAPHY ================= */
+.text-state-1 h1 { font-family: var(--font-brand, serif); font-size: 5.5rem; color: #fff; margin-bottom: 20px; text-shadow: 0 10px 20px rgba(0,0,0,0.5); }
+.text-state-1 p { font-size: 1.15rem; color: rgba(255,255,255,0.8); line-height: 1.6; }
+.subtitle-badge { display: inline-block; font-size: 0.85rem; color: #facc15; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 20px; position: relative; padding-left: 45px; font-weight: bold; }
+.subtitle-badge::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 30px; height: 2px; background: #facc15; }
+.text-state-2 h2 { font-size: 3rem; color: #fff; margin-bottom: 12px; }
+.text-state-2 h2 .text-gold { color: #facc15; font-style: italic; }
+.text-state-2 p { margin: 0 auto; max-width: 700px; font-size: 1rem; color: #c4c4c4; line-height: 1.7; }
+
+/* ================= PHẦN 2: BẠN CÓ BIẾT (BỐ CỤC TRÁI PHẢI) ================= */
+/* ================= PHẦN 2: BẠN CÓ BIẾT (TÂM ĐIỂM TYPOGRAPHY) ================= */
+.intro-section {
+    display: flex; 
+    min-height: 70vh; 
+    width: 100%; 
+    background: #111111; 
+    align-items: center; 
+    justify-content: center; 
+    
+    /* CŨ: padding: 100px 40px; */
+    /* MỚI: Tăng padding-bottom lên 250px để đẩy không gian xuống dưới */
+    padding: 100px 40px 250px 40px; 
+    
+    z-index: 10; 
+    position: relative;
+}
+
+
+.intro-container {
+    display: flex;
+    max-width: 1400px;
+    width: 100%;
+    align-items: center;
+    gap: 50px;
+}
+
+/* KHU VỰC TYPOGRAPHY (Bên Trái) */
+.intro-left {
+    flex: 1.2;
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 5%;
+}
+
+.intro-content {
+    display: flex; 
+    flex-direction: column; 
+    gap: 20px; 
+}
+
+/* Thống nhất 1 font chữ (sans-serif) để không bị loạn mắt */
+.intro-line1, .intro-line3 {
+    font-family: var(--font-main);
+    font-size: 4rem; 
+    font-weight: 700;
+    color: var(--text-light);
+    margin: 0;
+    line-height: 1.2;
+}
+
+.intro-line2 {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-left: 80px; /* Thụt vào ít hơn một chút */
+}
+
+.long-dash {
+    width: 100px;
+    height: 4px;
+    background: #d97706; 
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(217, 119, 6, 0.4);
+}
+
+.text-history {
+    font-family: var(--font-main);
+    font-size: 2.2rem;
+    font-weight: 600;
+    color: var(--text-dim);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+/* KHUNG CHỮ "VĨ ĐẠI" */
+.tilt-box {
+    display: inline-block;
+    padding: 0 20px;
+    background: linear-gradient(135deg, #cc1111 0%, #7f1d1d 100%);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 16px;
+    box-shadow: 0 15px 30px rgba(204, 17, 17, 0.4);
+    transform: rotate(-6deg) translateY(-8px); 
+    color: #ffffff;
+    font-style: italic;
+    cursor: pointer;
+}
+
+@keyframes nhunNhay {
+    0% { transform: rotate(-6deg) translateY(-8px); }
+    50% { transform: rotate(4deg) translateY(-15px); }
+    100% { transform: rotate(-6deg) translateY(-8px); }
+}
+
+.tilt-box:hover {
+    animation: nhunNhay 0.5s ease-in-out infinite;
+}
+
+/* HÌNH ẢNH (Bên Phải) */
+.intro-right {
+    flex: 1.1; /* Tăng không gian chứa ảnh từ 0.8 lên 1.1 (ảnh sẽ được cấp nhiều diện tích hơn) */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: -60px; /* Đẩy nguyên khối ảnh xích về bên trái (vào giữa màn hình) 60px */
+}
+
+.intro-image {
+    width: 110%; /* Cố tình ép chiều rộng to hơn khung mặc định một chút */
+    height: auto; 
+    max-height: 80vh; /* Tăng giới hạn chiều cao từ 60vh lên 80vh để ảnh giãn nở tối đa */
+    object-fit: contain; 
+    border-radius: 20px; 
+    transition: transform 0.5s ease;
+}
+
+.intro-image:hover {
+    transform: translateY(-10px);
+}
+
+/* ================= PHẦN 3: TIMELINE (1000 NĂM) ================= */
+.history-section { 
+    position: relative; 
+    /* TẠO ĐƯỜNG CHẠY ẢO: Cao bằng 3 màn hình để lấy đà cuộn */
+    height: 300vh; 
+    background-color: #111111; 
+    z-index: 10; 
+    padding: 0;
+}
+.history-container { 
+    /* PHÉP THUẬT Ở ĐÂY: Ghim chặt khung này vào màn hình khi cuộn tới */
+    position: sticky; 
+    top: 0;
+    width: 100%; 
+    height: 100vh; /* Luôn vừa vặn 1 màn hình */
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center;
+    overflow: hidden; /* Giấu mọi thứ tràn ra ngoài */
+}
+.history-header { max-width: 1200px; margin: 0 auto; padding: 0 40px; text-align: center; }
+.history-header h2 { font-family: var(--font-brand); font-size: 3.5rem; color: var(--text-light); margin-bottom: 25px; line-height: 1.4; }
+.highlight-box { display: inline-block; padding: 5px 20px; background: linear-gradient(135deg, #cc1111 0%, #7f1d1d 100%); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 16px; box-shadow: 0 10px 25px rgba(204, 17, 17, 0.5); transform: translateY(-8px); color: #ffffff; font-weight: bold; }
+.history-header p { font-size: 1.15rem; line-height: 1.8; color: var(--text-dim); max-width: 800px; margin: 0 auto; }
+
+/* CSS Timeline Elip */
+.timeline-wrapper { 
+    width: 100%; 
+    padding: 40px 0 80px 0; 
+    overflow: visible; /* Tắt cuộn tự do để JS toàn quyền điều khiển */
+}
+
+.timeline-wrapper::-webkit-scrollbar { display: none; }
+
+.timeline-track { 
+    display: flex; 
+    align-items: flex-end; 
+    padding: 0 50vw; 
+    width: max-content; 
+    will-change: transform; /* Bật tăng tốc phần cứng (GPU) cho mượt */
+}
+
+.timeline-item { 
+    width: 320px; 
+    margin-right: 50px; /* Dùng margin thay cho gap để JS tính toán chính xác */
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    position: relative; 
+    z-index: 1; 
+    cursor: pointer; 
+    /* Loại bỏ transition của transform để thẻ chạy theo cuộn chuột mượt mà tức thời */
+}
+
+/* KHU VỰC TRỤC & DÂY NỐI */
+.dot-wrapper {
+    position: relative;
+    width: 100%;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px; /* Cách thẻ nội dung một chút */
+}
+
+/* ĐƯỜNG THẲNG NỐI (JS SẼ BẺ CONG NÓ) */
+.timeline-connector {
+    position: absolute;
+    top: 50%;
+    left: 50%; /* Bắt đầu chính xác từ tâm của chấm mốc */
+    margin-top: -1px;
+    height: 2px;
+    background: #d97706;
+    transform-origin: left center; /* Xoay từ tâm chấm mốc */
+    z-index: 1;
+    box-shadow: 0 0 10px rgba(217, 119, 6, 0.4);
+}
+
+.timeline-dot { 
+    width: 18px; 
+    height: 18px; 
+    background: #0a0a0c; 
+    border: 3px solid #d97706; 
+    border-radius: 50%; 
+    position: relative; 
+    z-index: 2; 
+    box-shadow: 0 0 15px rgba(0,0,0,0.8); 
+    transition: all 0.3s ease;
+}
+
+/* CHI TIẾT THẺ NỘI DUNG */
+.timeline-content { 
+    background: rgba(255, 255, 255, 0.03); 
+    border: 1px solid rgba(255, 255, 255, 0.05); 
+    border-radius: 20px; 
+    padding: 30px 25px; 
+    backdrop-filter: blur(15px); 
+    -webkit-backdrop-filter: blur(15px); 
+    width: 100%; 
+    text-align: center; 
+    transition: all 0.3s ease; 
+    position: relative; 
+    z-index: 5; 
+}
+
+/* Trụ nối mờ mờ từ thẻ xuống trục */
+.timeline-content::after { 
+    content: ''; position: absolute; bottom: -30px; left: 50%; transform: translateX(-50%); width: 2px; height: 30px; background: rgba(255, 255, 255, 0.08); transition: all 0.3s ease; 
+}
+
+/* HIỆU ỨNG KHI DI CHUỘT VÀO THẺ */
+.timeline-item:hover .timeline-content { 
+    background: rgba(255, 255, 255, 0.06); 
+    border-color: rgba(251, 191, 36, 0.8); 
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 25px rgba(251, 191, 36, 0.15); 
+}
+.timeline-item:hover .timeline-content::after { background: #fbbf24; box-shadow: 0 0 8px rgba(251, 191, 36, 0.5); }
+.timeline-item:hover .timeline-dot { background: #fbbf24; border-color: #fbbf24; box-shadow: 0 0 20px #fbbf24; transform: scale(1.4); }
+
+.year { display: inline-block; color: #fbbf24; font-weight: 600; font-size: 1.1rem; margin-bottom: 12px; letter-spacing: 1.5px; text-transform: uppercase; }
+.timeline-content h3 { font-size: 1.15rem; color: #fff; margin-bottom: 10px; line-height: 1.4;}
+.timeline-content p { font-size: 0.9rem; color: #cbd5e1; line-height: 1.5; }
+
+/* ================= PHẦN 4: HIỆU ỨNG THẺ BÀI & NÚT LƯỚT ================= */
+/* ================= PHẦN 4: HIỆU ỨNG THẺ BÀI & NÚT LƯỚT ================= */
+.generals-section { 
+    position: relative; 
+    min-height: 120vh; 
+    padding: 150px 40px 500px 40px; 
+    background-color: #111111; 
+    
+    /* TUYỆT CHIÊU INSET SHADOW: Tạo lớp sương mù từ trong mép tỏa ra */
+    /* Thông số: Tọa độ X | Tọa độ Y | Độ nhòe (Blur) | Độ thu hẹp (Spread) | Màu */
+    box-shadow: inset 0 300px 300px -150px #111111, 
+                inset 0 -300px 300px -150px #111111;
+                
+    z-index: 20; 
+}
+
+/* Lớp gradient làm mượt biên giới phía TRÊN */
+/* Lớp gradient làm mượt biên giới phía TRÊN */
+.generals-section::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    
+    /* Cho dải mờ rộng ra một chút xíu (180px) để nó có đủ quãng đường tản màu mượt nhất */
+    height: 180px; 
+    
+    /* Ép dùng đúng hệ màu rgba(17, 17, 17) và giảm dần đều để không tạo nếp gấp */
+    background: linear-gradient(
+        to bottom, 
+        rgba(17, 17, 17, 1) 0%, 
+        rgba(17, 17, 17, 0.6) 40%, 
+        rgba(17, 17, 17, 0) 100%
+    );
+    z-index: 5;
+    pointer-events: none;
+}
+
+/* Lớp gradient làm mượt biên giới phía DƯỚI */
+.generals-section::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    
+    height: 180px; 
+    
+    background: linear-gradient(
+        to top, 
+        rgba(17, 17, 17, 1) 0%, 
+        rgba(17, 17, 17, 0.6) 40%, 
+        rgba(17, 17, 17, 0) 100%
+    );
+    z-index: 5;
+    pointer-events: none;
+}
+.generals-header { position: relative; z-index: 10; max-width: 600px; margin-left: 5%; }
+.generals-header h2 { font-family: var(--font-brand); font-size: 3.5rem; color: var(--text-light); margin-bottom: 20px; line-height: 1.2; }
+.generals-header h2 span { color: #d97706; text-shadow: 0 0 20px rgba(217, 119, 6, 1); }
+.generals-header p { font-size: 1.15rem; color: var(--text-dim); line-height: 1.6; }
+
+/* BỘ BÀI GỐC BÊN PHẢI */
+.cards-stack { 
+    position: absolute; 
+    right: 6%; 
+    /* Hạ từ 50% xuống 55% để né xa cụm chữ tiêu đề phía trên */
+    top: 45%; 
+    transform: translateY(-50%); 
+    width: 180px; 
+    height: 270px; 
+    
+    /* Gom toàn bộ xấp bài thành 1 khối nằm trên khung kính (Z-index 50) */
+    z-index: 50; 
+}
+.gen-card { 
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 20px; cursor: pointer; 
+    transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1); 
+    transform-origin: bottom right; border: 2px solid rgba(255, 255, 255, 0.1); 
+    box-shadow: -10px 10px 30px rgba(0,0,0,0.6); overflow: hidden;
+}
+.gen-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+.gen-card:hover img { transform: scale(1.05); }
+
+/* TRẠNG THÁI 1: NHỮNG LÁ BÀI NẰM TRONG TOP 4 SẼ XẾP CHỒNG (MẶC ĐỊNH) */
+.gen-card.stacked { transform: rotate(calc(var(--i) * 6deg)) translateX(calc(var(--i) * 15px)); z-index: calc(20 - var(--i)); }
+
+/* TRẠNG THÁI 2: KHI CUỘN CHUỘT ĐẾN NƠI -> BÀI TOP 4 TRẢI RA */
+.cards-stack.is-visible .gen-card.stacked { 
+    transform: translateX(calc(var(--i) * -110px)) translateY(calc(var(--i) * 15px)) rotate(calc(var(--i) * -4deg)); 
+}
+
+/* TRẠNG THÁI 3: THẺ BÀI ĐÃ BỊ LƯỚT QUA (BAY MẤT XUỐNG DƯỚI BÊN PHẢI) */
+.gen-card.passed { opacity: 0; transform: translateX(150px) translateY(100px) rotate(20deg) scale(0.8) !important; pointer-events: none; z-index: 5; }
+
+/* TRẠNG THÁI 4: THẺ BÀI ĐANG CHỜ CHƯA TỚI LƯỢT (ẨN BÊN TRÁI) */
+.gen-card.hidden { opacity: 0; transform: translateX(-150px) translateY(-50px) rotate(-20deg) scale(0.8) !important; pointer-events: none; z-index: 5; }
+
+/* TRẠNG THÁI 5: KHI NHẤN VÀO THẺ BÀI (BAY SANG TRÁI VÀ BỰ LÊN NHƯ GỐC) */
+.cards-stack .gen-card.active { 
+    /* BÍ QUYẾT TỐI QUAN TRỌNG: Dời tâm phóng to về chính giữa. 
+       Giúp thẻ bài nở đều ra xung quanh, không bị văng lệch lên trên hay sang trái nữa! */
+    transform-origin: center center !important; 
+    
+    /* Giảm độ dạt trái từ -72vw về -45vw để thẻ bài nằm ngoan ngoãn trong màn hình. 
+       Giữ nguyên mức scale 1.4 cho vừa vặn */
+    transform: translate(-74vw, 11.5vh) scale(1.4) !important; 
+    
+    z-index: 200 !important; 
+    box-shadow: 0 30px 60px rgba(0,0,0,0.9), 0 0 40px rgba(217, 119, 6, 0.3); 
+    border-color: #d97706; 
+}
+
+/* KHUNG TỔNG: Đặt cố định đè lên vị trí lá bài sẽ bay tới */
+.hero-details {
+    position: absolute;
+    left: 12vw; /* Giữ nguyên vị trí bạn đã canh */
+    top: 70%;   /* Giữ nguyên vị trí bạn đã canh */
+    transform: translateY(-50%); 
+    
+    /* Thu hẹp khung lại cho thon gọn hơn */
+    width: 50vw; 
+    max-width: 600px; /* Ép kích thước tối đa nhỏ lại */
+    
+    z-index: 40; 
+}
+.generals-section.has-active-card .hero-details {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(-50%) translateX(0); /* Trượt nhẹ vào vị trí gốc */
+    transition-delay: 0.2s; /* Chờ thẻ bài bay ra được một nhịp rồi khung chữ mới mọc lên */
+}
+.glass-panel {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    
+    /* Giảm padding trên/dưới/phải. Chừa lề trái 180px để thẻ bài đè lên */
+    padding: 35px 30px 35px 180px; 
+    
+    /* Giảm chiều cao tối thiểu cho khung bớt bự */
+    min-height: 300px; 
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+    box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+    clip-path: inset(0 100% 0 0);
+    transition: clip-path 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.generals-section.has-active-card .glass-panel {
+    clip-path: inset(0 0 0 0); /* Hiện 100% */
+}
+
+.panel-content {
+    opacity: 0; /* Ban đầu tàng hình */
+    transform: translateX(-30px); /* Lùi về sau một chút */
+    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    transition-delay: 0s; 
+}
+.generals-section.has-active-card .panel-content {
+    opacity: 1;
+    transform: translateX(0); /* Trượt nhẹ lên */
+    transition-delay: 0.4s; /* Độ trễ vàng: Chờ 0.4 giây cho mặt kính trải ra xong mới hiện chữ */
+}
+
+.glass-panel h3 { 
+    font-family: var(--font-brand); 
+    font-size: 2.1rem; /* Nhỏ lại, tinh tế hơn (cũ là 2.8rem) */
+    color: #d97706; 
+    margin-bottom: 12px; 
+    line-height: 1.2; 
+    text-transform: uppercase; 
+    
+    /* TUYỆT CHIÊU ĐIỆN ẢNH: Kéo giãn khoảng cách chữ để tạo độ uy nghi, bề thế */
+    letter-spacing: 2px; 
+    text-shadow: 0 0 15px rgba(217, 119, 6, 0.5); }
+.glass-panel p { 
+    font-size: 1.05rem; /* Thu nhỏ chữ lại một xíu */
+    color: var(--text-light); 
+    font-style: italic; 
+    line-height: 1.7; /* Cho dòng chữ thở nhiều hơn */
+    margin-bottom: 25px; 
+    border-left: 2px solid #d97706; /* Viền nét mỏng lại cho sang */
+    padding-left: 15px; 
+    opacity: 0.85; 
+    text-align: justify; /* Căn đều 2 bên chữ nhìn sẽ trang trọng như một quyển sử ký */
+}
+.explore-btn { 
+    background: linear-gradient(45deg, #d97706, #b45309); 
+    color: #fff; 
+    border: none; 
+    
+    /* Thu nhỏ nút lại */
+    padding: 12px 24px; 
+    border-radius: 30px; 
+    font-size: 0.9rem; 
+    font-weight: bold; 
+    text-transform: uppercase; /* Ép in hoa chữ trong nút */
+    letter-spacing: 1px;
+    
+    cursor: pointer; 
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5); 
+    transition: all 0.3s ease; 
+    
+    /* Ép nút nằm gọn gàng bên lề trái, không bị giãn to ra */
+    align-self: flex-start; 
+}
+.explore-btn:hover { 
+    transform: translateY(-3px) scale(1.05); 
+    box-shadow: 0 15px 25px rgba(217, 119, 6, 0.4); 
+}
+
+
+
+/* ================= THIẾT KẾ NÚT LƯỚT (GLASSMORPHISM) ================= */
+.card-navigation {
+    position: absolute;
+    right: 10%; 
+    
+    /* Tăng từ 160px lên 240px để đẩy 2 nút lọt hẳn xuống dưới đuôi xấp bài */
+    top: calc(50% + 280px); 
+    
+    width: 180px; 
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    z-index: 40;
+}
+.glass-btn {
+    width: 50px; height: 50px; border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #fff; font-size: 1.2rem; cursor: pointer;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+    display: flex; justify-content: center; align-items: center;
+}
+
+.glass-btn:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: #d97706; color: #d97706;
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(217, 119, 6, 0.3);
+}
+
+.glass-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+/* ================= PHẦN 5: ĐỘC LẬP HIỆN TẠI ================= */
+.modern-section { padding: 150px 40px; background: #111; text-align: center; }
+.modern-content { max-width: 1000px; margin: 0 auto; }
+.modern-content h2 { font-family: var(--font-brand); font-size: 3.5rem; color: var(--text-light); margin-bottom: 20px; }
+.modern-content h2 span { color: #fbbf24; }
+.modern-content p { font-size: 1.2rem; color: var(--text-dim); margin-bottom: 50px; line-height: 1.8; }
+.modern-img { height: 400px; border-radius: 30px; background: linear-gradient(45deg, rgba(204,17,17,0.1), rgba(251,191,36,0.1)); border: 1px solid rgba(255,255,255,0.1); }
+
+/* ================= PHẦN 6: CALL TO ACTION ================= */
+.cta-section { padding: 120px 40px; background: linear-gradient(to bottom, #111 0%, #050505 100%); text-align: center; }
+.cta-content { max-width: 800px; margin: 0 auto; }
+.cta-content h2 { font-family: var(--font-brand); font-size: 3rem; color: var(--text-light); margin-bottom: 20px; }
+.cta-content h2 span { color: #cc1111; }
+.cta-content p { font-size: 1.15rem; color: var(--text-dim); margin-bottom: 40px; }
+.explore-btn { display: inline-flex; align-items: center; gap: 10px; padding: 15px 30px; background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%); color: #fff; text-decoration: none; font-weight: bold; font-size: 1rem; border-radius: 40px; transition: transform 0.3s ease, box-shadow 0.3s ease; box-shadow: 0 10px 20px rgba(217, 119, 6, 0.3); }
+.explore-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(217, 119, 6, 0.5); color: #fff; }
+
+/* ================= PHẦN 7: FOOTER ================= */
+.site-footer { background: #050505; padding: 40px 20px; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
+.footer-brand { font-family: var(--font-brand); font-size: 2rem; color: var(--text-light); margin-bottom: 10px; opacity: 0.8; }
+.site-footer p { color: rgba(255,255,255,0.4); font-size: 0.9rem; margin-bottom: 20px; }
+.footer-links { display: flex; justify-content: center; gap: 20px; }
+.footer-links a { color: rgba(255,255,255,0.5); font-size: 1.5rem; transition: color 0.3s ease; }
+.footer-links a:hover { color: #fbbf24; }
+
+/* ================= HIỆU ỨNG CUỘN ANIMATION ================= */
+.animate-on-scroll { opacity: 0; transition: opacity 1s ease-out, transform 1s cubic-bezier(0.25, 1, 0.5, 1); will-change: opacity, transform; }
+.slide-in-left { transform: translateX(-100px); }
+.fade-in-up { transform: translateY(80px); }
+.is-visible { opacity: 1 !important; transform: translate(0, 0) !important; }
+
+
+/* ================= POPUP KHÁM PHÁ CHI TIẾT (MODAL) ================= */
+.hero-modal {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    z-index: 9999; /* Luôn nằm trên cùng mọi thứ */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    /* Ẩn mặc định */
+    opacity: 0;
+    pointer-events: none;
+    
+    /* Nhịp 1: Hiệu ứng làm mờ nền chạy vào */
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(0px);
+    transition: opacity 0.5s ease, backdrop-filter 0.5s ease;
+}
+
+/* KÍCH HOẠT NHỊP 1: Nền mờ dần, che đi web ở dưới */
+.hero-modal.active {
+    opacity: 1;
+    pointer-events: auto;
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+}
+
+.close-modal-btn {
+    position: absolute;
+    top: 30px; right: 40px;
+    font-size: 3.5rem; color: #fff;
+    background: none; border: none; cursor: pointer;
+    transition: color 0.3s ease, transform 0.3s ease;
+    z-index: 10000;
+}
+.close-modal-btn:hover { color: #d97706; transform: scale(1.1); }
+
+.modal-content-wrapper {
+    width: 80vw; max-width: 1200px;
+    height: 80vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+/* ============ KHU VỰC HÌNH ẢNH ============ */
+.modal-image-container {
+    width: 360px; /* To hơn thẻ bài gốc một chút */
+    height: 540px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.9), 0 0 40px rgba(217, 119, 6, 0.4);
+    border: 2px solid #d97706;
+    
+    /* MẶC ĐỊNH LÀ NẰM Ở CHÍNH GIỮA MÀN HÌNH */
+    position: absolute;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%) scale(0.8); /* Bắt đầu hơi nhỏ một xíu */
+    transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    z-index: 10;
+}
+
+/* KHI MỞ MODAL LÊN -> PHÓNG TO ẢNH NGAY TẠI GIỮA */
+.hero-modal.active .modal-image-container {
+    transform: translate(-50%, -50%) scale(1.1); /* Phóng to đùng ra giữa */
+}
+
+/* KÍCH HOẠT NHỊP 2: ẢNH TRÔI QUA TRÁI */
+.hero-modal.step2 .modal-image-container {
+    left: 0; /* Ép chạy sát về lề trái của wrapper */
+    transform: translate(0, -50%) scale(1); /* Trả về kích thước chuẩn bên trái */
+}
+
+.modal-image-container img { width: 100%; height: 100%; object-fit: cover; }
+
+/* ============ KHU VỰC CHỮ BÊN PHẢI ============ */
+.modal-info-container {
+    position: absolute;
+    left: 420px; /* Cách tấm hình bên trái một khoảng */
+    right: 0; top: 50%;
+    transform: translateY(-50%);
+    
+    /* Ẩn mặc định chờ hình chạy qua */
+    opacity: 0;
+    filter: blur(10px);
+    transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* KÍCH HOẠT NHỊP 2: CHỮ HIỆN RÕ LÊN */
+.hero-modal.step2 .modal-info-container {
+    opacity: 1;
+    filter: blur(0);
+    transition-delay: 0.3s; /* Chờ hình trượt qua trái một chút rồi mới hiện chữ */
+}
+
+
+/* Form chữ hào hùng cho Modal */
+.modal-info-container h2 { font-family: var(--font-brand); font-size: 3.5rem; color: #d97706; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 3px; text-shadow: 0 0 20px rgba(217, 119, 6, 0.4); line-height: 1.1;}
+.modal-meta { margin-bottom: 25px; }
+.modal-meta p { font-size: 1.15rem; margin-bottom: 12px; color: #ddd; letter-spacing: 0.5px; }
+.modal-meta strong { color: #d97706; font-weight: normal; margin-right: 10px; }
+.modal-bio { border-top: 1px solid rgba(217, 119, 6, 0.3); padding-top: 25px; }
+.modal-bio p { font-size: 1.15rem; line-height: 1.8; color: var(--text-light); margin-bottom: 18px; text-align: justify; }
+/* ================= XÓA VIỀN NÂU GIỮA SECTION 4 VÀ 5 ================= */
+
+#section4 {
+    border-bottom: none !important;
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important; /* Đề phòng padding đẩy viền lộ ra */
+}
+
+#section5 {
+    border-top: none !important;
+    margin-top: 0 !important;
+}
+
+/* Nếu bạn có dùng chung một class như .section cho các phần, 
+thì đoạn trên với ID cụ thể (#) sẽ ghi đè và xóa viền thành công */
+
+/* ================= PHẦN 5: BẢN ĐỒ SCROLLYTELLING ================= */
+
+.map-scroll-section {
+    position: relative;
+    display: block; 
+    height: 400vh; 
+    background: #080808;
+    z-index: 40; 
+    margin-top: 100px; 
+}
+
+.map-sticky-container {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background: #050505;
+}
+
+/* ================= 1. BỐ CỤC BẢN ĐỒ CHÍNH ================= */
+#section5 {
+    position: sticky !important; /* PHÉP THUẬT: Ghim chặt bản đồ vào màn hình */
+    top: 0;
+    width: 100%;
+    height: 100vh !important; 
+    overflow: hidden !important; 
+    margin: 0;
+    padding: 0;
+}
+
+#vnMap {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100% !important; 
+    height: 100% !important;
+    z-index: 1;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 10%);
+    mask-image: linear-gradient(to bottom, transparent 0%, black 10%);
+    /* Thêm transition nhẹ để khi làm tối bản đồ nhìn mượt hơn */
+    transition: filter 0.5s ease;
+}
+
+.map-scroll-section.is-in-view #vnMap { 
+    filter: grayscale(30%) brightness(80%); 
+}
+
+/* ================= 2. TÙY CHỈNH LÕI LEAFLET ================= */
+.leaflet-tile-pane {
+    filter: brightness(250%) contrast(150%) !important;
+}
+.leaflet-container { background: #050505 !important; }
+.leaflet-control-attribution { display: none !important; }
+.leaflet-div-icon { background: transparent !important; border: none !important; }
+
+/* Tùy chỉnh Nút Zoom (Temporia Theme) */
+.leaflet-control-zoom {
+    border: 1px solid rgba(217, 119, 6, 0.3) !important; 
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8) !important;
+    border-radius: 8px !important;
+    overflow: hidden;
+    margin-right: 20px !important;
+    margin-bottom: 20px !important;
+}
+.leaflet-control-zoom a {
+    background-color: rgba(10, 10, 10, 0.85) !important; 
+    color: #d97706 !important; 
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    font-family: var(--font-brand);
+    transition: all 0.3s ease;
+}
+.leaflet-control-zoom a:hover {
+    background-color: #d97706 !important;
+    color: #111 !important;
+}
+.leaflet-control-zoom a:last-child {
+    border-bottom: none !important;
+}
+
+/* ================= 3. THIẾT KẾ LẠI TIMELINE BÊN TRÁI (BẢN ĐIỆN ẢNH) ================= */
+.timeline-container {
+    position: absolute;
+    left: 4vw;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 45px;             /* Giãn cách các mốc cho thoáng hơn */
+    padding-left: 30px;    /* Tăng khoảng cách từ vạch kẻ đến chữ */
+    z-index: 10 !important; 
+    pointer-events: none; 
+}
+
+/* Đổi vạch kẻ dọc thành vạch tia laser Gradient */
+.timeline-container::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 5%;
+    bottom: 5%;
+    width: 2px;
+    background: linear-gradient(to bottom, transparent, rgba(217, 119, 6, 0.6), transparent);
+    box-shadow: 0 0 15px rgba(217, 119, 6, 0.3);
+}
+
+.time-node {
+    color: rgba(255, 255, 255, 0.25); /* Chữ bình thường mờ đi để tạo chiều sâu */
+    font-size: 1.8rem;     /* CHỮ TO HƠN BẢN CŨ */
+    font-family: var(--font-brand); 
+    font-weight: 600;
+    letter-spacing: 2px;
+    position: relative; 
+    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1); 
+    pointer-events: auto;  /* Mở khóa để dùng được hover chuột */
+    cursor: default;
+    
+    /* Ẩn đi để chờ hiệu ứng bay ra */
+    opacity: 0;
+    transform: translateX(-40px);
+}
+
+/* HIỆU ỨNG BAY RA LẦN LƯỢT (KHI VỪA CUỘN TỚI) */
+#section5.is-in-view .time-node {
+    animation: slideInTimeline 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+#section5.is-in-view .time-node:nth-child(1) { animation-delay: 0.1s; }
+#section5.is-in-view .time-node:nth-child(2) { animation-delay: 0.25s; }
+#section5.is-in-view .time-node:nth-child(3) { animation-delay: 0.4s; }
+#section5.is-in-view .time-node:nth-child(4) { animation-delay: 0.55s; }
+
+@keyframes slideInTimeline {
+    0% { opacity: 0; transform: translateX(-40px); }
+    100% { opacity: 1; transform: translateX(0); }
+}
+
+/* Chấm tròn mốc thời gian có viền tinh tế */
+.time-node::before {
+    content: ''; 
+    position: absolute; 
+    left: -36px;           /* Căn lại tọa độ chấm tròn lên vạch gradient */
+    top: 50%; 
+    transform: translateY(-50%); 
+    width: 12px; 
+    height: 12px; 
+    border-radius: 50%; 
+    background: #111; 
+    border: 2px solid #555;
+    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1); 
+}
+
+/* ================= TRẠNG THÁI ACTIVE - BÙNG NỔ THỊ GIÁC ================= */
+#section5.is-in-view .time-node.active {
+    color: #d97706; 
+    font-size: 2.7rem;     /* CHỮ CỰC LỚN KHI ĐƯỢC CHỌN */
+    transform: translateX(20px) !important; /* Dùng !important đè lên hiệu ứng bay ra */
+    text-shadow: 0 0 20px rgba(217, 119, 6, 0.8), 0 0 40px rgba(217, 119, 6, 0.4); /* Phát sáng chói lóa */
+}
+
+#section5.is-in-view .time-node.active::before {
+    background: #d97706; 
+    border-color: #fff;    /* Đổi viền chấm tròn thành màu trắng */
+    box-shadow: 0 0 15px #d97706, 0 0 30px rgba(217, 119, 6, 0.8); 
+    transform: translateY(-50%) scale(1.6); /* Chấm tròn phình to ra */
+}
+
+/* Hiệu ứng hover nhè nhẹ cho các mốc đang chờ */
+.time-node:not(.active):hover {
+    color: rgba(255, 255, 255, 0.8);
+    transform: translateX(5px);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* ================= 4. HIỆU ỨNG VẼ ĐƯỜNG & HIỆN NỘI DUNG TẠI ĐIỂM ================= */
+.event-wrapper { position: relative; width: 0; height: 0; }
+
+.pulse-dot { 
+    position: absolute; width: 16px; height: 16px; background: #d97706; 
+    border-radius: 50%; top: -8px; left: -8px; transform: scale(0); 
+    box-shadow: 0 0 15px #d97706; transition: transform 0.3s ease; 
+}
+.event-wrapper.active .pulse-dot { transform: scale(1); pointer-events: auto;}
+
+/* TRẠNG THÁI TẮT: Thu vòi ngay lập tức */
+.line-diag { position: absolute; bottom: 0; left: 0; width: 0px; height: 2px; background: #d97706; transform-origin: bottom left; transform: rotate(-45deg); transition: width 0.3s ease 0s; }
+.line-horiz { position: absolute; bottom: 70px; left: 70px; width: 0px; height: 2px; background: #d97706; transition: width 0.3s ease 0s; }
+
+/* KHUNG NỘI DUNG (Đã fix lỗi tọa độ và thêm bảo vệ !important) */
+.event-content { 
+    position: absolute; 
+    bottom: 80px; /* Khớp với vị trí nếp gấp 70px + viền */
+    left: 70px;   /* Khớp với đường horiz */
+    width: 320px; 
+    background: rgba(10, 10, 10, 0.95) !important; 
+    backdrop-filter: blur(10px); 
+    border: 1px solid rgba(217, 119, 6, 0.5); 
+    border-radius: 12px; 
+    padding: 20px; 
+    opacity: 0; 
+    margin: 0 !important;
+    transform: translateY(20px) !important; 
+    pointer-events: none; 
+    transition: all 0.3s ease 0s; 
+}
+
+/* TRẠNG THÁI BẬT: Vẽ đường và bật popup có độ trễ */
+.event-wrapper.active .line-diag { width: 100px; transition: width 0.4s ease 0s; }
+.event-wrapper.active .line-horiz { width: 350px; transition: width 0.6s ease 0.4s; } 
+.event-wrapper.active .event-content { 
+    opacity: 1; 
+    transform: translateY(0) !important; 
+    pointer-events: auto; 
+    transition: all 0.5s ease 0.8s; 
+}
+
+/* ================== TUYỆT CHIÊU CẮT VIỀN YOUTUBE ================== */
+
+/* 1. Cái hộp bên ngoài: Chặn đứng mọi thứ tràn ra */
+.video-mask {
+    width: 100%;
+    height: 160px; 
+    border-radius: 10px;
+    margin-bottom: 15px;
+    border: 1px solid rgba(217, 119, 6, 0.3);
+    background: #000;
+    overflow: hidden; /* Cắt phăng phần bị dư */
+    position: relative;
+    pointer-events: none; /* Khóa tương tác chuột */
+}
+
+/* 2. Iframe bên trong: Phóng to để đẩy UI (Nút Play) ra ngoài ranh giới hộp */
+.video-mask iframe.preview-video {
+    position: absolute;
+    top: 0%;  
+    left: 0;
+    width: 100%;
+    height: 200%; 
+    transform: scale(1.3); 
+    transform-origin: center center;
+    pointer-events: none; 
+}
+
+/* Trang trí bên trong khung Popup */
+.event-content iframe.preview-video,
+.event-content video.preview-video {
+    width: 100%; 
+    height: 160px; 
+    border-radius: 10px; 
+    margin-bottom: 15px; 
+    border: 1px solid rgba(217, 119, 6, 0.3);
+    background: #000; /* Lót nền đen trong lúc chờ load */
+    object-fit: cover;
+}
+.event-content img { width: 100%; height: 160px; object-fit: cover; border-radius: 10px; margin-bottom: 15px; }
+.event-content h3 { color: #d97706; font-family: var(--font-brand); font-size: 1.5rem; margin-bottom: 10px; text-transform: uppercase;}
+.event-content p { color: #ccc; font-size: 0.95rem; line-height: 1.5; margin-bottom: 15px; }
+.map-btn { background: linear-gradient(45deg, #d97706, #b45309); color: white; border: none; border-radius: 20px; cursor: pointer; padding: 8px 20px; font-size: 0.85rem; transition: transform 0.2s;}
+.map-btn:hover { transform: scale(1.05); }
+
+/* ================= 5. GIAO DIỆN MODAL KHÁM PHÁ ================= */
+.battle-modal-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+    background: rgba(5, 5, 5, 0.85); backdrop-filter: blur(15px);
+    z-index: 99999; display: flex; justify-content: center; align-items: center;
+    opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
+}
+.battle-modal-overlay.active { opacity: 1; pointer-events: auto; }
+
+.battle-modal-box {
+    background: rgba(15, 15, 15, 0.95); border: 1px solid rgba(217, 119, 6, 0.5);
+    border-radius: 20px; width: 85%; max-width: 1000px; height: 75vh;
+    display: flex; overflow: hidden;
+    transform: translateY(30px) scale(0.95); transition: all 0.4s ease;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+}
+.battle-modal-overlay.active .battle-modal-box { transform: translateY(0) scale(1); }
+
+.battle-modal-media { width: 50%; background: #000; }
+.battle-modal-media img { width: 100%; height: 100%; object-fit: cover; } /* ĐÃ FIX: Ép ảnh chiếm trọn khung */
+.battle-modal-info { width: 50%; padding: 40px; position: relative; color: #e5e5e5; overflow-y: auto; }
+#modal-battle-title { color: #d97706; font-family: var(--font-brand); font-size: 2.2rem; margin-bottom: 20px; text-transform: uppercase; }
+.modal-desc-content { font-size: 1.05rem; line-height: 1.6; }
+.close-modal-btn { position: absolute; top: 20px; right: 25px; background: none; border: none; color: #ccc; font-size: 28px; cursor: pointer; z-index: 10; transition: color 0.3s; }
+.close-modal-btn:hover { color: #d97706; }
+/* ========================================================================= */
+/* PHẦN 6: GIAO DIỆN KẾT THÚC SANG TRỌNG                                     */
+/* ========================================================================= */
+
+/* ========================================================================= */
+/* PHẦN 6: GIAO DIỆN KẾT THÚC SANG TRỌNG                                     */
+/* ========================================================================= */
+
+.lux-cta-section {
+    width: 100%;
+    /* TĂNG CHIỀU CAO: Từ 60vh lên 85vh để tạo không gian mênh mông như 1 trang riêng */
+    min-height: 85vh; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #070707; 
+    text-align: center;
+    
+    /* TĂNG PADDING: Đẩy nội dung xa giới hạn trên và dưới (Từ 100px lên 150px hoặc 200px) */
+    padding: 150px 20px; 
+    
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Khung chứa nội dung hẹp lại chút để chữ tự động rớt dòng đẹp hơn */
+.lux-cta-container { 
+    max-width: 900px; 
+}
+.lux-heading {
+    font-family: var(--font-brand, serif);
+    font-size: 2.2rem;
+    color: #f5f5f5;
+    margin-bottom: 15px;
+    font-weight: 400;
+}
+
+/* Chữ Temporia đỏ mận như phiên bản gốc của bạn */
+.lux-brand {
+    font-family: var(--font-brand, serif);
+    font-size: 5.5rem;
+    font-weight: 700;
+    color: #cc1212; /* Đỏ đô/Đỏ mận quyền lực */
+    letter-spacing: 2px;
+    margin-bottom: 30px;
+    text-shadow: 0 10px 20px rgba(204, 18, 18, 0.2);
+}
+
+.lux-subtitle {
+    color: #999;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 45px;
+}
+
+/* Nút bấm vàng cam truyền thống, gọn gàng */
+.lux-btn {
+    display: inline-block;
+    background-color: #d97706;
+    color: #fff;
+    padding: 15px 40px;
+    border-radius: 30px;
+    font-size: 1.05rem;
+    font-weight: bold;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+.lux-btn:hover { background-color: #b45309; transform: translateY(-3px); box-shadow: 0 10px 20px rgba(217, 119, 6, 0.3); }
+
+/* ========================================================================= */
+/* FOOTER: BỐ CỤC ĐA CỘT HIỆN ĐẠI                                            */
+/* ========================================================================= */
+
+.lux-footer { background-color: #030303; color: #a3a3a3; font-family: sans-serif; }
+
+.footer-top { padding: 80px 10%; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 60px;
+}
+
+.footer-logo {
+    font-family: var(--font-brand, serif);
+    font-size: 2.5rem;
+    color: #e5e5e5;
+    margin-bottom: 20px;
+}
+
+.footer-desc { line-height: 1.7; font-size: 0.95rem; margin-bottom: 25px; }
+
+/* Mạng xã hội */
+.social-icons { display: flex; gap: 15px; }
+.social-icons a {
+    display: flex; justify-content: center; align-items: center;
+    width: 40px; height: 40px; border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05); color: #ccc;
+    text-decoration: none; font-size: 0.9rem; transition: all 0.3s ease;
+}
+.social-icons a:hover { background: #d97706; color: #fff; transform: translateY(-3px); }
+
+/* Cột liên hệ */
+.footer-title { color: #fff; font-size: 1.2rem; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 1px; }
+.footer-contact { list-style: none; padding: 0; margin: 0; }
+.footer-contact li { margin-bottom: 15px; font-size: 0.95rem; display: flex; gap: 10px; }
+.contact-label { color: #d97706; font-weight: bold; min-width: 80px; }
+
+/* Khu vực nhà tài trợ */
+.sponsor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+.sponsor-box {
+    background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1);
+    height: 60px; display: flex; justify-content: center; align-items: center;
+    border-radius: 8px; font-size: 0.85rem; color: #666; transition: all 0.3s ease;
+}
+.sponsor-box:hover { background: rgba(255, 255, 255, 0.1); color: #fff; cursor: pointer; }
+
+/* Chân trang (Bottom) */
+.footer-bottom {
+    padding: 30px 10%; display: flex; justify-content: space-between;
+    align-items: center; flex-wrap: wrap; gap: 20px; font-size: 0.9rem;
+}
+.copyright { margin: 0; }
+.footer-legal a { color: #a3a3a3; text-decoration: none; transition: color 0.3s; }
+.footer-legal a:hover { color: #d97706; }
+.separator { margin: 0 10px; color: #555; }
+
+/* ================= LỚP HIỆU ỨNG MỞ ĐẦU (REVEAL ANIMATION) ================= */
+/* ================= LỚP HIỆU ỨNG (ĐÃ TẮT TÀNG HÌNH) ================= */
+.reveal-up { 
+    opacity: 1; /* Sửa số 0 thành số 1 */
+    transform: translateY(0); /* Bỏ tọa độ trôi */
+    transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1); 
+}
+.reveal-up.active { opacity: 1; transform: translateY(0); }
+.delay-1 { transition-delay: 0.15s; }
+.delay-2 { transition-delay: 0.3s; }
+.delay-3 { transition-delay: 0.45s; }
+
+
+/* ========================================================================= */
+/* HỌA TIẾT NỀN CHÌM THUẦN CSS (ĐÃ TĂNG ĐỘ SÁNG HIỂN THỊ)                    */
+/* ========================================================================= */
+
+.temporia-bg-canvas {
+    position: absolute;
+    top: 0; left: 0; 
+    width: 100%; height: 100%;
+    overflow: hidden;
+    z-index: 0; 
+    pointer-events: none; 
+}
+
+/* 1. Lưới Không Gian Số (Giữ nguyên) */
+.bg-tech-grid {
+    position: absolute;
+    width: 100%; height: 100%;
+    background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 60px 60px; 
+    mask-image: radial-gradient(circle at center, black 50%, transparent 100%);
+    -webkit-mask-image: radial-gradient(circle at center, black 50%, transparent 100%);
+}
+
+/* 2. Vầng Sáng Sương Mù (Tăng sáng từ 6% lên 20%) */
+.bg-glow-orb {
+    position: absolute;
+    top: 20%; left: -10%;
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(217, 119, 6, 0.2) 0%, transparent 60%);
+    border-radius: 50%;
+    filter: blur(50px);
+}
+
+/* 3. Vòng Radar Định Vị (Tăng viền cam từ 5% lên 25%, làm viền sắc nét hơn) */
+.bg-radar-rings {
+    position: absolute;
+    bottom: -30%; right: -20%;
+    width: 1000px; height: 1000px;
+    background-image: repeating-radial-gradient(
+        circle at center,
+        transparent 0,
+        transparent 38px,
+        rgba(217, 119, 6, 0.25) 40px, /* Rõ hơn rất nhiều */
+        transparent 42px
+    );
+    border-radius: 50%;
+    mask-image: radial-gradient(circle, black 30%, transparent 70%);
+    -webkit-mask-image: radial-gradient(circle, black 30%, transparent 70%);
+    animation: pulseRings 6s ease-in-out infinite;
+}
+
+@keyframes pulseRings {
+    0% { transform: scale(1); opacity: 0.4; }
+    50% { transform: scale(1.05); opacity: 1; }
+    100% { transform: scale(1); opacity: 0.4; }
+}
+
+/* 4. Tia Sáng Quét Dữ Liệu (Tăng lõi sáng từ 4% lên 15%) */
+.bg-scanner-beams {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: linear-gradient(
+        45deg, 
+        transparent 35%, 
+        rgba(217, 119, 6, 0.03) 45%, 
+        rgba(217, 119, 6, 0.15) 50%, /* Lõi sáng rực rỡ hơn */
+        rgba(217, 119, 6, 0.03) 55%, 
+        transparent 65%
+    );
+    background-size: 300% 300%;
+    animation: scanBeam 12s ease-in-out infinite;
+}
+
+@keyframes scanBeam {
+    0% { background-position: 100% 0%; }
+    50% { background-position: 0% 100%; }
+    100% { background-position: 100% 0%; }
+}
+
+/* ========================================================================= */
+/* KHU VỰC CÂU HỎI TỐI GIẢN (MINIMAL QUESTIONS)                              */
+/* ========================================================================= */
+
+/* ========================================================================= */
+/* BỔ SUNG MỚI: LƯỚI CÂU HỎI VÀ HỌA TIẾT CHÌM (DÁN XUỐNG CUỐI CÙNG)           */
+/* ========================================================================= */
+
+/* Ép thẻ cha ngoài cùng cho phép rớt dòng (nếu nó đang là flex) */
+.intro-section {
+    flex-wrap: wrap !important; 
+    position: relative; /* Giữ lại để họa tiết nền không chạy lung tung */
+}
+
+/* Đảm bảo phần chữ và ảnh ở trên chiếm hết bề ngang để đẩy câu hỏi xuống */
+.intro-container {
+    width: 100% !important;
+}
+
+/* ================= 1. KHU VỰC CÂU HỎI TỐI GIẢN ================= */
+.minimal-questions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 50px;
+    
+    /* Ép chiếm 100% chiều ngang để nằm thành 1 hàng độc lập ở dưới */
+    width: 100%;
+    flex-basis: 100%; 
+    
+    max-width: 1100px;
+    margin: 80px auto 40px !important; /* Cách phần trên 80px */
+    padding: 0 20px;
+    position: relative;
+    z-index: 5; 
+}
+
+.mq-card {
+    position: relative;
+    padding: 25px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.4s ease;
+    cursor: default;
+}
+
+.mq-card::before {
+    content: '';
+    position: absolute;
+    top: -1px; left: 0;
+    width: 0; 
+    height: 1px;
+    background: #d97706;
+    transition: width 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    box-shadow: 0 0 10px #d97706;
+}
+
+.mq-number {
+    font-family: var(--font-brand, serif);
+    font-size: 1.1rem;
+    color: rgba(217, 119, 6, 0.4);
+    margin-bottom: 12px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    transition: color 0.4s ease;
+}
+
+.mq-question {
+    font-family: var(--font-brand, serif);
+    font-size: 1.4rem;
+    color: #d1d1d1;
+    line-height: 1.4;
+    transition: color 0.4s ease, transform 0.4s ease;
+}
+
+.mq-answer {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    color: #999;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    transform: translateY(-10px);
+    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.mq-answer strong { color: #e5e5e5; font-weight: normal; }
+
+.mq-card:hover::before { width: 100%; }
+.mq-card:hover .mq-number { color: #d97706; }
+.mq-card:hover .mq-question { color: #fff; transform: translateX(5px); }
+.mq-card:hover .mq-answer {
+    max-height: 150px;
+    opacity: 1;
+    transform: translateY(0);
+    margin-top: 15px;
+}
+
+/* ================= 2. HỌA TIẾT NỀN CHÌM THUẦN CSS ================= */
+.temporia-bg-canvas {
+    position: absolute;
+    top: 0; left: 0; 
+    width: 100%; height: 100%;
+    overflow: hidden;
+    z-index: 0; 
+    pointer-events: none; 
+}
+
+.bg-tech-grid {
+    position: absolute;
+    width: 100%; height: 100%;
+    background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 60px 60px; 
+    mask-image: radial-gradient(circle at center, black 50%, transparent 100%);
+    -webkit-mask-image: radial-gradient(circle at center, black 50%, transparent 100%);
+}
+
+.bg-glow-orb {
+    position: absolute;
+    top: 20%; left: -10%;
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(217, 119, 6, 0.2) 0%, transparent 60%);
+    border-radius: 50%;
+    filter: blur(50px);
+}
+
+.bg-radar-rings {
+    position: absolute;
+    bottom: -30%; right: -20%;
+    width: 1000px; height: 1000px;
+    background-image: repeating-radial-gradient(
+        circle at center,
+        transparent 0,
+        transparent 38px,
+        rgba(217, 119, 6, 0.25) 40px, 
+        transparent 42px
+    );
+    border-radius: 50%;
+    mask-image: radial-gradient(circle, black 30%, transparent 70%);
+    -webkit-mask-image: radial-gradient(circle, black 30%, transparent 70%);
+    animation: pulseRings 6s ease-in-out infinite;
+}
+
+@keyframes pulseRings {
+    0% { transform: scale(1); opacity: 0.4; }
+    50% { transform: scale(1.05); opacity: 1; }
+    100% { transform: scale(1); opacity: 0.4; }
+}
+
+.bg-scanner-beams {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: linear-gradient(
+        45deg, 
+        transparent 35%, 
+        rgba(217, 119, 6, 0.03) 45%, 
+        rgba(217, 119, 6, 0.15) 50%, 
+        rgba(217, 119, 6, 0.03) 55%, 
+        transparent 65%
+    );
+    background-size: 300% 300%;
+    animation: scanBeam 12s ease-in-out infinite;
+}
+
+@keyframes scanBeam {
+    0% { background-position: 100% 0%; }
+    50% { background-position: 0% 100%; }
+    100% { background-position: 100% 0%; }
+}
+
+/* ========================================================================= */
+/* VÁ LỖI HIỆU ỨNG: CHUYỂN SLIDE MƯỢT MÀ & MŨI TÊN TỪ TÂM (CLIP-PATH)        */
+/* ========================================================================= */
+
+/* --- 1. SỬA ẢNH SLIDE 1: Rớt xuống giữa và ẩn đi thật nhanh (0.4s) --- */
+.visual-image {
+    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1) !important;
+}
+.hero-section.show-slide-2 .visual-image {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    /* Ép ảnh rớt xuống và thu nhỏ nhanh chóng */
+    transform: translate(20%, 50px) scale(0.5) !important;
+}
+
+
+/* --- 2. SỬA CHỮ TEMPORIA: Bay thẳng lên giữa và mờ đi --- */
+.text-state-1 {
+    transition: all 0.6s ease !important;
+    width: 100% !important;
+}
+.hero-section.show-slide-2 .text-state-1 {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    position: absolute !important;
+    top: 0 !important; 
+    left: 50% !important;
+    /* Ép chữ chạy thẳng lên vị trí trung tâm */
+    transform: translate(-50%, -40px) scale(0.9) !important;
+    text-align: center !important;
+}
+.hero-section.show-slide-2 .text-state-1 h1,
+.hero-section.show-slide-2 .text-state-1 p {
+    text-align: center !important;
+    margin-left: auto !important; margin-right: auto !important;
+}
+
+
+/* --- 3. ĐIỀU TRỊ BỆNH "MŨI TÊN HIỆN TRƯỚC" BẰNG MẶT NẠ CLIP-PATH --- */
+.connectors-svg {
+    position: absolute !important; top: 0 !important; left: 0 !important;
+    width: 100% !important; height: 100% !important; z-index: 5 !important; pointer-events: none !important;
+    
+    /* Thu SVG lại thành 1 điểm tròn bằng 0% nằm ẩn ở tâm màn hình */
+    clip-path: circle(0% at 50% 50%) !important;
+    -webkit-clip-path: circle(0% at 50% 50%) !important;
+    
+    /* Chạy siêu mượt và chậm rãi trong 1.5 giây (bắt đầu sau khi đt lên 0.8s) */
+    transition: clip-path 1.5s ease-in-out 0.8s, -webkit-clip-path 1.5s ease-in-out 0.8s !important;
+}
+
+.hero-section.show-slide-2 .connectors-svg {
+    /* Vòng tròn lan rộng ra 100% quét lộ dần cả đường đi lẫn đầu mũi tên */
+    clip-path: circle(100% at 50% 50%) !important;
+    -webkit-clip-path: circle(100% at 50% 50%) !important;
+}
+
+/* Tắt bỏ các lệnh chạy đường gạch cũ vì clip-path đã làm việc quá tốt rồi */
+.spoke-curve {
+    stroke-dasharray: none !important;
+    stroke-dashoffset: 0 !important;
+    opacity: 0.9 !important;
+}
+/* ========================================================================= */
+/* CSS BỔ SUNG: BỐ CỤC SLIDE 3 (SƯU TẦM HUY HIỆU)                            */
+/* ========================================================================= */
+
+/* --- 1. TÌNH TRẠNG MẶC ĐỊNH CỦA SLIDE 3 (Nằm chờ, ẩn đi) --- */
+.slide3-man-img {
+    position: absolute; top: 50%; left: 0; transform: translateY(-50%) translateX(100px);
+    width: 100%; max-width: 450px; border-radius: 20px;
+    opacity: 0; visibility: hidden; transition: all 1s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.text-state-3 {
+    position: absolute; top: 0; left: 0; width: 100%;
+    opacity: 0; visibility: hidden; transform: translateX(-50px);
+    transition: all 1s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+
+/* --- 2. KHI CHUYỂN SANG SLIDE 3 (.show-slide-3) --- */
+
+/* 2.1 Ép Slide 2 (Điện thoại và Chữ) dạt ra và biến mất */
+.hero-section.show-slide-3 .center-phone { opacity: 0 !important; visibility: hidden !important; transform: translate(-100px, 50px) scale(0.8) !important; }
+.hero-section.show-slide-3 .visual-feature-frame { opacity: 0 !important; visibility: hidden !important; }
+.hero-section.show-slide-3 .text-state-2 { opacity: 0 !important; visibility: hidden !important; transform: translateX(-100px) !important; }
+
+/* 2.2 Khối Hình 3 (Người đàn ông) chiếm nửa trái */
+.hero-section.show-slide-3 .morph-visual-box {
+    left: 5% !important; top: 45% !important; transform: translateY(-50%) !important;
+    width: 40% !important; height: auto !important;
+}
+.hero-section.show-slide-3 .slide3-man-img { opacity: 1; visibility: visible; transform: translateY(-50%) translateX(0); }
+
+
+.hero-section.show-slide-3 .text-state-3 { 
+    opacity: 1; visibility: visible; transform: translateX(0); position: relative; 
+}
+.text-state-3 h2 { font-size: 3rem; color: #fff; margin-bottom: 15px; line-height: 1.2; }
+.text-state-3 p { font-size: 1.05rem; color: #c4c4c4; line-height: 1.6; max-width: 600px; margin-bottom: 30px; }
+
+
+/* --- 3. LƯỚI HUY HIỆU (BENTO GLASS) --- */
+.badges-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px;
+}
+.badge-item { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+
+/* Hình tròn huy hiệu tinh xảo */
+.badge-circle {
+    width: 85px; height: 85px;
+    background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(250, 204, 21, 0.2); border-radius: 50%;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), inset 0 2px 10px rgba(255, 255, 255, 0.05);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+}
+.badge-item:hover .badge-circle {
+    transform: translateY(-8px) scale(1.1);
+    background: rgba(250, 204, 21, 0.1); border-color: rgba(250, 204, 21, 0.6);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(250, 204, 21, 0.3);
+}
+
+.badge-name { font-size: 0.85rem; font-weight: 600; color: #e5e5e5; text-transform: uppercase; letter-spacing: 1.5px; transition: 0.3s; }
+.badge-item:hover .badge-name { color: #facc15; }
+/* ========================================================================= */
+/* VÁ LỖI CHUYỂN SLIDE 3: CHỐNG ĐÈ CHỮ VÀ ÉP BỐ CỤC CHUẨN XÁC                 */
+/* ========================================================================= */
+
+/* 1. ÉP BUỘC GIẤU SLIDE 1 (KHI ĐANG Ở SLIDE 2 VÀ SLIDE 3) */
+.hero-section.show-slide-2 .text-state-1,
+.hero-section.show-slide-3 .text-state-1 { 
+    opacity: 0 !important; visibility: hidden !important; 
+    transform: translateY(-30px) !important; 
+}
+.hero-section.show-slide-2 .visual-image,
+.hero-section.show-slide-3 .visual-image { 
+    opacity: 0 !important; visibility: hidden !important; 
+    transform: scale(0.8) !important; 
+}
+
+/* 2. ÉP BUỘC GIẤU SLIDE 2 (KHI ĐANG Ở SLIDE 3) */
+.hero-section.show-slide-3 .center-phone,
+.hero-section.show-slide-3 .visual-feature-frame,
+.hero-section.show-slide-3 .text-state-2 { 
+    opacity: 0 !important; visibility: hidden !important; 
+}
+
+/* 3. SẮP XẾP LẠI KHỐI CHỮ CỦA SLIDE 3 (BÊN PHẢI) */
+
+
+.hero-section.show-slide-3 .text-state-3 { 
+    opacity: 1 !important; visibility: visible !important; transform: translateX(0) !important; 
+    position: relative !important; text-align: left !important;
+    display: flex !important; flex-direction: column !important; align-items: flex-start !important;
+}
+
+/* Ép chữ Slide 3 căn trái (Không bị căn giữa giống Slide 2) */
+.hero-section.show-slide-3 .text-state-3 h2,
+.hero-section.show-slide-3 .text-state-3 p {
+    text-align: left !important; margin-left: 0 !important;
+}
+
+/* 4. SẮP XẾP KHỐI ẢNH SLIDE 3 (BÊN TRÁI) */
+.hero-section.show-slide-3 .morph-visual-box {
+    left: 5% !important; top: 50% !important; transform: translateY(-50%) !important;
+    width: 40% !important; height: auto !important;
+}
+
+.hero-section.show-slide-3 .slide3-man-img { 
+    opacity: 1 !important; visibility: visible !important; 
+    transform: translateY(-50%) translateX(0) !important; 
+    /* Đảm bảo ảnh vỡ cũng không làm sập khung */
+    min-height: 300px; display: block;
+}
+
+/* 5. CĂN CHỈNH LƯỚI HUY HIỆU XỊN SÒ */
+.badges-grid {
+    display: grid !important; 
+    grid-template-columns: repeat(3, 1fr) !important; 
+    gap: 25px !important;
+    width: 100% !important;
+    margin-top: 20px !important;
+}
+/* 3. SẮP XẾP LẠI KHỐI CHỮ CỦA SLIDE 3 (BÊN PHẢI) - Đã đẩy lên cao */
+.hero-section.show-slide-3 .morph-text-box {
+    left: auto !important; 
+    right: 5% !important; 
+    top: -30% !important; /* Đẩy khối này lên vị trí 20% so với trần màn hình (cũ là 50%) */
+    transform: translateY(0) !important; /* Bỏ lệnh ép căn giữa đi */
+    width: 50% !important; 
+    z-index: 30 !important;
+}
+/* ========================================================================= */
+/* VÁ LỖI CHUYỂN ĐỘNG SLIDE 2 -> 3: LƯỚT VÀ BIẾN ĐỔI MƯỢT MÀ                 */
+/* ========================================================================= */
+
+/* 1. ĐỔI HỆ QUY CHIẾU TỌA ĐỘ ĐỂ BROWSER VẼ ĐƯỢC ĐƯỜNG TRƯỢT */
+.hero-section.show-slide-3 .morph-text-box {
+    /* Tính toán lại: 45% + 50% width = chừa đúng 5% lề phải y như cũ */
+    left: 45% !important; 
+    right: auto !important; 
+    top: 20% !important; 
+    /* Trượt mượt từ -50% (của slide 2) về 0 */
+    transform: translateX(0) !important; 
+    width: 50% !important; 
+    z-index: 30 !important;
+}
+
+/* 2. CHỮ SLIDE 2: Trôi theo hộp chữ sang phải và mờ dần, bay nhẹ lên trên */
+.hero-section.show-slide-3 .text-state-2 { 
+    opacity: 0 !important; 
+    visibility: hidden !important; 
+    /* Ép nó trôi lên trên 30px để nhường chỗ, tạo cảm giác bị đẩy đi */
+    transform: translateY(-30px) !important; 
+    transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1) !important;
+}
+
+/* 3. CHỮ SLIDE 3: Nằm chờ ở dưới, khi hộp trượt tới nơi thì nổi lên thay thế */
+.text-state-3 {
+    position: absolute !important; top: 0 !important; left: 0 !important; width: 100% !important;
+    opacity: 0 !important; visibility: hidden !important; 
+    /* Trạng thái chờ: nằm thấp xuống 30px */
+    transform: translateY(30px) !important; 
+    /* Thời gian nổi lên: Chờ 0.3s để hộp trượt đi và chữ cũ mờ bớt rồi mới hiện ra */
+    transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1) 0.3s !important; 
+}
+
+.hero-section.show-slide-3 .text-state-3 { 
+    opacity: 1 !important; visibility: visible !important; 
+    /* Nổi lên đúng vị trí trung tâm của hộp */
+    transform: translateY(0) !important; 
+    position: relative !important; text-align: left !important;
+    display: flex !important; flex-direction: column !important; align-items: flex-start !important;
+}
+/* ========================================================================= */
+/* FIX TRIỆT ĐỂ: ĐẨY KHỐI NỘI DUNG VÀ HUY HIỆU SLIDE 3 LÊN CAO               */
+/* ========================================================================= */
+
+/* 1. Kéo toàn bộ hộp chứa (Text Box) lên sát trần */
+.hero-section.show-slide-3 .morph-text-box {
+    left: 45% !important; 
+    right: auto !important; 
+    top: 12% !important; /* Kéo mạnh lên, chỉ cách viền trên 12% */
+    bottom: auto !important;
+    transform: none !important; /* QUAN TRỌNG: Tiêu diệt mọi lệnh dịch chuyển ngầm đang ghì nó xuống */
+    width: 50% !important; 
+    z-index: 30 !important;
+    display: block !important; /* Không dùng flex ở đây để tránh tự động căn giữa */
+}
+
+/* 2. Đảm bảo chữ bên trong cũng nằm yên ở trên cùng */
+.hero-section.show-slide-3 .text-state-3 { 
+    opacity: 1 !important; visibility: visible !important; 
+    position: relative !important; 
+    top: 0 !important;
+    transform: none !important; /* Xóa lệnh trượt xuống */
+    text-align: left !important;
+    display: flex !important; 
+    flex-direction: column !important; 
+    align-items: flex-start !important;
+}
+
+/* Căn chỉnh lại khoảng cách chữ cho mượt mắt */
+.hero-section.show-slide-3 .text-state-3 h2 { margin-bottom: 15px !important; }
+.hero-section.show-slide-3 .text-state-3 p { margin-bottom: 0 !important; }
+
+/* 3. Lưới huy hiệu: Đẩy cách xa chữ một chút cho thoáng */
+.badges-grid {
+    display: grid !important; 
+    grid-template-columns: repeat(3, 1fr) !important; 
+    gap: 25px !important;
+    width: 100% !important;
+    margin-top: 40px !important; /* Tách biệt rõ ràng với phần mô tả phía trên */
+}
+/* ========================================================================= */
+/* FIX LỖI "TÀNG HÌNH CHIẾM CHỖ": ÉP NỘI DUNG SLIDE 3 LÊN TRÊN CÙNG           */
+/* ========================================================================= */
+
+/* 1. Rút phép thuật chiếm chỗ của Slide 1 và 2 */
+.hero-section.show-slide-3 .text-state-1,
+.hero-section.show-slide-3 .text-state-2 {
+    position: absolute !important; /* Tách khỏi bố cục vật lý */
+    top: 0 !important;
+    left: 0 !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important; /* Không cho chuột chạm vào */
+}
+
+/* 2. Ép khối hộp chứa ôm sát lề trên */
+.hero-section.show-slide-3 .morph-text-box {
+    left: 45% !important; 
+    right: auto !important; 
+    top: 0% !important; /* Kéo lên sát trần */
+    transform: none !important; 
+    width: 50% !important; 
+    height: auto !important; 
+    z-index: 30 !important;
+    display: flex !important; 
+    flex-direction: column !important;
+    justify-content: flex-start !important; /* Lực đẩy dồn hết lên trên */
+}
+
+/* 3. Chữ Slide 3 tự do chiếm lĩnh không gian */
+.hero-section.show-slide-3 .text-state-3 { 
+    position: relative !important; 
+    top: 0 !important;
+    opacity: 1 !important; 
+    visibility: visible !important; 
+    transform: none !important; 
+}
+/* ========================================================================= */
+/* TRANG ĐIỂM TIÊU ĐỀ SLIDE 3: QUYỀN LỰC VÀ NHẤN KEYWORD                     */
+/* ========================================================================= */
+
+/* Đổi font chữ tiêu đề sang dạng Serif cổ điển, chỉnh kích thước to hơn */
+.hero-section.show-slide-3 .text-state-3 h2 {
+    font-family: var(--font-brand, 'Playfair Display', serif) !important;
+    font-size: 3.5rem !important;
+    line-height: 1.2 !important;
+    font-weight: 700 !important;
+    margin-bottom: 20px !important;
+    color: #fff !important;
+}
+
+/* Định dạng từ khóa màu Vàng Kim (Gold) */
+.hero-section.show-slide-3 .text-state-3 h2 .text-gold {
+    color: #facc15 !important;
+    font-style: italic !important;
+    text-shadow: 0 0 20px rgba(217, 119, 6, 1);
+}
+
+
+
+/* Chỉnh lại font mô tả cho mềm mại hơn */
+.hero-section.show-slide-3 .text-state-3 p {
+    font-size: 1.05rem !important; 
+    color: rgba(255, 255, 255, 0.7) !important; 
+    line-height: 1.6 !important; 
+    max-width: 600px !important; 
+}
+
+/* ========================================================================= */
+/* AUTH GATE TOAST: TRƯỢT TỪ TRÊN XUỐNG (KÈM LỚP PHỦ MỜ NHẸ)                 */
+/* ========================================================================= */
+.agt-overlay {
+    position: fixed !important; top: 0 !important; left: 0 !important;
+    width: 100vw !important; height: 100vh !important;
+    background: rgba(15, 23, 42, 0.25) !important; 
+    backdrop-filter: blur(5px) !important; -webkit-backdrop-filter: blur(5px) !important;
+    z-index: 9999998 !important; opacity: 0 !important; pointer-events: none !important; transition: opacity 0.4s ease !important;
+}
+.agt-overlay.show { opacity: 1 !important; pointer-events: auto !important; }
+
+.auth-gate-toast {
+    position: fixed !important; top: 25px !important; left: 50% !important;
+    transform: translateX(-50%) translateY(-150px) scale(0.9) !important;
+    z-index: 9999999 !important; width: 90% !important; max-width: 380px !important; 
+    background: rgba(255, 255, 255, 0.85) !important;
+    backdrop-filter: blur(35px) saturate(200%) !important; -webkit-backdrop-filter: blur(35px) saturate(200%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.9) !important; border-radius: 32px !important;
+    padding: 16px 20px 20px 20px !important; box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15) !important; 
+    display: flex !important; flex-direction: column !important; gap: 16px !important;
+    opacity: 0 !important; pointer-events: none !important;
+    transition: transform 0.6s cubic-bezier(0.25, 1.2, 0.3, 1), opacity 0.4s ease !important; cursor: grab !important;
+}
+.auth-gate-toast.show { transform: translateX(-50%) translateY(0) scale(1) !important; opacity: 1 !important; pointer-events: auto !important; }
+.auth-gate-toast.dragging { transition: none !important; cursor: grabbing !important; }
+
+.agt-drag-handle { width: 36px !important; height: 5px !important; background: rgba(0, 0, 0, 0.12) !important; border-radius: 10px !important; margin: 0 auto !important; }
+.agt-close-btn { position: absolute !important; top: 15px !important; right: 18px !important; width: 28px !important; height: 28px !important; border-radius: 50% !important; background: rgba(0, 0, 0, 0.04) !important; border: none !important; color: #64748b !important; font-size: 13px !important; display: flex !important; align-items: center !important; justify-content: center !important; cursor: pointer !important; transition: all 0.2s ease !important; }
+.agt-close-btn:hover { background: rgba(220, 38, 38, 0.1) !important; color: #dc2626 !important; transform: scale(1.1) !important; }
+
+.agt-content { display: flex !important; align-items: center !important; gap: 16px !important; padding-right: 20px !important; }
+.agt-icon { width: 48px !important; height: 48px !important; border-radius: 14px !important; background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%) !important; color: #dc2626 !important; display: flex !important; align-items: center !important; justify-content: center !important; font-size: 20px !important; flex-shrink: 0 !important; border: 1px solid rgba(220, 38, 38, 0.1) !important; }
+.agt-text { display: flex !important; flex-direction: column !important; gap: 4px !important; }
+.agt-text strong { font-size: 16px !important; font-weight: 800 !important; color: #1d1d1f !important; }
+.agt-text span { font-size: 13px !important; color: #64748b !important; line-height: 1.4 !important; }
+
+.agt-actions { display: flex !important; gap: 10px !important; width: 100% !important; }
+.agt-btn-primary, .agt-btn-secondary { flex: 1 !important; padding: 12px !important; border-radius: 16px !important; font-size: 14px !important; font-weight: 800 !important; text-align: center !important; text-decoration: none !important; transition: 0.3s ease !important; }
+.agt-btn-primary { background: #dc2626 !important; color: #fff !important; }
+.agt-btn-primary:hover { background: #b91c1c !important; transform: translateY(-2px) !important; box-shadow: 0 6px 15px rgba(220, 38, 38, 0.2) !important; }
+.agt-btn-secondary { background: rgba(0, 0, 0, 0.05) !important; color: #1d1d1f !important; }
+.agt-btn-secondary:hover { background: rgba(0, 0, 0, 0.08) !important; }

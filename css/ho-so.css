@@ -1,0 +1,217 @@
+/* ========================================================================= */
+/* CSS TRANG HỒ SƠ CÁ NHÂN (HO-SO.CSS) - DỰ ÁN TEMPORIA                      */
+/* ========================================================================= */
+
+/* Sidebar bên trái (Đảm bảo icon trỏ chuột được chuẩn) */
+.sidebar-blur i {
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+/* Thẻ thông tin hồ sơ (Header Card) */
+.profile-header-card {
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+    margin-bottom: 24px;
+    border: 1px solid #f2f2f7;
+}
+
+.profile-header-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #ffffff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin: 0 auto 15px;
+    display: block;
+}
+
+.profile-name {
+    margin: 0;
+    font-size: 1.6rem;
+    color: #1d1d1f;
+}
+
+.profile-rank {
+    color: #d97706;
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-top: 5px;
+}
+
+.profile-bio {
+    color: #86868b;
+    margin-top: 8px;
+    font-size: 0.95rem;
+}
+
+/* Lưới thống kê (Stats Grid) */
+.profile-stats-grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 25px; /* Giảm gap xuống một chút để đủ chỗ cho 5 mục */
+    flex-wrap: wrap; /* Cho phép rớt dòng nếu màn hình nhỏ */
+    margin: 25px 0;
+    padding: 20px 0;
+    border-top: 1px solid #f2f2f7;
+    border-bottom: 1px solid #f2f2f7;
+}
+
+.stat-box {
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 1.4rem; /* Thu nhỏ font một xíu cho tinh tế */
+    font-weight: 700;
+    color: #1d1d1f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px; /* Khoảng cách giữa icon và số */
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    color: #86868b;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-top: 6px;
+}
+
+/* Cụm Nút Hành Động */
+.profile-actions-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+.profile-btn {
+    padding: 10px 24px;
+    border-radius: 12px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: inherit;
+    font-size: 0.95rem;
+}
+
+.profile-btn:active {
+    transform: scale(0.96);
+}
+
+.btn-edit { background: #f2f2f7; color: #1d1d1f; }
+.btn-edit:hover { background: #e5e5ea; }
+
+.btn-add { background: #b91c1c; color: #ffffff; }
+.btn-add:hover { background: #991b1b; }
+
+.btn-chat { background: #d97706; color: #ffffff; }
+.btn-chat:hover { background: #b45309; }
+
+.btn-pending { background: #e5e5ea; color: #1d1d1f; }
+.btn-pending:hover { background: #d1d1d6; }
+
+.btn-accept { background: #34c759; color: #ffffff; }
+.btn-accept:hover { background: #28a745; }
+
+/* Tiêu đề phần bài viết */
+.profile-feed-title {
+    margin-bottom: 20px;
+    color: #1d1d1f;
+    font-size: 1.2rem;
+    font-weight: 700;
+    padding-left: 5px;
+}
+
+/* ========================================================================= */
+/* BẢNG CHỈ SỐ CÁ NHÂN (2x2 GRID)                                            */
+/* ========================================================================= */
+
+.personal-stats-section {
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 30px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+    margin-bottom: 24px;
+    border: 1px solid #f2f2f7;
+}
+
+.section-title {
+    font-size: 1.15rem;
+    color: #1d1d1f;
+    margin: 0 0 20px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+}
+
+.stats-grid-2x2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.stat-card-modern {
+    border: 1px solid #f2f2f7;
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: #fafafa;
+    transition: transform 0.2s ease;
+}
+
+.stat-card-modern:hover {
+    transform: translateY(-2px);
+}
+
+.stat-icon-wrap {
+    width: 54px;
+    height: 54px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+}
+
+/* Bảng màu Icon siêu chuẩn UI/UX */
+.icon-orange { background: #fff7ed; color: #ea580c; }
+.icon-red { background: #fef2f2; color: #dc2626; }
+.icon-blue { background: #eff6ff; color: #2563eb; }
+.icon-green { background: #f0fdf4; color: #16a34a; }
+
+.stat-info-modern {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-val-modern {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #1d1d1f;
+    line-height: 1.2;
+}
+
+.stat-name-modern {
+    font-size: 0.95rem;
+    color: #6b7280;
+    font-weight: 600;
+}
+
+/* Chỉnh lại khoảng cách tiêu đề feed */
+.profile-feed-title {
+    margin-top: 10px;
+}

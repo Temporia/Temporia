@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="vi" class="temporia-app-root">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đấu Trường Sinh Tử - Temporia</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/arena.css">
+    <link rel="stylesheet" href="css/quiz-play.css">
+</head>
+<body class="temporia-app-root">
+
+   <div class="page-transition-overlay"></div>
+
+    <nav class="navbar">
+        <a href="index.html" class="logo">
+            <img src="test/logox.png" alt="Temporia Logo">
+        </a>
+        <ul class="nav-menu">
+            <li><a href="trang-chu.html" class="active">Trang chủ</a></li>
+            <li class="dropdown">
+                <a href="#">Khám phá <i class="fas fa-chevron-down dropdown-icon"></i></a>
+                <ul class="dropdown-content">
+                    <li><a href="lo-trinh.html"><i class="fas fa-map-signs fa-fw"></i> Lộ trình học</a></li>
+                    <li><a href="user-mindmap.html" class="locked-feature"><i class="fas fa-project-diagram fa-fw"></i> Sơ đồ tư duy</a></li>
+                    <li><a href="podcast-view.html" class="locked-feature"><i class="fas fa-podcast fa-fw"></i> Podcast</a></li>
+                </ul>
+            </li>
+            <li><a href="quiz.html">Quiz</a></li>
+            <li><a href="cong-dong.html">Cộng đồng</a></li>
+        </ul>
+        <div class="nav-auth">
+            <div id="guestMenu">
+                <a href="auth.html#login" class="btn-login">Đăng nhập</a>
+                <a href="auth.html#register" class="btn-register">Đăng ký</a>
+            </div>
+            
+            <div id="userMenu" class="user-menu-dropdown hidden">
+                <div class="user-menu-trigger">
+                    <img src="" alt="Avatar" id="navAvatar" class="nav-avatar-img">
+                    <span class="nav-user-name" id="navUserName">...</span>
+                    <i class="fas fa-chevron-down" style="font-size: 12px; color: #86868b; margin-left: 2px;"></i>
+                </div>
+                
+                <ul class="user-dropdown-content">
+                    <li><a href="tai-khoan.html"><i class="fas fa-user fa-fw"></i> Hồ sơ cá nhân</a></li>
+                    <li><a href="tai-khoan.html"><i class="fas fa-cog fa-fw"></i> Cài đặt hệ thống</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a href="javascript:void(0)" id="navBtnLogout" class="text-red"><i class="fas fa-sign-out-alt fa-fw"></i> Đăng xuất</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main id="arenaMainWrapper">
+        <div class="arena-container" id="arenaLobby">
+            <div class="arena-header anim-fade-up">
+                <h1 class="arena-title"><i class="fa-solid fa-chess-knight" style="color: #dc2626;"></i> Đấu Trường Sinh Tử</h1>
+                <p class="arena-subtitle">Nơi vinh danh những bộ óc vĩ đại nhất kỷ nguyên số. Hãy chọn một cuộc thi đang mở để tham chiến!</p>
+            </div>
+            <div id="arena-battles-container">
+                </div>
+        </div>
+
+        <div id="arenaBattlefield" class="quiz-play-layout focus-mode" style="display: none; height: auto; margin-top: 20px;">
+            <div class="qp-main-area" style="max-width: 1300px; margin: 0 auto; padding: 20px; overflow: visible;">
+                
+                <div id="state-waiting" class="qp-content-state active-state">
+                    <div class="battle-waiting-card">
+                        <div class="bwc-cover-section anim-slide-left">
+                            <img src="https://i.pinimg.com/originals/fb/68/56/fb6856ba5c1046251cc4aed184b4c2c5.png" class="bwc-cover-image" alt="Cover">
+                        </div>
+                        <div class="bwc-body-section anim-slide-right delay-100">
+                            <div class="bwc-header-info">
+                                <span class="bwc-label">ĐẤU TRƯỜNG CHÍNH THỨC</span>
+                                <h1 id="qscTitle" class="bwc-title">Đang nạp dữ liệu...</h1>
+                            </div>
+                            <div class="bwc-meta-flex">
+                                <div class="bwc-meta-item"><div class="meta-icon bg-red"><i class="fa-solid fa-layer-group"></i></div><div class="meta-text"><small>SỐ LƯỢNG</small><strong id="qscCount">--</strong></div></div>
+                                <div class="bwc-meta-item"><div class="meta-icon bg-blue"><i class="fa-regular fa-clock"></i></div><div class="meta-text"><small>THỜI GIAN</small><strong id="qscTime">--</strong></div></div>
+                                <div class="bwc-meta-item" id="qscDiffBox"><div class="meta-icon"><i class="fa-solid fa-bolt" id="qscDiffIcon"></i></div><div class="meta-text"><small>MỨC ĐỘ</small><strong id="qscDiff">--</strong></div></div>
+                            </div>
+                            <div class="bwc-warning"><i class="fa-solid fa-triangle-exclamation"></i><p><b>Sẵn sàng chưa?</b> Đồng hồ sẽ đếm ngược ngay khi bấm nút. Không thể tạm dừng.</p></div>
+                            
+                            <div style="display: flex; gap: 10px;">
+                                <button class="btn-battle-start" style="background: #f1f5f9; color: #1e293b; width: 30%; box-shadow: none;" onclick="exitArenaBattlefield()">Quay lại</button>
+                                <button class="btn-battle-start" style="width: 70%;" onclick="startActiveArenaQuiz()"><i class="fa-solid fa-play"></i> BẮT ĐẦU LÀM BÀI</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="state-quiz" class="qp-content-state" style="display: none;">
+                    <div class="battle-top-bar anim-fade-up">
+                        <div class="btb-timer"><i class="fa-solid fa-stopwatch timer-icon-pulse"></i> <span id="timerText">00:00</span></div>
+                        <div class="btb-progress">
+                            <div class="btb-p-info"><span><i class="fa-regular fa-flag"></i> Hoàn thành: <b id="progressText">0/0</b></span><span class="text-orange" id="liveScoreText"><i class="fa-solid fa-fire"></i> Điểm: 0</span></div>
+                            <div class="btb-p-bg"><div class="btb-p-fill" id="progressBarFill"></div></div>
+                        </div>
+                    </div>
+
+                    <div class="battle-grid-engine anim-fade-up delay-100">
+                        <div class="battle-question-box">
+                            <div class="bqb-top"><span class="bqb-q-num">CÂU HỎI SỐ <span id="currentQNumber">1</span></span></div>
+                            <h2 class="bqb-text" id="questionText">Đang tải...</h2>
+                            <div class="bqb-options-grid" id="optionsContainer"></div>
+                            <div class="bqb-nav">
+                                <button class="btn-bqb-nav" onclick="prevArenaQ()"><i class="fa-solid fa-chevron-left"></i> Câu trước</button>
+                                <button class="btn-bqb-nav next" onclick="nextArenaQ()">Câu kế tiếp <i class="fa-solid fa-chevron-right"></i></button>
+                            </div>
+                        </div>
+                        
+                        <div class="battle-nav-panel">
+                            <div class="bnp-map-section">
+                                <h3>Bản đồ câu hỏi</h3>
+                                <p class="qnp-sub">Đỏ: Sai | Xanh: Đúng | Xám: Trống</p>
+                                <div class="battle-grid-dots" id="qNavGrid"></div>
+                                <button class="btn-finish-battle" onclick="submitArenaQuizFinal()">NỘP BÀI THI</button>
+                            </div>
+                            <div class="bqb-explanation hidden" id="explanationBox">
+                                <div class="exp-title"><i class="fa-solid fa-lightbulb"></i> LỜI GIẢI CHI TIẾT</div>
+                                <div class="exp-scroll-area"><p id="explanationText">...</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+<div class="custom-confirm-overlay hidden" id="leaderboardModal">
+        <div class="custom-confirm-box" style="max-width: 500px; text-align: left; padding: 0; overflow: hidden;">
+            <div style="padding: 25px 30px; background: #f8fafc; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center;">
+                <h3 style="margin: 0; display: flex; align-items: center; gap: 10px; color: #1e293b;">
+                    <i class="fa-solid fa-ranking-star" style="color: #f59e0b; font-size: 1.5rem;"></i> Bảng Vàng Thành Tích
+                </h3>
+                <button class="btn-icon" style="background: #e2e8f0; border: none; width: 32px; height: 32px; border-radius: 50%; cursor: pointer;" onclick="document.getElementById('leaderboardModal').classList.add('hidden')">
+                    <i class="fa-solid fa-times"></i>
+                </button>
+            </div>
+            <div id="leaderboardContent" style="max-height: 450px; overflow-y: auto; padding: 20px 30px; background: #fff;">
+                <div style="text-align:center; padding: 20px;"><i class="fa-solid fa-spinner fa-spin"></i> Đang tải dữ liệu...</div>
+            </div>
+        </div>
+    </div>
+    <script src="js/main.js"></script>
+    <script src="js/arena.js"></script>
+</body>
+</html>

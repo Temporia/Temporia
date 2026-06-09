@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lộ Trình Khám Phá - Temporia</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;0,800;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="css/global.css"> 
+    <link rel="stylesheet" href="css/trang-chu.css"> 
+    <link rel="stylesheet" href="css/lo-trinh.css">
+    <style>
+        /* 1. TỪ KHÓA ĐỊA ĐIỂM BẢN ĐỒ (MÀU VÀNG CAM) */
+        /* 1. TỪ KHÓA ĐỊA ĐIỂM BẢN ĐỒ (MÀU VÀNG CAM) */
+        .geo-keyword {
+            color: #d97706; 
+            font-weight: 700;
+            background: #fef3c7; 
+            padding: 1px 8px; /* Giảm đệm trên/dưới xuống 1px, nới đệm 2 bên lên 8px */
+            border-radius: 6px; 
+            cursor: pointer;
+            border: 1px solid transparent; 
+            transition: all 0.2s ease;
+            white-space: nowrap; 
+        }
+        .geo-keyword:hover, .geo-keyword.active-keyword {
+            border-color: #d97706;
+            background: #fde68a;
+        }
+
+        /* 2. TỪ KHÓA NHÂN VẬT (MÀU ĐỎ SOLVIA) */
+        .char-keyword {
+            color: #b91c1c;
+            font-weight: 700;
+            background: #fef2f2;
+            padding: 1px 8px; /* Giảm đệm trên/dưới xuống 1px, nới đệm 2 bên lên 8px */
+            border-radius: 6px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+        .char-keyword:hover {
+            border-color: #b91c1c;
+            background: #fee2e2;
+        }
+        /* 3. BẢNG NOTE THÔNG TIN NHÂN VẬT (HOVER TOOLTIP) */
+        .char-hover-tooltip {
+           position: fixed; /* ĐỔI TỪ ABSOLUTE THÀNH FIXED */
+            z-index: 999999;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(185, 28, 28, 0.15);
+            border-radius: 16px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1), 0 5px 15px rgba(185,28,28,0.05);
+            padding: 18px;
+            width: 300px;
+            pointer-events: none; /* Tránh cản trở chuột */
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px) translateX(-50%);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .char-hover-tooltip.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) translateX(-50%);
+        }
+        /* Mũi tên tam giác chĩa xuống dưới bảng Note */
+        .char-hover-tooltip::after {
+            content: '';
+            position: absolute;
+            bottom: -7px;
+            left: 50%;
+            transform: translateX(-50%) rotate(45deg);
+            width: 14px;
+            height: 14px;
+            background: rgba(255, 255, 255, 0.95);
+            border-right: 1px solid rgba(185, 28, 28, 0.15);
+            border-bottom: 1px solid rgba(185, 28, 28, 0.15);
+        }
+        .cht-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; border-bottom: 1px dashed #e5e5ea; padding-bottom: 12px; }
+        .cht-avatar { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; background: #fef2f2; border: 2px solid #fecaca; }
+        .cht-name { font-weight: 800; color: #b91c1c; font-size: 1.1rem; margin: 0; }
+        .cht-meta { font-size: 0.8rem; color: #64748b; margin: 4px 0 0 0; font-weight: 500; }
+        .cht-info { font-size: 0.9rem; color: #48484a; margin: 0; line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+    </style>
+</head>
+<body class="temporia-app-root">
+
+    <div class="page-transition-overlay"></div>
+   <nav class="navbar">
+        <a href="index.html" class="logo">
+            <img src="test/logox.png" alt="Temporia Logo">
+        </a>
+        <ul class="nav-menu">
+            <li><a href="trang-chu.html">Trang chủ</a></li>
+            <li class="dropdown">
+                <a href="#" class="active">Khám phá <i class="fas fa-chevron-down dropdown-icon"></i></a>
+                <ul class="dropdown-content">
+                    <li><a href="lo-trinh.html"><i class="fas fa-map-signs fa-fw" ></i> Lộ trình học</a></li>
+                    <li><a href="user-mindmap.html" class="locked-feature"><i class="fas fa-project-diagram fa-fw"></i> Sơ đồ tư duy</a></li>
+                    <li><a href="podcast-view.html" class="locked-feature"><i class="fas fa-podcast fa-fw"></i> Podcast</a></li>
+                </ul>
+            </li>
+            <li><a href="quiz.html">Quiz</a></li>
+            <li><a href="cong-dong.html">Cộng đồng</a></li>
+        </ul>
+        <div class="nav-auth">
+            <div id="guestMenu">
+                <a href="auth.html#login" class="btn-login">Đăng nhập</a>
+                <a href="auth.html#register" class="btn-register">Đăng ký</a>
+            </div>
+            
+            <div id="userMenu" class="user-menu-dropdown hidden">
+                <div class="user-menu-trigger">
+                    <img src="" alt="Avatar" id="navAvatar" class="nav-avatar-img">
+                    <span class="nav-user-name" id="navUserName">...</span>
+                    <i class="fas fa-chevron-down" style="font-size: 12px; color: #86868b; margin-left: 2px;"></i>
+                </div>
+                
+                <ul class="user-dropdown-content">
+                    <li><a href="tai-khoan.html"><i class="fas fa-user fa-fw"></i> Hồ sơ cá nhân</a></li>
+                    <li><a href="tai-khoan.html"><i class="fas fa-cog fa-fw"></i> Cài đặt hệ thống</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a href="javascript:void(0)" id="navBtnLogout" class="text-red"><i class="fas fa-sign-out-alt fa-fw"></i> Đăng xuất</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="roadmap-app-layout" id="appLayout">
+        
+        <aside class="roadmap-sidebar" id="appSidebar">
+            <div class="sidebar-hamburger" onclick="forceToggleSidebar()">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+            
+            <div class="sidebar-content-wrapper">
+                <div class="sidebar-card">
+                    <h3 class="sidebar-title">Lộ trình học</h3>
+                    
+                    <div class="roadmap-nav-list" id="dynamicRoadmapList">
+                        <!-- BÀI 0: GIỚI THIỆU LỘ TRÌNH -->
+                        <div class="nav-group expanded">
+                            <div class="nav-group-title" onclick="toggleNavGroup(this)">
+                                Khởi đầu <i class="fa-solid fa-chevron-up"></i>
+                            </div>
+                            <div class="nav-group-items">
+                                <div class="nav-item active" onclick="switchContent('intro-section', this)">
+                                    <i class="fa-solid fa-circle-info"></i>
+                                    <span>Giới thiệu lộ trình</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- CÁC CHƯƠNG ĐỘNG TỪ DATABASE SẼ CHÈN VÀO ĐÂY -->
+                    </div>
+
+                    <div class="sidebar-mindmap-footer">
+                        <button class="btn-mindmap"><i class="fa-solid fa-map"></i> Sơ đồ tư duy</button>
+                        <div class="brand-powered">Powered by Solvia</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <div class="temporia-active-map-pane">
+            <div id="mainRealtimeMap" style="width: 100%; height: 100%;"></div>
+        </div>
+
+        <main class="roadmap-main-reader" id="readerArea">
+            <div class="reader-container">
+
+                <!-- ============================================== -->
+                <!-- BÀI 0: HƯỚNG DẪN TƯƠNG TÁC (GIỮ NGUYÊN)         -->
+                <!-- ============================================== -->
+                <div id="intro-section" class="content-segment">
+                    <div class="hero-title-section reveal-item">
+                        <div class="lesson-ribbon">
+                            <span class="ribbon-txt">Bài</span>
+                            <span class="ribbon-num">0</span>
+                        </div>
+                        <div class="title-meta-block">
+                            <h1>Chào mừng bạn đến với Temporia</h1>
+                            <p class="summary-text">Khám phá dòng chảy lịch sử thông qua hệ thống Sa bàn số hiện đại.</p>
+                        </div>
+                    </div>
+
+                    <div class="stats-pills-row reveal-item">
+                        <div class="stat-pill pill-red"><i class="fa-solid fa-play"></i> <span>1 mục học</span></div>
+                        <div class="stat-pill pill-orange"><i class="fa-solid fa-award"></i> <span>Huy chương</span></div>
+                        <div class="stat-pill pill-blue"><i class="fa-solid fa-signal"></i> <span>Độ khó: Khởi đầu</span></div>
+                    </div>
+
+                    <div class="lesson-content-split-core">
+                        <div class="lesson-recap-zone reveal-item">
+                            <div class="recap-header">
+                                <span class="recap-badge"><i class="fa-solid fa-hand-wave"></i> Lời ngỏ từ Solvia Team</span>
+                            </div>
+                            <h3 class="recap-title">Bối cảnh dự án Temporia</h3>
+                            <p class="recap-desc">
+                                Temporia là tâm huyết của nhóm Solvia nhằm tái hiện lại những trang sử hào hùng của dân tộc Việt Nam thông qua lăng kính công nghệ hiện đại. Chúng tôi tin rằng lịch sử không chỉ là những dòng chữ khô khan, mà là những câu chuyện sống động cần được cảm nhận bằng mọi giác quan. Tại đây, bạn không chỉ "đọc" sử, mà là đang trực tiếp tương tác với các chiến dịch thông qua hệ thống Sa bàn số đa chiều. Chương mở đầu này sẽ giúp bạn làm quen với mọi công cụ hỗ trợ, chuẩn bị một nền tảng vững chắc trước khi chính thức bước vào các cuộc kháng chiến trường kỳ của dân tộc.
+                            </p>
+                        </div>
+
+                        <div class="zone-divider reveal-item"><span>CẨM NANG HÀNH TRÌNH</span></div>
+
+                        <div class="apple-timeline-wrapper">
+                            
+                            <div class="apple-timeline-item reveal-item">
+                                <div class="timeline-indicator">
+                                    <div class="dot">1</div>
+                                    <div class="line"></div>
+                                </div>
+                                <div class="apple-card">
+                                    <div class="card-badge">Giao diện</div>
+                                    <h2 class="card-title">Hệ thống Lộ trình học</h2>
+                                    <p class="card-text">Lịch sử là một dòng chảy liên tục, và thanh Lộ trình chính là chiếc la bàn dẫn đường cho bạn. Các sự kiện, chiến dịch được sắp xếp một cách logic theo đúng trình tự thời gian. Mỗi bài học bạn đi qua không chỉ là một cột mốc kiến thức mà còn là chìa khóa để mở ra giai đoạn tiếp theo. Khi bạn hoàn thành việc tìm hiểu nội dung, một dấu tích đỏ vinh quang sẽ xuất hiện.</p>
+                                    
+                                    <div class="card-image-placeholder" id="mockup1">
+                                        <div class="mockup-roadmap">
+                                            <div class="mockup-item">
+                                                <div class="m-icon done"><i class="fa-solid fa-check"></i></div>
+                                                <div class="m-text">
+                                                    <div class="m-title">Toàn quốc kháng chiến</div>
+                                                    <div class="m-sub">Đã hoàn thành</div>
+                                                </div>
+                                            </div>
+                                            <div class="mockup-item" id="autoTickItem">
+                                                <div class="m-icon pending"><i class="fa-solid fa-lock"></i></div>
+                                                <div class="m-text">
+                                                    <div class="m-title">Chiến dịch Việt Bắc</div>
+                                                    <div class="m-sub">Đang học...</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="apple-timeline-item reveal-item">
+                                <div class="timeline-indicator">
+                                    <div class="dot">2</div>
+                                    <div class="line"></div>
+                                </div>
+                                <div class="apple-card">
+                                    <div class="card-badge">Động lực</div>
+                                    <h2 class="card-title">Huy hiệu, Chuỗi & Xếp hạng</h2>
+                                    <p class="card-text">Chúng tôi biến mỗi bước chân tìm hiểu lịch sử của bạn thành những thành tựu đáng tự hào. Khi bạn khám phá câu chuyện về một vị anh hùng dân tộc, <b>Huy hiệu nhân vật</b> sẽ được mở khóa vào bộ sưu tập. Để duy trì ngọn lửa đam mê, hệ thống <b>Chuỗi (Streak)</b> sẽ ghi nhận số ngày bạn kiên trì học tập liên tục. Đặc biệt hơn, những điểm số xuất sắc từ bài Quiz sẽ là bệ phóng giúp bạn thăng <b>Hạng (Rank)</b>.</p>
+                                    
+                                    <div class="card-image-placeholder" id="mockup2">
+                                        <div class="mockup-achievements">
+                                            <div class="m-badge-box">
+                                                <div class="badge-glow-wrapper">
+                                                    <img src="https://placehold.co/100x100/1d1d1f/ffffff?text=Avatar" alt="Nhân vật" class="m-char-img" id="mockupCharImg">
+                                                    <div class="shine-effect"></div>
+                                                </div>
+                                                <span class="m-badge-name">Đại Tướng Võ Nguyên Giáp</span>
+                                            </div>
+                                            <div class="m-stats-box">
+                                                <div class="m-streak">
+                                                    <i class="fa-solid fa-fire" style="color: #ff9500;"></i> 
+                                                    <span>Chuỗi học: <b id="streakCounter">0</b> ngày</span>
+                                                </div>
+                                                <div class="m-rank">
+                                                    <div class="rank-info">
+                                                        <span id="rankTitleName">Rank: Tập sự</span>
+                                                        <span id="rankPercent">0%</span>
+                                                    </div>
+                                                    <div class="rank-bar-bg">
+                                                        <div class="rank-bar-fill" id="rankBarFill"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="apple-timeline-item reveal-item">
+                                <div class="timeline-indicator">
+                                    <div class="dot">3</div>
+                                </div>
+                                <div class="apple-card">
+                                    <div class="card-badge">Đa giác quan</div>
+                                    <h2 class="card-title">Sa bàn, Sơ đồ & Podcast</h2>
+                                    <p class="card-text">Temporia xóa bỏ ranh giới của những trang sách truyền thống bằng hệ sinh thái công cụ hiện đại. <b>Sa bàn số</b> là trung tâm của trải nghiệm. <b>Sơ đồ tư duy</b> sẽ giúp bạn hệ thống hóa kiến thức một cách rành mạch. Và nếu bạn muốn đôi mắt được nghỉ ngơi, tính năng <b>Podcast</b> sẽ hóa thân thành một người kể chuyện truyền cảm.</p>
+                                    
+                                    <div class="card-image-placeholder" style="height: 420px;" id="mockup3">
+                                        <div class="mockup-tools">
+                                            <div class="m-map-section" style="overflow: hidden; z-index: 1;">
+                                                <div id="miniMockupMap" style="width: 100%; height: 100%; z-index: 1;"></div>
+                                            </div>
+                                            <div class="m-bottom-tools">
+                                                <div class="m-mindmap">
+                                                    <div class="mm-tree">
+                                                        <div class="mm-level-1"><div class="mm-node root">Chiến dịch</div></div>
+                                                        <div class="mm-level-2">
+                                                            <div class="mm-branch"><div class="mm-node hoverable">Nguyên nhân</div></div>
+                                                            <div class="mm-branch"><div class="mm-node hoverable">Kết quả</div></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="m-podcast">
+                                                    <div class="pod-info">
+                                                        <i class="fa-solid fa-podcast" style="color:#b91c1c;"></i>
+                                                        <span>Tập 1: Tiếng súng</span>
+                                                    </div>
+                                                    <div class="pod-controls">
+                                                        <button class="pod-play-btn" onclick="toggleMiniPodcast(this)"><i class="fa-solid fa-play"></i></button>
+                                                        <div class="pod-wave"></div>
+                                                    </div>
+                                                    <audio id="dummyAudio" src=""></audio>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ============================================== -->
+                <!-- KHU VỰC ĐỘNG: NƠI DATABASE ĐỔ DỮ LIỆU BÀI HỌC VÀO -->
+                <!-- ============================================== -->
+                <div id="dynamic-lesson-section" class="content-segment" style="display: none;">
+                    <!-- Toàn bộ nội dung chữ do Admin soạn sẽ được phun vào div này -->
+                    <div id="dynamicLessonContent"></div>
+                    <!-- Điểm neo (Marker) để kích hoạt Tick đỏ báo hiệu "Đã đọc xong" -->
+                    <div class="completion-marker"></div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- KHUNG THÔNG BÁO NHẬN HUY CHƯƠNG TỰ ĐỘNG -->
+    <div id="badge-toast" class="temporia-toast-notification">
+        <div class="toast-icon">
+            <img id="dynamicToastImg" src="" alt="Huy chương">
+        </div>
+        <div class="toast-content">
+            <h4>Nhận huy chương mới!</h4>
+            <p id="dynamicToastName">...</p>
+        </div>
+        <button class="toast-close" onclick="closeBadgeToast()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="js/lo-trinh.js"></script>
+    
+    <!-- LỚP MÀN BẢO VỆ (CHƯA ĐĂNG NHẬP THÌ CHẶN LẠI) -->
+    <div class="agt-overlay" id="agtOverlay"></div>
+    <div class="auth-gate-toast" id="authGateToast">
+        <div class="agt-drag-handle"></div> 
+        <button class="agt-close-btn" id="agtCloseBtn"><i class="fa-solid fa-xmark"></i></button>
+        
+        <div class="agt-content">
+            <div class="agt-icon">
+                <i class="fa-solid fa-lock"></i>
+            </div>
+            <div class="agt-text">
+                <strong>Yêu cầu định danh</strong>
+                <span>Vui lòng đăng nhập để lưu trữ tiến trình và mở khóa toàn bộ lộ trình.</span>
+            </div>
+        </div>
+        
+        <div class="agt-actions">
+            <a href="auth.html#login" class="agt-btn-primary">Đăng nhập</a>
+            <a href="auth.html#register" class="agt-btn-secondary">Tạo tài khoản</a>
+        </div>
+    </div>
+    <div class="agt-overlay" id="lessonMedalsOverlay" onclick="closeLessonMedalsModal()"></div>
+    <div class="auth-gate-toast" id="lessonMedalsModal" style="max-width: 400px;">
+        <button class="agt-close-btn" onclick="closeLessonMedalsModal()"><i class="fa-solid fa-xmark"></i></button>
+        <div style="text-align: center; margin-bottom: 20px;">
+            <h3 style="margin: 0; color: #b91c1c; font-size: 1.3rem;">Huy chương có thể nhận</h3>
+            <p style="font-size: 0.85rem; color: #64748b; margin-top: 5px;">Đọc bài để tìm và mở khóa các thẻ bài này nhé!</p>
+        </div>
+        <div id="lessonMedalsGrid" style="display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; max-height: 300px; overflow-y: auto; padding-bottom: 10px;">
+            </div>
+    </div>
+    <!-- BẢNG NOTE THÔNG TIN NHÂN VẬT KHI DI CHUỘT -->
+    <div id="charHoverTooltip" class="char-hover-tooltip">
+        <div class="cht-header">
+            <img id="chtAvatar" src="" alt="Avatar" class="cht-avatar" style="display: none;">
+            <div>
+                <h4 id="chtName" class="cht-name">Tên Nhân Vật</h4>
+                <p id="chtMeta" class="cht-meta">Năm sinh | Quê quán</p>
+            </div>
+        </div>
+        <p id="chtInfo" class="cht-info">Đang tải thông tin chi tiết...</p>
+    </div>
+    <script src="js/auth-gate.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

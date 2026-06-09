@@ -21,7 +21,7 @@ let currentAnnounce = 0;
 document.addEventListener('DOMContentLoaded', () => {
     
     initHeroDots();
-    startCountdown();
+  
     renderGeneralLeaderboard();
     renderContestHorizontal();
     initSafeScrollReveal();
@@ -52,18 +52,7 @@ window.nextAnnouncement = function() {
 }
 setInterval(nextAnnouncement, 8000);
 
-function startCountdown() {
-    const targetDate = new Date().getTime() + (2 * 24 * 60 * 60 * 1000) + (23 * 60 * 60 * 1000);
-    const x = setInterval(() => {
-        const now = new Date().getTime();
-        const distance = targetDate - now;
-        document.getElementById("days").innerText = Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
-        document.getElementById("hours").innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
-        document.getElementById("mins").innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
-        document.getElementById("secs").innerText = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
-        if (distance < 0) { clearInterval(x); document.getElementById("countdownTimer").innerHTML = "<h2 style='color:#dc2626;'>ĐÃ MỞ CỔNG!</h2>"; }
-    }, 1000);
-}
+
 
 // BẢNG VÀNG DANH NHÂN
 const generalData = [
@@ -205,7 +194,7 @@ function initSafeScrollReveal() {
     setTimeout(() => { reveals.forEach(el => el.classList.remove('will-reveal')); }, 1500);
 }
 
-const API_BASE_URL = 'http://127.0.0.1:8000/api';
+const API_BASE_URL = 'https://temporia-api.onrender.com/api'; // Thay bằng URL thực tế của API
 let dashboardCountdownTimer = null;
 
 async function loadDynamicContestCard() {

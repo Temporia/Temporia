@@ -315,3 +315,129 @@ i, i::before, i::after, .fa, .fas, .fa-solid, .fa-regular, .fa-brands { font-fam
 
 /* Hoạt ảnh nhịp đập */
 @keyframes pulseBlue { 0% { box-shadow: 0 0 0 0 rgba(59,130,246,0.7); } 70% { box-shadow: 0 0 0 10px rgba(59,130,246,0); } 100% { box-shadow: 0 0 0 0 rgba(59,130,246,0); } }
+
+/* ========================================================= */
+/* BỐ CỤC CHIA ĐÔI: CHỮ TRÁI - ẢNH PHẢI CHO HERO BANNER      */
+/* ========================================================= */
+/* ========================================================= */
+/* HERO BANNER: NỀN ẢNH SÁNG, CHỮ NẰM BÊN TRÁI Ở ĐÁY         */
+/* ========================================================= */
+
+.hero-interactive-banner {
+    position: relative !important;
+    display: flex !important;
+    flex-direction: column !important;
+    
+    /* ÉP TỌA ĐỘ VÀNG: Xuống đáy (flex-end) và Sát lề trái (flex-start) */
+    justify-content: flex-end !important; 
+    align-items: flex-start !important; 
+    
+    width: 100% !important;
+    max-width: 1250px !important; 
+    min-height: 480px !important; 
+    margin: 0 auto 40px auto !important; 
+    
+    background-size: cover !important;
+    background-position: center top !important; 
+    background-repeat: no-repeat !important;
+    
+    padding: 40px 50px !important;
+    border-radius: 32px !important;
+    overflow: hidden;
+    transition: background-image 0.6s ease-in-out !important;
+    border: 1px solid rgba(0,0,0,0.05) !important;
+    
+    /* TIÊU DIỆT TẬN GỐC MỌI HIỆU ỨNG XOAY TRÒN HAY RUNG LẮC CŨ */
+    animation: none !important; 
+}
+
+/* Lớp sương mờ bảo vệ: Phía trên sáng nhẹ (10%), phía dưới tối dần (80%) */
+.hero-interactive-banner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(15, 23, 42, 0.1) 0%, rgba(15, 23, 42, 0.3) 50%, rgba(15, 23, 42, 0.8) 100%) !important;
+    z-index: 1;
+    pointer-events: none;
+    animation: none !important; /* Chặn mọi hiệu ứng nền */
+}
+
+/* Khung kính bọc riêng phần chữ (Nằm gọn bên trái) */
+.hero-glass-content {
+    position: relative !important;
+    z-index: 2 !important;
+    width: 100% !important;
+    
+    /* Giới hạn độ rộng chữ để chừa khoảng trống bên phải ngắm ảnh */
+    max-width: 750px !important; 
+    text-align: left !important;
+    
+    /* KHÓA CHẶT Ở LỀ TRÁI, ĐẨY PHẦN DƯ SANG PHẢI */
+    margin-left: 0 !important; 
+    margin-right: auto !important; 
+    
+    /* Hiệu ứng kính mờ (Frosted Glass) tối màu bảo vệ chữ */
+    padding: 30px 35px !important;
+    background: rgba(0, 0, 0, 0.35) !important; 
+    backdrop-filter: blur(15px) !important; 
+    -webkit-backdrop-filter: blur(15px) !important;
+    border-radius: 24px !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2) !important;
+    
+    transform: translateY(0);
+    transition: opacity 0.4s ease, transform 0.4s ease !important;
+}
+
+.hero-glass-content.fade-out {
+    opacity: 0;
+    transform: translateY(15px); 
+}
+
+/* Tinh chỉnh typography bên trong khối kính */
+.hero-title {
+    font-size: 2.2rem !important;
+    margin-bottom: 12px !important;
+    color: #ffffff !important;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5) !important;
+}
+
+.hero-desc {
+    font-size: 1.05rem !important;
+    color: rgba(255, 255, 255, 0.85) !important;
+    line-height: 1.6 !important;
+    margin-bottom: 0 !important;
+}
+
+/* Điều hướng: Hint và Dots đẩy sang góc phải */
+.hero-interaction-hint {
+    position: absolute !important;
+    bottom: 35px !important;
+    right: 50px !important;
+    z-index: 3 !important;
+    color: rgba(255, 255, 255, 0.8) !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.5px !important;
+}
+
+.hero-progress-dots {
+    position: absolute !important;
+    top: 35px !important; 
+    right: 50px !important;
+    left: auto !important;
+    z-index: 3 !important;
+}
+
+/* Responsive: Trên Mobile thì nới chữ ra giữa cho dễ đọc */
+@media (max-width: 768px) {
+    .hero-interactive-banner {
+        padding: 25px 20px !important;
+        min-height: 400px !important;
+    }
+    .hero-glass-content {
+        max-width: 100% !important;
+        padding: 25px 20px !important;
+    }
+    .hero-title { font-size: 1.6rem !important; }
+    .hero-interaction-hint { display: none !important; }
+}

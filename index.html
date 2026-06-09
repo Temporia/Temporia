@@ -15,15 +15,17 @@
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/home.css">
     <style>
-        .temporia-global-footer {
+  .temporia-global-footer {
               position: relative !important;
               width: 100% !important;
               margin-top: 0 !important;
-               overflow: hidden !important;
-              background: #000000 !important;
+              overflow: hidden !important;
+              background: #070707 !important; /* Đen tuyền */
               color: #e2e8f0 !important;
-             border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
-}
+              border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+        }
+        /* THÊM DÒNG NÀY: Xóa sạch lớp ảnh sương mù để Footer đen đặc 100% */
+        .temporia-global-footer .footer-bg-wrapper { display: none !important; }
     </style>
 </head>
 <body>
@@ -124,12 +126,24 @@
                 <p>Vượt qua những thử thách lịch sử để mở khóa các phù hiệu danh giá. Sở hữu trọn bộ sưu tập để khám phá những bí mật ẩn giấu và chiến công hiển hách của các vị anh hùng hào kiệt.</p>
                 
                 <div class="badges-grid">
-                    <div class="badge-item"><div class="badge-circle"></div><span class="badge-name">Quân Vương</span></div>
-                    <div class="badge-item"><div class="badge-circle"></div><span class="badge-name">Tướng Quân</span></div>
-                    <div class="badge-item"><div class="badge-circle"></div><span class="badge-name">Văn Thần</span></div>
-                    <div class="badge-item"><div class="badge-circle"></div><span class="badge-name">Sử Gia</span></div>
-                    <div class="badge-item"><div class="badge-circle"></div><span class="badge-name">Chiến Binh</span></div>
-                    <div class="badge-item"><div class="badge-circle"></div><span class="badge-name">Hiền Triết</span></div>
+                    <div class="badge-item">
+                        <div class="badge-large-img">
+                            <img src="hinh nhân vật/KDVx.png" alt="Kinh Dương Vương">
+                        </div>
+                        <span class="badge-name">Kinh Dương Vương</span>
+                    </div>
+                    <div class="badge-item">
+                        <div class="badge-large-img">
+                            <img src="hinh nhân vật/LLQx.png" alt="Lạc Long Quân">
+                        </div>
+                        <span class="badge-name">Lạc Long Quân</span>
+                    </div>
+                    <div class="badge-item">
+                        <div class="badge-large-img">
+                            <img src="hinh nhân vật/HV1x.png" alt="Hùng Vương">
+                        </div>
+                        <span class="badge-name">Hùng Vương</span>
+                    </div>
                 </div>
             </div>
         </div>

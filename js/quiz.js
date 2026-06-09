@@ -3,8 +3,18 @@
 /* ========================================================================= */
 
 const announcements = [
-    { badge: '<i class="fa-solid fa-fire"></i> SỰ KIỆN MỚI', title: 'Cuộc thi: Hào khí Đông A sắp diễn ra', desc: 'Tham gia ngay để tranh tài kiến thức về 3 lần kháng chiến chống Mông Nguyên và nhận Huy hiệu Độc quyền từ Temporia.', bg: 'linear-gradient(135deg, #1e293b, #b91c1c)' },
-    { badge: '<i class="fa-solid fa-bullhorn"></i> THÔNG BÁO', title: 'Cập nhật 50 bài tập mới vào Lộ trình', desc: 'Đã bổ sung thêm hệ thống câu hỏi siêu khó cho Kỷ nguyên Độc Lập. Hoàn thành để cày điểm XP ngay hôm nay!', bg: 'linear-gradient(135deg, #0f172a, #3b82f6)' }
+    { 
+        badge: '<i class="fa-solid fa-fire"></i> SỰ KIỆN MỚI', 
+        title: 'Cuộc thi: Hào khí Đông A sắp diễn ra', 
+        desc: 'Tham gia ngay để tranh tài kiến thức về 3 lần kháng chiến chống Mông Nguyên và nhận Huy hiệu Độc quyền từ Temporia.', 
+        image: 'test/tc1.jpg' // <--- ĐƯỜNG DẪN ẢNH NỀN SỰ KIỆN 1
+    },
+    { 
+        badge: '<i class="fa-solid fa-bullhorn"></i> THÔNG BÁO', 
+        title: 'Cập nhật 50 bài tập mới vào Lộ trình', 
+        desc: 'Đã bổ sung thêm hệ thống câu hỏi siêu khó cho Kỷ nguyên Độc Lập. Hoàn thành để cày điểm XP ngay hôm nay!', 
+        image: 'test/tc2x.png' // <--- ĐƯỜNG DẪN ẢNH NỀN SỰ KIỆN 2
+    }
 ];
 let currentAnnounce = 0;
 
@@ -19,18 +29,22 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function initHeroDots() { document.getElementById('heroDots').innerHTML = announcements.map((_, i) => `<div class="h-dot ${i === 0 ? 'active' : ''}"></div>`).join(''); }
-
 window.nextAnnouncement = function() {
     const content = document.getElementById('heroContent');
     const banner = document.getElementById('heroBanner');
     content.classList.add('fade-out');
+    
     setTimeout(() => {
         currentAnnounce = (currentAnnounce + 1) % announcements.length;
         const data = announcements[currentAnnounce];
+        
         document.getElementById('heroBadge').innerHTML = data.badge;
         document.getElementById('heroTitle').innerText = data.title;
         document.getElementById('heroDesc').innerText = data.desc;
-        banner.style.background = data.bg;
+        
+        // ĐỔI HÌNH NỀN TRỰC TIẾP CHO KHUNG BANNER
+        banner.style.backgroundImage = `url('${data.image}')`;
+        
         document.querySelectorAll('.h-dot').forEach(d => d.classList.remove('active'));
         document.querySelectorAll('.h-dot')[currentAnnounce].classList.add('active');
         content.classList.remove('fade-out');
@@ -277,19 +291,31 @@ function renderContestHTML(card, contest, isCompleted, now) {
     // KIỂM TRA LOGIC TRẠNG THÁI
     if (isCompleted) {
         // TRẠNG THÁI 4: ĐÃ HOÀN THÀNH
-        stateClass = 'state-completed';
+      stateClass = 'state-completed';
         headerIcon = '<i class="fa-solid fa-medal"></i> <span>Đã Vinh Danh</span>';
         liveStatusText = 'Bạn đã hoàn thành xuất sắc cuộc thi này!';
         pulseHtml = '<i class="fa-solid fa-circle-check" style="color: #16a34a; font-size: 1.1rem; margin-right: 5px;"></i>';
-        buttonHTML = `<button class="btn-primary-red" style="background: #16a34a; box-shadow: 0 5px 20px rgba(22, 163, 74, 0.3);" onclick="window.location.href='arena.html'">Vào Sảnh Đấu Trường <i class="fa-solid fa-arrow-right"></i></button>`;
+        
+        // ĐÃ SỬA DÒNG NÀY:
+        buttonHTML = `<button class="btn-primary-red" style="background: #16a34a; box-shadow: 0 5px 20px rgba(22, 163, 74, 0.3);" onclick="handleAuthNavigation(event, 'arena.html')">Vào Sảnh Đấu Trường <i class="fa-solid fa-arrow-right"></i></button>`;
         
         // Vẫn giữ đồng hồ đếm ngược nếu cuộc thi đang diễn ra
         if (isLive) {
-            countdownLabel = '<i class="fa-solid fa-hourglass-half"></i> Thời gian còn lại của sự kiện:';
-            targetDate = endTime;
+            stateClass = 'state-live';
+        headerIcon = '<i class="fa-solid fa-fire"></i> <span style="font-weight:800;">SỰ KIỆN ĐANG MỞ CỔNG</span>';
+        countdownLabel = '<i class="fa-solid fa-triangle-exclamation"></i> Thời gian còn lại để nộp bài:';
+        targetDate = endTime;
+        
+        // ĐÃ SỬA DÒNG NÀY:
+        buttonHTML = `<button class="btn-primary-red" onclick="handleAuthNavigation(event, 'arena.html')">Tham Chiến Ngay <i class="fa-solid fa-arrow-right"></i></button>`;
+        liveStatusText = 'Đang có rất nhiều sĩ tử tham gia tranh tài!';
         } else {
-            countdownLabel = 'Sự kiện đã chính thức khép lại.';
-            targetDate = null;
+            stateClass = 'state-upcoming';
+        countdownLabel = 'Đếm ngược khai mạc:';
+        targetDate = startTime;
+        
+        // ĐÃ SỬA DÒNG NÀY:
+        buttonHTML = `<button class="btn-primary-red" style="background:#1e293b;" onclick="handleAuthNavigation(event, 'arena.html')">Vào Sảnh Chờ <i class="fa-solid fa-arrow-right"></i></button>`;
         }
     } 
     else if (isLive) {
@@ -298,7 +324,9 @@ function renderContestHTML(card, contest, isCompleted, now) {
         headerIcon = '<i class="fa-solid fa-fire"></i> <span style="font-weight:800;">SỰ KIỆN ĐANG MỞ CỔNG</span>';
         countdownLabel = '<i class="fa-solid fa-triangle-exclamation"></i> Thời gian còn lại để nộp bài:';
         targetDate = endTime;
-        buttonHTML = `<button class="btn-primary-red" onclick="window.location.href='arena.html'">Tham Chiến Ngay <i class="fa-solid fa-arrow-right"></i></button>`;
+        buttonHTML = `<button class="btn-primary-red" style="background:#f1f5f9; color:#1e293b; box-shadow:none;" onclick="handleAuthNavigation(event, 'arena.html')">
+                Xem Lịch Sử Đấu Trường <i class="fa-solid fa-arrow-right"></i>
+            </button>`;
         liveStatusText = 'Đang có rất nhiều sĩ tử tham gia tranh tài!';
     } 
     else {
@@ -523,7 +551,7 @@ async function loadPracticeStats() {
                 </div>
             </div>
 
-            <a href="quiz-play.html" class="btn-secondary-gray" style="width: 100%; display: flex; justify-content: center; align-items: center; gap: 10px; margin-top: 25px; padding: 16px; background: #f1f5f9; color: #1e293b; border-radius: 16px; font-weight: 800; text-decoration: none; transition: 0.3s; border: 1px solid #e2e8f0;">
+            <a href="#" onclick="handleAuthNavigation(event, 'quiz-play.html')" class="btn-secondary-gray" style="width: 100%; display: flex; justify-content: center; align-items: center; gap: 10px; margin-top: 25px; padding: 16px; background: #f1f5f9; color: #1e293b; border-radius: 16px; font-weight: 800; text-decoration: none; transition: 0.3s; border: 1px solid #e2e8f0;">
                 Vào Phòng Tập <i class="fa-solid fa-arrow-up-right-from-square"></i>
             </a>
         `;
@@ -532,3 +560,76 @@ async function loadPracticeStats() {
         console.error("Lỗi tổng quát:", error);
     }
 }
+
+/* ========================================================================= */
+/* HỆ THỐNG KHÓA NÚT YÊU CẦU ĐĂNG NHẬP (AUTH GATE)                           */
+/* ========================================================================= */
+
+window.handleAuthNavigation = function(event, url) {
+    event.preventDefault(); // Dừng ngay hành động chuyển trang
+    const userSession = localStorage.getItem('temporia_user');
+
+    if (!userSession) {
+        showAuthGateToast(); // Chưa đăng nhập -> Hiện sương mù + Popup
+    } else {
+        window.location.href = url; // Đã đăng nhập -> Cho đi tiếp
+    }
+};
+
+// Hàm điều khiển Popup trượt xuống mượt mà
+window.showAuthGateToast = function() {
+    const toast = document.getElementById('authGateToast');
+    const overlay = document.getElementById('agtOverlay');
+    const closeBtn = document.getElementById('agtCloseBtn');
+    
+    if (!toast || !overlay) return;
+    
+    toast.classList.add('show');
+    overlay.classList.add('show');
+    
+    const closeAuthToast = () => {
+        toast.classList.remove('show');
+        overlay.classList.remove('show');
+        setTimeout(() => { toast.style.transform = ''; }, 400); 
+    };
+
+    overlay.onclick = closeAuthToast;
+    if (closeBtn) closeBtn.onclick = closeAuthToast;
+
+    // Hiệu ứng vật lý vuốt để tắt của Apple
+    let startY = 0, startX = 0, currentY = 0, currentX = 0, isDragging = false;
+    
+    const onDragStart = (e) => {
+        if (e.target.closest('a') || e.target.closest('button')) return; 
+        isDragging = true; toast.classList.add('dragging');
+        startY = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY;
+        startX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+    };
+    
+    const onDragMove = (e) => {
+        if (!isDragging) return;
+        currentY = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY;
+        currentX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+        let diffY = currentY - startY; let diffX = currentX - startX;
+        if (diffY > 0) diffY = diffY * 0.15; 
+        toast.style.transform = `translateX(calc(-50% + ${diffX}px)) translateY(${diffY}px) scale(0.98)`;
+    };
+    
+    const onDragEnd = (e) => {
+        if (!isDragging) return;
+        isDragging = false; toast.classList.remove('dragging');
+        let diffY = currentY - startY; let mathDiffX = Math.abs(currentX - startX);
+        if (diffY < -25 || mathDiffX > 50) { 
+            closeAuthToast();
+        } else { 
+            toast.style.transform = ''; 
+        }
+    };
+
+    toast.addEventListener('mousedown', onDragStart);
+    window.addEventListener('mousemove', onDragMove);
+    window.addEventListener('mouseup', onDragEnd);
+    toast.addEventListener('touchstart', onDragStart, {passive: true});
+    window.addEventListener('touchmove', onDragMove, {passive: true});
+    window.addEventListener('touchend', onDragEnd);
+};

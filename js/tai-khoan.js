@@ -95,10 +95,10 @@ document.addEventListener('DOMContentLoaded', () => {
             if (badgeGrid) {
                 const MASTER_MEDAL_LIBRARY = [
                     { name: 'Kinh Dương Vương', url: 'hinh nhân vật/KDVx.png' },
-                    { name: 'Lạc Long Quân', url: 'hinh nhân vật/LLQx.png' },
-                    { name: 'Hai Bà Trưng', url: 'hinh nhân vật/HBTx.png' },
-                    { name: 'Lý Bí', url: 'hinh nhân vật/LBx.png' },
-                    { name: 'Ngô Quyền', url: 'hinh nhân vật/NQx.png' },
+                    { name: 'Lạc Long Quân', url: 'hinh nhân vật/LLQ.png' },
+                    { name: 'Hai Bà Trưng', url: 'hinh nhân vật/HBT.png' },
+                    { name: 'Lý Bí', url: 'hinh nhân vật/LyBi.png' },
+                    { name: 'Ngô Quyền', url: 'hinh nhân vật/NgoQuyen.png' },
                     { name: 'Đinh Tiên Hoàng', url: 'hinh nhân vật/DinhTienHoang.png' },
                     { name: 'Lê Hoàn', url: 'hinh nhân vật/LeHoan.png' },
                     { name: 'Lý Thái Tổ', url: 'hinh nhân vật/LyThaiTo.png' },

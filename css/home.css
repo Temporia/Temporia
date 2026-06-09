@@ -2345,27 +2345,50 @@ thì đoạn trên với ID cụ thể (#) sẽ ghi đè và xóa viền thành 
 
 
 /* --- 3. LƯỚI HUY HIỆU (BENTO GLASS) --- */
+/* --- 3. LƯỚI HUY HIỆU (BENTO GLASS) - 3 HUY HIỆU LỚN --- */
 .badges-grid {
     display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px;
 }
-.badge-item { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.badge-item { display: flex; flex-direction: column; align-items: center; gap: 15px; }
 
-/* Hình tròn huy hiệu tinh xảo */
-.badge-circle {
-    width: 85px; height: 85px;
-    background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+/* Hình tròn huy hiệu tinh xảo chứa ảnh */
+.badge-large-img {
+    width: 140px; height: 140px; /* Tăng kích thước từ 85px lên 140px cực kỳ hoành tráng */
+    background: rgba(255, 255, 255, 0.03); 
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(250, 204, 21, 0.2); border-radius: 50%;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), inset 0 2px 10px rgba(255, 255, 255, 0.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3), inset 0 2px 10px rgba(255, 255, 255, 0.05);
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     cursor: pointer;
-}
-.badge-item:hover .badge-circle {
-    transform: translateY(-8px) scale(1.1);
-    background: rgba(250, 204, 21, 0.1); border-color: rgba(250, 204, 21, 0.6);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(250, 204, 21, 0.3);
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden; /* Cắt gọn gàng thành hình tròn */
 }
 
-.badge-name { font-size: 0.85rem; font-weight: 600; color: #e5e5e5; text-transform: uppercase; letter-spacing: 1.5px; transition: 0.3s; }
+/* Hiển thị ảnh nhân vật bên trong */
+.badge-large-img img {
+    width: 102%; 
+    height: 104%; 
+    object-fit: contain; /* Giữ nguyên tỷ lệ, không bị cắt xén */
+    filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5)); /* Bóng đổ nhẹ đằng sau nhân vật */
+    transition: transform 0.4s ease;
+}
+
+/* Hiệu ứng khi rê chuột vào Huy hiệu */
+.badge-item:hover .badge-large-img {
+    transform: translateY(-10px) scale(1.08);
+    background: rgba(250, 204, 21, 0.1); border-color: rgba(250, 204, 21, 0.6);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5), 0 0 30px rgba(250, 204, 21, 0.3);
+}
+
+.badge-item:hover .badge-large-img img {
+    transform: scale(1.12); /* Phóng to nhân vật ra một chút */
+}
+
+.badge-name { 
+    font-size: 1rem; /* Chữ to hơn một chút */
+    font-weight: 700; color: #e5e5e5; text-transform: uppercase; 
+    letter-spacing: 1px; transition: 0.3s; 
+}
 .badge-item:hover .badge-name { color: #facc15; }
 /* ========================================================================= */
 /* VÁ LỖI CHUYỂN SLIDE 3: CHỐNG ĐÈ CHỮ VÀ ÉP BỐ CỤC CHUẨN XÁC                 */

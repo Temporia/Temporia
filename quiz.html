@@ -58,7 +58,7 @@
     </nav>
     <main class="quiz-dashboard-container">
         
-        <section class="hero-interactive-banner scroll-reveal" id="heroBanner" onclick="nextAnnouncement()">
+        <section class="hero-interactive-banner scroll-reveal" id="heroBanner" style="background-image: url('test/tc1.jpg');" onclick="nextAnnouncement()">
             <div class="hero-glass-content" id="heroContent">
                 <div class="hero-badge" id="heroBadge"><i class="fa-solid fa-fire"></i> SỰ KIỆN MỚI</div>
                 <h1 class="hero-title" id="heroTitle">Cuộc thi: Hào khí Đông A sắp diễn ra</h1>
@@ -322,6 +322,26 @@
 
     </div>
 </footer>
+<div class="agt-overlay" id="agtOverlay"></div>
+    <div class="auth-gate-toast" id="authGateToast">
+        <div class="agt-drag-handle"></div> 
+        <button class="agt-close-btn" id="agtCloseBtn"><i class="fa-solid fa-xmark"></i></button>
+        
+        <div class="agt-content">
+            <div class="agt-icon">
+                <i class="fa-solid fa-lock"></i>
+            </div>
+            <div class="agt-text">
+                <strong>Yêu cầu định danh</strong>
+                <span>Vui lòng đăng nhập để lưu trữ tiến trình và tham gia thi đấu.</span>
+            </div>
+        </div>
+        
+        <div class="agt-actions">
+            <a href="auth.html#login" class="agt-btn-primary">Đăng nhập</a>
+            <a href="auth.html#register" class="agt-btn-secondary">Tạo tài khoản</a>
+        </div>
+    </div>
  <script src="js/main.js"></script>
     <script src="js/quiz.js"></script>
 </body>

@@ -1,7 +1,7 @@
 /* ========================================================================= */
 /* JS ĐIỀU KHIỂN AUTH - TEMPORIA ADMIN (TÍCH HỢP OTP & BẢO MẬT ĐẦY ĐỦ)       */
 /* ========================================================================= */
-const API_BASE_URL = 'https://temporia-api.onrender.com/api';
+const API_BASE_URL = 'https://temporia-api.onrender.com/api'; // Thay bằng URL thực tế của API
 
 let tempRegEmail = ""; 
 let tempRecoveryEmail = ""; 

@@ -2,7 +2,7 @@
 /* TEMPORIA LỘ TRÌNH JS - SCROLLYTELLING & LƯU DỮ LIỆU THẬT VÀO DATABASE     */
 /* ========================================================================= */
 
-const API_BASE_URL = 'http://127.0.0.1:8000/api';
+const API_BASE_URL = 'https://temporia-api.onrender.com/api';
 
 let mainMapInstance = null;
 let miniMapInstance = null;

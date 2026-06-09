@@ -1,7 +1,7 @@
 /* ========================================================================= */
 /* TÂM TRÍ USER MINDMAP - AUTO SAVE NOTES & ZOOM ENGINE                      */
 /* ========================================================================= */
-const API_BASE_URL = 'http://127.0.0.1:8000/api'; 
+const API_BASE_URL = 'https://temporia-api.onrender.com/api'; 
 let mmScale = 1, mmPanning = false, mmPointX = 0, mmPointY = 0, mmStartX = 0, mmStartY = 0, isMapInitialized = false;
 
 let mindmapData = [];

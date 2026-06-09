@@ -2,7 +2,7 @@
 /* TEMPORIA LỘ TRÌNH JS - SCROLLYTELLING & LƯU DỮ LIỆU THẬT VÀO DATABASE     */
 /* ========================================================================= */
 
-const API_BASE_URL = 'https://temporia-api.onrender.com/api';
+const API_BASE_URL = 'https://temporia-api.onrender.com/api'; // Thay bằng URL thực tế của API
 
 let mainMapInstance = null;
 let miniMapInstance = null;
@@ -102,7 +102,20 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, { root: reader, threshold: 0.6 });
     document.querySelectorAll('.card-image-placeholder').forEach(el => mockupObserver.observe(el));
-
+    setTimeout(() => {
+        const introSection = document.getElementById('intro-section');
+        if (introSection && introSection.style.display !== 'none') {
+            // Ép trình duyệt ghi nhận trạng thái ẩn trước
+            void introSection.offsetWidth; 
+            
+            introSection.querySelectorAll('.reveal-item').forEach((el, index) => {
+                // Cho trượt lên lần lượt cách nhau 100ms
+                setTimeout(() => {
+                    el.classList.add('visible');
+                }, index * 100); 
+            });
+        }
+    }, 50);
     // 4. HIỆU ỨNG CUỘN CHUỘT CHUNG
     reader.addEventListener('scroll', () => {
         const scrollTop = reader.scrollTop;
@@ -231,6 +244,7 @@ window.loadDynamicLesson = async function(lessonId, clickedElement) {
         activeGeoId = null;
 
         switchContent('dynamic-lesson-section', clickedElement);
+        
 
         // =========================================================
         // RADAR CHỐNG GIAN LẬN & THEO DÕI ĐỌC BÀI
@@ -452,6 +466,16 @@ function switchContent(sectionId, clickedElement) {
     if (target) {
         target.style.display = 'block';
         reader.scrollTo({ top: 0, behavior: 'instant' });
+       void target.offsetWidth;
+
+        // 2. Kích hoạt hiệu ứng trượt lên so le cho các khối đầu tiên
+        target.querySelectorAll('.reveal-item').forEach((el, index) => {
+            if (index < 5 || el.getBoundingClientRect().top < window.innerHeight + 100) {
+                setTimeout(() => {
+                    el.classList.add('visible');
+                }, index * 100); // Khối sau trồi lên trễ hơn khối trước 0.1 giây
+            }
+        });
 
         const marker = target.querySelector('.completion-marker');
         if (marker && clickedElement && !clickedElement.classList.contains('is-completed')) {

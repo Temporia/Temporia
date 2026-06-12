@@ -378,7 +378,7 @@ i, i::before, i::after, .fa, .fas, .fa-solid, .fa-regular, .fa-brands { font-fam
     
     /* Hiệu ứng kính mờ (Frosted Glass) tối màu bảo vệ chữ */
     padding: 30px 35px !important;
-    background: rgba(0, 0, 0, 0.35) !important; 
+    background: rgba(0, 0, 0, 0) !important; 
     backdrop-filter: blur(15px) !important; 
     -webkit-backdrop-filter: blur(15px) !important;
     border-radius: 24px !important;

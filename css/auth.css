@@ -222,3 +222,37 @@ body.temporia-auth-page {
     object-fit: contain;
     object-position: bottom right; /* Ép hình neo chặt về góc dưới phải */
 }
+
+.water-map-decoration-left {
+    position: fixed;
+    bottom: 0vh;
+    left: 1vw;
+    width: 497px;
+    height: 850px;
+    z-index: 0;
+    
+    opacity: 0.30;
+    pointer-events: auto !important; 
+   
+    
+    /* 2. THÊM DÒNG NÀY ĐỂ KHI NỔI SÁNG SẼ CHUYỂN ĐỘNG MƯỢT MÀ, KHÔNG BỊ GIẬT */
+    transition: transform 0.4s ease, opacity 0.4s ease, filter 0.4s ease !important;
+}
+.water-map-decoration-left:hover {
+    opacity: 0.70 !important; /* Tăng độ rõ nét từ 0.30 lên 0.70 */
+    
+    /* Tạo hiệu ứng tăng nhẹ độ sáng (brightness) và tỏa hào quang vàng ấm (hợp tone lịch sử) */
+    filter: brightness(1.1) drop-shadow(0 0 30px rgba(212, 163, 89, 0.5)) !important; 
+    
+    /* Hơi nhích nhẹ hình lên một chút tạo cảm giác chuyển động 3D sinh động */
+    transform: translateY(-5px) !important; 
+}
+
+/* Lớp sương mù che phủ để rìa bản đồ tan từ từ vào nền web, không bị sắc cạnh */
+.water-map-decoration-left::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    /* Phủ sương từ tâm ra ngoài */
+    background: radial-gradient(circle, transparent 60%, #f9fafb 85%); 
+}

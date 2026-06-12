@@ -96,7 +96,7 @@ i, i::before, i::after, .fa, .fas, .fa-solid, .fa-regular, .fa-brands { font-fam
 @keyframes rotateBg { 100% { transform: rotate(360deg); } }
 .hero-glass-content { position: relative; z-index: 2; width: 100%; max-width: 800px; transition: opacity 0.4s, transform 0.4s; }
 .hero-glass-content.fade-out { opacity: 0; transform: translateY(20px); }
-.hero-badge { display: inline-block; padding: 6px 14px; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); border-radius: 100px; font-size: 0.75rem; font-weight: 700; color: #fff; margin-bottom: 12px; border: 1px solid rgba(255,255,255,0.3); }
+.hero-badge { display: inline-block; padding: 6px 14px; background: rgb(255 13 13 / 44%); backdrop-filter: blur(10px); border-radius: 100px; font-size: 0.75rem; font-weight: 700; color: #fff; margin-bottom: 12px; border: 1px solid rgba(255,255,255,0.3); }
 .hero-title { font-size: 2.2rem; font-weight: 800; color: #fff; line-height: 1.2; margin: 0 0 10px 0; }
 .hero-desc { font-size: 1.05rem; color: #cbd5e1; line-height: 1.6; margin: 0; } /* Tăng font */
 .hero-interaction-hint { position: absolute; right: 30px; bottom: 30px; color: rgba(255,255,255,0.7); font-size: 0.85rem; font-weight: 600; display: flex; align-items: center; gap: 8px; animation: pulseHint 2s infinite; }

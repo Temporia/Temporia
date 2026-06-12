@@ -589,15 +589,12 @@ document.addEventListener('DOMContentLoaded', () => {
         position: 'bottomright'
     }).addTo(map);
 
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy; CARTO',
+   // THAY BẰNG BẢN ĐỒ GOOGLE MAPS (Chuẩn chủ quyền Việt Nam)
+    L.tileLayer('https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}&hl=vi&gl=VN', {
+        attribution: '&copy; Google Maps',
         keepBuffer: 30,           
         updateWhenZooming: false, 
         updateWhenIdle: true
-    }).addTo(map);
-
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy; <a href="https://carto.com/attributions">CARTO</a>'
     }).addTo(map);
 
     const markers = []; 

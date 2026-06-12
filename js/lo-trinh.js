@@ -427,7 +427,7 @@ window.openLessonMedalsModal = function() {
         grid.innerHTML = window.currentLessonMedalsList.map(url => `
             <div style="text-align: center; width: 85px;">
                 <div style="width: 70px; height: 70px; border-radius: 50%; background: #fef2f2; border: 2px solid #fee2e2; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; box-shadow: 0 4px 10px rgba(185,28,28,0.1);">
-                    <img src="${url}" style="width: 50px; height: 50px; object-fit: contain;" onerror="this.src='https://placehold.co/100x100/b91c1c/ffffff?text=Huy+Hiệu'">
+                    <img src="${url}" style="width: 68px; height: 68px; object-fit: contain;" onerror="this.src='https://placehold.co/100x100/b91c1c/ffffff?text=Huy+Hiệu'">
                 </div>
             </div>
         `).join('');
